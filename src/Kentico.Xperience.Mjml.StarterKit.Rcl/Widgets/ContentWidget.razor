@@ -1,0 +1,12 @@
+﻿<mj-text font-size="14px"
+         color="#333333"
+         align="left"
+         line-height="1.5"
+         css-class="content-text">
+    @Properties.Text
+</mj-text>
+
+@code {
+    [Parameter]
+    public ContentWidgetProperties Properties { get; set; } = null!;
+}
