@@ -54,9 +54,16 @@
             <mj-column width="33.33333333333333%">
                 <Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.ContentWidget 
                     Properties=@(new ContentWidgetProperties { 
-                        Text = "Right column content here" 
-                    }) />
-            </mj-column>
+                                   Text = "Right column content here" 
+                               }) />
+
+                <Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.ButtonWidget 
+                    Properties=@(new ButtonWidgetProperties {
+                                    ButtonType = ButtonType.Button,
+                                    Text = "Button test",
+                                    Url = "https://kentico.com"
+                                }) />
+             </mj-column>
         </mj-section>
 
         <!-- Footer Section -->

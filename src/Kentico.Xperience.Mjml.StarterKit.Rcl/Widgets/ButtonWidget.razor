@@ -1,0 +1,33 @@
+﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
+
+@if (Properties.ButtonType == ButtonType.Link)
+{
+    <mj-text align="@Properties.Alignment">
+        <a href="@Properties.Url"
+           style="color: @Properties.TextColor;
+           text-decoration: none;
+           font-size: @Properties.FontSize;
+           font-weight: @Properties.FontWeight;">
+            @Properties.Text
+        </a>
+    </mj-text>
+}
+else
+{
+    <mj-button href="@Properties.Url"
+               background-color="@Properties.BackgroundColor"
+               color="@Properties.TextColor"
+               border-radius="@Properties.BorderRadius"
+               padding="@Properties.Padding"
+               font-size="@Properties.FontSize"
+               font-weight="@Properties.FontWeight"
+               width="@(Properties.FullWidth ? "100%" : "auto")"
+               align="@Properties.Alignment">
+        @Properties.Text
+    </mj-button>
+}
+
+@code {
+    [Parameter]
+    public ButtonWidgetProperties Properties { get; set; } = null!;
+}
