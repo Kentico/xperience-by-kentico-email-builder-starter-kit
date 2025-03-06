@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 1,
   "dependencies": {
     "net8.0": {
       "Kentico.Xperience.WebApp": {
@@ -35,9 +35,9 @@
       },
       "SonarAnalyzer.CSharp": {
         "type": "Direct",
-        "requested": "[9.32.0.97167, )",
-        "resolved": "9.32.0.97167",
-        "contentHash": "Yxk86RV+8ynJpUhku1Yw2hITFmnmXKkXJ73cIFSy85ol5SnWREQg9RuTyV8nI7V7+pyLKpCfRmD7P0widsgjkg=="
+        "requested": "(, )",
+        "resolved": "1.10.0",
+        "contentHash": "yBo5PMNdth4FhSvgj1yjqH/gNdgZAf69E28gT6/koW2jrBX0GpJybXUFuKgV0PM4VjhvtuJSlqdC8tO2Ci69VA=="
       },
       "AngleSharp": {
         "type": "Transitive",

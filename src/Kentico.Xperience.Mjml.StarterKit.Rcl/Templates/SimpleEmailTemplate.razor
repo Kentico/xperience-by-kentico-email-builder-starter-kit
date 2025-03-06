@@ -1,23 +1,34 @@
 ﻿@using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
+
+@inject CssLoaderService CssLoaderService;
+@code {
+    private string cssContent = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cssContent = await CssLoaderService.GetCssAsync("assets/css/style.css"); // Path inside wwwroot
+    }
+}
 <mjml>
     <mj-head>
         <mj-title>Simple Marketing Email</mj-title>
-        <mj-style>
+        <mj-style inline="inline">
             .header-image { 
                 max-width: 600px;
             }
             .content-text {
                 font-family: 'Helvetica Neue', Arial, sans-serif;
             }
+            @((MarkupString)cssContent)
         </mj-style>
     </mj-head>
     <mj-body>
         <!-- Header Section -->
         <mj-section background-color="#f0f0f0" padding="0px">
             <mj-column>
-                <mj-image css-class="header-image" 
-                         src="/Content/Images/header-banner.jpg" 
-                         alt="Welcome Banner" 
+                <mj-image css-class="header-image"
+                         src="/Content/Images/header-banner.jpg"
+                         alt="Welcome Banner"
                          padding="0px">
                 </mj-image>
             </mj-column>
@@ -28,7 +39,7 @@
             <mj-column width="100%">
                 <mj-text font-size="24px" 
                         color="#000000" 
-                        align="center" 
+                        align="center"
                         css-class="content-text">
                     Welcome to Our Newsletter
                 </mj-text>
@@ -36,8 +47,8 @@
         </mj-section>
 
         <!-- Widget Section -->
-        <mj-section background-color="#ffffff" padding="20px">
-            <mj-column width="33.33333333333333%">
+        <mj-section padding="20px">
+            <mj-column width="33.33333333333333%" css-class="c-dropzone">
                 <Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.ContentWidget 
                     Properties=@(new ContentWidgetProperties { 
                         Text = "Left column content here" 

@@ -14,15 +14,7 @@
 }
 else
 {
-    <mj-button href="@Properties.Url"
-               background-color="@Properties.BackgroundColor"
-               color="@Properties.TextColor"
-               border-radius="@Properties.BorderRadius"
-               padding="@Properties.Padding"
-               font-size="@Properties.FontSize"
-               font-weight="@Properties.FontWeight"
-               width="@(Properties.FullWidth ? "100%" : "auto")"
-               align="@Properties.Alignment">
+    <mj-button href="@Properties.Url" css-class="btn btn-secondary">
         @Properties.Text
     </mj-button>
 }
