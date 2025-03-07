@@ -1,8 +1,9 @@
-﻿using Kentico.Xperience.Admin.Base.FormAnnotations;
+﻿using Kentico.EmailBuilder.Web.Mvc;
+using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-public class ContentWidgetProperties
+public class ContentWidgetProperties : IEmailWidgetProperties
 {
     [TextInputComponent(
         Label = "Content Text",

@@ -1,9 +1,11 @@
 ﻿@using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
+@using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections
 @using Kentico.VisualBuilderComponents.Rcl.Components
 
 @inject CssLoaderService CssLoaderService;
 @code {
     private string cssContent = string.Empty;
+    private string sectionIdentifier = $"{nameof(Kentico.Xperience.Mjml.StarterKit.Rcl.Sections)}.{nameof(SimpleEmailSection)}";
 
     protected override async Task OnInitializedAsync()
     {
@@ -25,18 +27,8 @@
         </mj-style>
     </mj-head>
     <mj-body>
-        <!-- Header Section -->
-        <mj-section background-color="#f0f0f0" padding="0px">
-            <mj-column>
-              @*   <mj-image css-class="header-image"
-                         src="/Content/Images/header-banner.jpg"
-                         alt="Welcome Banner"
-                         padding="0px">
-                </mj-image> *@
-            </mj-column>
-        </mj-section>
         <mj-section>
-            <EditableArea AreaIdentifier="MainContent" DefaultSectionIdentifier="Kbank.SimpleEmailSection" />
+            <EditableArea AreaIdentifier="MainContent" DefaultSectionIdentifier="" />
         </mj-section>
         <!-- Content Section -->
         <mj-section background-color="#ffffff" padding="20px">

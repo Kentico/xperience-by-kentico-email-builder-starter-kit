@@ -1,8 +1,9 @@
-﻿using Kentico.Xperience.Admin.Base.FormAnnotations;
+﻿using Kentico.EmailBuilder.Web.Mvc;
+using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-public class HeroWidgetProperties
+public class HeroWidgetProperties : IEmailWidgetProperties
 {
     [TextInputComponent(
         Label = "Image URL",
@@ -27,7 +28,7 @@ public class HeroWidgetProperties
         Order = 4,
         ExplanationText = "Select where to display the description", Options = "Above;Below",
         OptionsValueSeparator = ";")]
-    public DescriptionPosition DescriptionPosition { get; set; } = Widgets.DescriptionPosition.Below;
+    public DescriptionPosition DescriptionPosition { get; set; } = DescriptionPosition.Below;
   
     [TextInputComponent(
         Label = "Border Radius",

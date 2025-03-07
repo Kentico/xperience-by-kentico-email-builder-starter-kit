@@ -4,15 +4,15 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
-    identifier: nameof(HeroWidget),
-    name: "Hero Widget",
-    componentType: typeof(HeroWidget),
-    PropertiesType = typeof(HeroWidget)
+    identifier: nameof(ProductWidget),
+    name: "Product Widget",
+    componentType: typeof(ProductWidget),
+    PropertiesType = typeof(ProductWidgetProperties)
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-public partial class HeroWidget : ComponentBase
+public partial class ProductWidget : ComponentBase
 {
-}
 
+}

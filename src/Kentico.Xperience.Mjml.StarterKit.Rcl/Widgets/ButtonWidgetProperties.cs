@@ -1,8 +1,9 @@
-﻿using Kentico.Xperience.Admin.Base.FormAnnotations;
+﻿using Kentico.EmailBuilder.Web.Mvc;
+using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-public class ButtonWidgetProperties
+public class ButtonWidgetProperties : IEmailWidgetProperties
 {
     [TextInputComponent(
         Label = "Button Text",

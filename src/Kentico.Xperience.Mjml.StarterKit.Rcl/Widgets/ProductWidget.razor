@@ -1,0 +1,19 @@
+﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
+
+<mj-text font-size="16px"
+         padding="10px">
+    @Properties.Title
+</mj-text>
+
+<mj-text font-size="14px"
+         color="#333333"
+         align="left"
+         line-height="1.5"
+         css-class="content-text">
+    @Properties.Text
+</mj-text>
+
+@code {
+    [Parameter]
+    public ProductWidgetProperties Properties { get; set; } = null!;
+}
