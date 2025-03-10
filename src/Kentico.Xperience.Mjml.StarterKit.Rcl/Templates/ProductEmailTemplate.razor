@@ -1,16 +1,18 @@
 ﻿@using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
 @using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections
 @using Kentico.VisualBuilderComponents.Rcl.Components
+@using Kentico.EmailBuilder.Web.Mvc
 
-@inject CssLoaderService CssLoaderService;
+@inject CssLoaderService CssLoaderService
+@inject IEmailContextAccessor emailContextAccessor
 @code {
     private string cssContent = string.Empty;
-    private string sectionIdentifier = $"{nameof(Kentico.Xperience.Mjml.StarterKit.Rcl.Sections)}.{nameof(SimpleEmailSection)}";
+    private string sectionIdentifier = FullWidthEmailSection.IDENTIFIER;
 
-    protected override async Task OnInitializedAsync()
-    {
-        cssContent = await CssLoaderService.GetCssAsync("assets/css/style.css"); // Path inside wwwroot
-    }
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     cssContent = await CssLoaderService.GetCssAsync("assets/css/style.css"); // Path inside wwwroot
+    // }
 }
 <mjml>
     <mj-head>
@@ -21,70 +23,18 @@
                 max-width: 600px;
             }
             .content-text {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            }
-            @((MarkupString)cssContent)
+          
+            @* @((MarkupString)cssContent) *@
         </mj-style>
     </mj-head>
     <mj-body>
         <mj-section>
-            <EditableArea AreaIdentifier="MainContent" DefaultSectionIdentifier="" />
+            <EditableArea AreaIdentifier="MainContent" DefaultSectionIdentifier="@sectionIdentifier" />
         </mj-section>
-        <!-- Content Section -->
-        <mj-section background-color="#ffffff" padding="20px">
-            <mj-column width="100%">
-                <mj-text font-size="24px" 
-                        color="#000000" 
-                        align="center"
-                        css-class="content-text">
-                    Welcome to Our Newsletter
-                </mj-text>
-            </mj-column>
-        </mj-section>
- 
-        <mj-section>
-            <EditableArea AreaIdentifier="Article3" DefaultSectionIdentifier="Kbank.SimpleEmailSection" />
-        </mj-section>
-        <EditableArea AreaIdentifier="Article4" DefaultSectionIdentifier="Kbank.SimpleEmailSection" />
-        <!-- Widget Section -->
-        <mj-section padding="20px">
-            <mj-column width="33.33333333333333%" css-class="c-dropzone">
-                <Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.ContentWidget 
-                    Properties=@(new ContentWidgetProperties { 
-                        Text = "Left column content here" 
-                    }) />
-            </mj-column>
-            
-            <mj-column width="33.33333333333333%">
-                <Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.ContentWidget 
-                    Properties=@(new ContentWidgetProperties { 
-                        Text = "Middle column content here" 
-                    }) />
-            </mj-column>
-            
-            <mj-column width="33.33333333333333%">
-                <Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.ContentWidget 
-                    Properties=@(new ContentWidgetProperties { 
-                                   Text = "Right column content here" 
-                               }) />
-
-                <Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.ButtonWidget 
-                    Properties=@(new ButtonWidgetProperties {
-                                    ButtonType = ButtonType.Button,
-                                    Text = "Button test",
-                                    Url = "https://kentico.com"
-                                }) />
-             </mj-column>
-        </mj-section>
-
-        <!-- Footer Section -->
-        <mj-section background-color="#f0f0f0" padding="20px">
-            <mj-column>
-                <mj-text align="center" font-size="12px">
-                    © 2025 Your Company. All rights reserved.
-                </mj-text>
-            </mj-column>
-        </mj-section>
+        @if (emailContextAccessor.GetContext().BuilderMode == EmailBuilderMode.Edit)
+        {
+            <mj-text>Editing is enabled</mj-text>
+        }
         <EmailBuilderScripts />
     </mj-body>
 </mjml>

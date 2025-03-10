@@ -5,15 +5,6 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 public class ProductWidgetProperties : IEmailWidgetProperties
 {
-    [TextInputComponent(
-        Label = "Title",
-        Order = 0,
-        ExplanationText = "Enter the title.")]
-    public string Title { get; set; } = string.Empty;
-
-    [TextInputComponent(
-        Label = "Text",
-        Order = 1,
-        ExplanationText = "Enter the content.")]
-    public string Text { get; set; } = string.Empty;
+    [DropDownComponent(Label = "Content item", DataProviderType = typeof(ProductEmailWidgetContentTypeOptionsProvider))]
+    public string ContentItemGuid { get; set; } = string.Empty;
 }

@@ -1,0 +1,28 @@
+﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
+
+<mj-title>
+    @Title
+</mj-title>
+@if (Properties.DescriptionPosition == nameof(DescriptionPositionOption.Above))
+{
+    <mj-text
+             font-size="16px"
+             padding="10px">
+        @Description
+    </mj-text>
+}
+<mj-image src="@ImageUrl"
+          padding="0px">
+</mj-image>
+@if (Properties.DescriptionPosition == nameof(DescriptionPositionOption.Below))
+{
+    <mj-text font-size="16px"
+             padding="10px">
+        @Description
+    </mj-text>
+}
+
+@code {
+    [Parameter]
+    public ArticleWidgetProperties Properties { get; set; } = new();
+}

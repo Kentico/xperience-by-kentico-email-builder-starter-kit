@@ -5,17 +5,18 @@ using Microsoft.AspNetCore.Components;
 
 #pragma warning disable KXE0001
 [assembly: RegisterEmailTemplate(
-    identifier: "Kentico.Xperience.Mjml.StarterKit.Rcl.Templates.ProductEmailTemplate",
-    name: "Email builder MJML template",
-    componentType: typeof(SimpleEmailTemplate),
-    ContentTypeNames = [$"{nameof(Kentico.Xperience.Mjml.StarterKit.Rcl.Templates)}.{nameof(ProductEmailTemplate)}"],
+    identifier: ProductEmailTemplate.IDENTIFIER,
+    name: "Email builder Product template",
+    componentType: typeof(ProductEmailTemplate),
+    ContentTypeNames = ["Kbank.NewsletterEmail", "Kbank.SimpleEmail", "Kbank.PromotionEmail"],
     Description = "Product template.",
-    IconClass = "xp-c-sharp")]
+    IconClass = "xp-c-sharp")
+]
 #pragma warning restore KXE0001
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
 
 public partial class ProductEmailTemplate : ComponentBase
 {
-
+    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ProductEmailTemplate)}";
 }

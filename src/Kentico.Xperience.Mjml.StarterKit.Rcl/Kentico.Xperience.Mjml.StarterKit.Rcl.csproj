@@ -16,9 +16,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Kentico.Xperience.WebApp" Version="30.2.2" />
+        <PackageReference Include="Kentico.Xperience.Core" Version="30.3.0-b455460" />
+        <PackageReference Include="Kentico.Xperience.WebApp" Version="30.3.0-b455460" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.12" />
-		<PackageReference Include="Kentico.Xperience.Mjml" Version="30.2.2" />
+		<PackageReference Include="Kentico.Xperience.Mjml" Version="30.3.0-b455460" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,36 +32,24 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="Component1.razor">
+      <Content Update="Sections\TwoColumnEmailSection.razor">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-      <Content Update="Sections\SimpleEmailSection.razor">
+      <Content Update="Sections\FullWidthEmailSection.razor">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="Sections\EmailSectionBase.razor">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <Content Update="Templates\ProductEmailTemplate.razor">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-      <Content Update="Templates\SimpleEmailTemplate.razor">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="Widgets\ButtonWidget.razor">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="Widgets\ContentWidget.razor">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="Widgets\HeroWidget.razor">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Content Update="Widgets\ArticleWidget.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </Content>
       <Content Update="_Imports.razor">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Component1.razor.css">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
     </ItemGroup>
 
 </Project>

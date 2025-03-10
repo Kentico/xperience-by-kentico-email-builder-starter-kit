@@ -2,7 +2,7 @@
 
 <mj-text font-size="16px"
          padding="10px">
-    @Properties.Title
+    @Title
 </mj-text>
 
 <mj-text font-size="14px"
@@ -10,10 +10,10 @@
          align="left"
          line-height="1.5"
          css-class="content-text">
-    @Properties.Text
+    @Content
 </mj-text>
 
 @code {
     [Parameter]
-    public ProductWidgetProperties Properties { get; set; } = null!;
+    public ProductWidgetProperties Properties { get; set; } = new();
 }

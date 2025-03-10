@@ -6,23 +6,24 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
-    identifier: ProductWidget.IDENTIFIER,
-    name: "Product Widget",
-    componentType: typeof(ProductWidget),
-    PropertiesType = typeof(ProductWidgetProperties)
+    identifier: ArticleWidget.IDENTIFIER,
+    name: "Article Widget",
+    componentType: typeof(ArticleWidget),
+    PropertiesType = typeof(ArticleWidgetProperties)
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-public partial class ProductWidget : ComponentBase
+public partial class ArticleWidget : ComponentBase
 {
-    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ProductWidget)}";
+    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ArticleWidget)}";
 
     [Inject]
     private IContentQueryExecutor ContentQueryExecutor { get; set; } = default!;
 
     public string Title { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty;
+    public string ImageUrl { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -32,7 +33,7 @@ public partial class ProductWidget : ComponentBase
         }
 
         var queryBuilder = new ContentItemQueryBuilder()
-            .ForContentType(MappingStorage.ProductContentType,
+            .ForContentType(MappingStorage.ArticleContentType,
                 configuration => configuration
                 .TopN(1)
                 .Where(
@@ -42,20 +43,23 @@ public partial class ProductWidget : ComponentBase
 
         var result = await ContentQueryExecutor.GetResult(queryBuilder, selector =>
         {
-            selector.TryGetValue(MappingStorage.ProductTitleParameterName, out string productTitle);
-            selector.TryGetValue(MappingStorage.ProductContentPrameterName, out string productContent);
+            selector.TryGetValue(MappingStorage.ArticleTitleParameterName, out string articleTitle);
+            selector.TryGetValue(MappingStorage.ArticleDescriptionParameterName, out string articleDescription);
+            selector.TryGetValue(MappingStorage.ArticleImageUrlParamterName, out string articleImageUrl);
             return new
             {
-                ProductTitle = productTitle,
-                ProductContent = productContent
+                ArticleTitle = articleTitle,
+                ArticleDescription = articleDescription,
+                ArticleImageUrl = articleImageUrl
             };
         });
 
         var contentItem = result.FirstOrDefault();
         if (contentItem is not null)
         {
-            Title = contentItem.ProductTitle;
-            Content = contentItem.ProductContent;
+            Title = contentItem.ArticleTitle;
+            Description = contentItem.ArticleDescription;
+            ImageUrl = contentItem.ArticleImageUrl;
         }
     }
 }
