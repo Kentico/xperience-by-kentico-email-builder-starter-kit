@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using DancingGoat;
+﻿using DancingGoat;
 using DancingGoat.Helpers.Generators;
 using DancingGoat.Models;
 
@@ -15,21 +11,19 @@ using Kentico.OnlineMarketing.Web.Mvc;
 using Kentico.PageBuilder.Web.Mvc;
 using Kentico.Web.Mvc;
 
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 using Samples.DancingGoat;
+using Kentico.EmailBuilder.Web.Mvc;
+using Kentico.Xperience.Mjml.StarterKit.Rcl;
+using Kentico.Xperience.Mjml;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#pragma warning disable KXE0001
 
 builder.Services.AddKentico(features =>
 {
@@ -48,6 +42,7 @@ builder.Services.AddKentico(features =>
     features.UseWebPageRouting();
     features.UseEmailMarketing();
     features.UseEmailStatisticsLogging();
+    features.UseEmailBuilder();
     features.UseActivityTracking();
 });
 
@@ -63,6 +58,8 @@ builder.Services.AddLocalization()
 
 builder.Services.AddDancingGoatServices();
 builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrackingEvaluator>();
+builder.Services.AddMjmlStarterKit();
+builder.Services.AddMjmlForEmails();
 
 ConfigureMembershipServices(builder.Services);
 

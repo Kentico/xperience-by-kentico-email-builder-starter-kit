@@ -1,10 +1,12 @@
-﻿using Kentico.EmailBuilder.Web.Mvc;
-using Kentico.Xperience.Admin.Base.FormAnnotations;
+﻿using CMS.Websites;
+
+using Kentico.EmailBuilder.Web.Mvc;
+using Kentico.Xperience.Admin.Websites.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 public class ProductWidgetProperties : IEmailWidgetProperties
 {
-    [DropDownComponent(Label = "Content item", DataProviderType = typeof(ProductEmailWidgetContentTypeOptionsProvider))]
-    public string ContentItemGuid { get; set; } = string.Empty;
+    [WebPageSelectorComponent(Label = "Select a web page.", MaximumPages = 1)]
+    public IEnumerable<WebPageRelatedItem> Pages { get; set; } = [];
 }

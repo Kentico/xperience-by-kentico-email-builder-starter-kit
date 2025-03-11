@@ -25,7 +25,8 @@
     <PackageReference Include="kentico.xperience.admin" Condition="'$(SeparatedAdmin)' == 'false'" />
     <PackageReference Include="kentico.xperience.azurestorage" />
     <PackageReference Include="kentico.xperience.imageprocessing" />
-    <PackageReference Include="kentico.xperience.webapp"/>
+    <PackageReference Include="kentico.xperience.webapp" />
+	<PackageReference Include="Kentico.Xperience.Mjml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Kentico.Xperience.Mjml.StarterKit.Rcl\Kentico.Xperience.Mjml.StarterKit.Rcl.csproj" />

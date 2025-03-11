@@ -26,7 +26,7 @@ public partial class ProductWidget : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        if (!Guid.TryParse(Properties.ContentItemGuid, out var contentItemGuid))
+        if (!Guid.TryParse(Properties.WebPageItemGuid, out var contentItemGuid))
         {
             return;
         }
