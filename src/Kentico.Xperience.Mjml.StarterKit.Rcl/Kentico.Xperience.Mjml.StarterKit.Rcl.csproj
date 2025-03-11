@@ -11,24 +11,24 @@
 		<NoWarn>KXE0001</NoWarn>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="Properties\**" />
+	  <Content Remove="Properties\**" />
+	  <None Remove="Properties\**" />
+	</ItemGroup>
+
     <ItemGroup>
         <SupportedPlatform Include="browser" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Kentico.Xperience.Core" Version="30.3.0-b455460" />
-        <PackageReference Include="Kentico.Xperience.WebApp" Version="30.3.0-b455460" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.12" />
-		<PackageReference Include="Kentico.Xperience.Mjml" Version="30.3.0-b455460" />
+        <PackageReference Include="Kentico.Xperience.WebApp" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     </ItemGroup>
 
     <ItemGroup>
         <AssemblyAttribute Include="CMS.AssemblyDiscoverableAttribute">
         </AssemblyAttribute>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Properties\" />
     </ItemGroup>
 
     <ItemGroup>

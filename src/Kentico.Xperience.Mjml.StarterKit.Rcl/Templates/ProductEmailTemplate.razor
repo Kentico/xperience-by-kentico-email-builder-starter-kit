@@ -31,10 +31,6 @@
         <mj-section>
             <EditableArea AreaIdentifier="MainContent" DefaultSectionIdentifier="@sectionIdentifier" />
         </mj-section>
-        @if (emailContextAccessor.GetContext().BuilderMode == EmailBuilderMode.Edit)
-        {
-            <mj-text>Editing is enabled</mj-text>
-        }
         <EmailBuilderScripts />
     </mj-body>
 </mjml>
