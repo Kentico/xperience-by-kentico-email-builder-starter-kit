@@ -70,7 +70,7 @@ builder.Services.AddLocalization()
 
 builder.Services.AddDancingGoatServices();
 builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrackingEvaluator>();
-builder.Services.AddMjmlStarterKit();
+builder.Services.AddKenticoMjmlStarterKit(builder.Configuration);
 builder.Services.AddMjmlForEmails();
 
 ConfigureMembershipServices(builder.Services);

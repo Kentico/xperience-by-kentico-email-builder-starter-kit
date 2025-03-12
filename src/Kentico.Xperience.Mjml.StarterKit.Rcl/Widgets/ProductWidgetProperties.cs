@@ -47,5 +47,3 @@ public class ArticleWidgetModel
     public string Content { get; set; } = string.Empty;
     public string ImageUrl { get; set; } = string.Empty;
 }
-
-public class Starter

@@ -9,9 +9,9 @@
 {
     <mj-text>
         <div class="text">
-            <h1>@Model.Title</h1>
+            <h1>@((MarkupString)Model.Title)</h1>
             <p>
-                @Model.Content
+                @((MarkupString)Model.Content)
             </p>
         </div>
     </mj-text>
@@ -23,7 +23,7 @@
 {
     <mj-text>
         <div class="text">
-            <h1>@Model.Title</h1>
+            @((MarkupString)Model.Title)
         </div>
     </mj-text>
     <mj-image src="@Url.Content(Model.ImageUrl)"
@@ -31,7 +31,7 @@
     </mj-image>
     <mj-text>
         <div class="text">
-            <p>@Model.Content</p>
+            <p>@((MarkupString)Model.Content)</p>
         </div>
     </mj-text>
 }
