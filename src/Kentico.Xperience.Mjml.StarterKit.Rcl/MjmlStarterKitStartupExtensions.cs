@@ -1,4 +1,4 @@
-﻿using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
+﻿using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;

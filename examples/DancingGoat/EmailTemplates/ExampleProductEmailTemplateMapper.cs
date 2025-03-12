@@ -4,6 +4,7 @@ using CMS.Websites;
 using DancingGoat.Models;
 
 using Kentico.EmailBuilder.Web.Mvc;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 

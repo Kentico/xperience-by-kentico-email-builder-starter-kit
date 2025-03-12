@@ -3,6 +3,7 @@ using CMS.Websites;
 
 using DancingGoat.Models;
 
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailTemplates;

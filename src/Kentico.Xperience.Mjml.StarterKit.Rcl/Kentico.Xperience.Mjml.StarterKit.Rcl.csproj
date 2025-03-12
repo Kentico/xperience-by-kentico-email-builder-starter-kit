@@ -50,10 +50,7 @@
       <Content Update="Widgets\ArticleWidget.razor">
 		  <CopyToOutputDirectory>true</CopyToOutputDirectory>
       </Content>
-		<Content Update="Widgets\ButtonWidget.razor">
-			<CopyToOutputDirectory>true</CopyToOutputDirectory>
-		</Content>
-		<Content Update="Widgets\ArticleWidget.razor">
+		<Content Update="Widgets\ProductWidget.razor">
 			<CopyToOutputDirectory>true</CopyToOutputDirectory>
 		</Content>
       <Content Update="_Imports.razor">
