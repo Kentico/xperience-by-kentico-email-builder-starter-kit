@@ -21,41 +21,20 @@ public partial class ProductWidget : ComponentBase
     [Inject]
     private IContentQueryExecutor ContentQueryExecutor { get; set; } = default!;
 
-    public string Title { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty;
+    [Inject]
+    private IProductEmailTemplateMapper ProductEmailTemplateMapper { get; set; } = default!;
+
+    public ProductWidgetModel Model { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        if (!Guid.TryParse(Properties.WebPageItemGuid, out var contentItemGuid))
+        var webPageItem = Properties.Pages.FirstOrDefault();
+
+        if (webPageItem is null)
         {
             return;
         }
 
-        var queryBuilder = new ContentItemQueryBuilder()
-            .ForContentType(MappingStorage.ProductContentType,
-                configuration => configuration
-                .TopN(1)
-                .Where(
-                    x => x.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), contentItemGuid)
-                )
-            );
-
-        var result = await ContentQueryExecutor.GetResult(queryBuilder, selector =>
-        {
-            selector.TryGetValue(MappingStorage.ProductTitleParameterName, out string productTitle);
-            selector.TryGetValue(MappingStorage.ProductContentPrameterName, out string productContent);
-            return new
-            {
-                ProductTitle = productTitle,
-                ProductContent = productContent
-            };
-        });
-
-        var contentItem = result.FirstOrDefault();
-        if (contentItem is not null)
-        {
-            Title = contentItem.ProductTitle;
-            Content = contentItem.ProductContent;
-        }
+        Model = await ProductEmailTemplateMapper.MapProperties(webPageItem.WebPageGuid);
     }
 }

@@ -19,47 +19,19 @@ public partial class ArticleWidget : ComponentBase
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ArticleWidget)}";
 
     [Inject]
-    private IContentQueryExecutor ContentQueryExecutor { get; set; } = default!;
+    private IArticleEmailTemplateMapper ArticleEmailTemplateMapper { get; set; } = default!;
 
-    public string Title { get; set; } = string.Empty;
-    public string ImageUrl { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
+    public ArticleWidgetModel Model { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        if (!Guid.TryParse(Properties.ContentItemGuid, out var contentItemGuid))
+        var webPageItem = Properties.Pages.FirstOrDefault();
+
+        if (webPageItem is null)
         {
             return;
         }
 
-        var queryBuilder = new ContentItemQueryBuilder()
-            .ForContentType(MappingStorage.ArticleContentType,
-                configuration => configuration
-                .TopN(1)
-                .Where(
-                    x => x.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), contentItemGuid)
-                )
-            );
-
-        var result = await ContentQueryExecutor.GetResult(queryBuilder, selector =>
-        {
-            selector.TryGetValue(MappingStorage.ArticleTitleParameterName, out string articleTitle);
-            selector.TryGetValue(MappingStorage.ArticleDescriptionParameterName, out string articleDescription);
-            selector.TryGetValue(MappingStorage.ArticleImageUrlParamterName, out string articleImageUrl);
-            return new
-            {
-                ArticleTitle = articleTitle,
-                ArticleDescription = articleDescription,
-                ArticleImageUrl = articleImageUrl
-            };
-        });
-
-        var contentItem = result.FirstOrDefault();
-        if (contentItem is not null)
-        {
-            Title = contentItem.ArticleTitle;
-            Description = contentItem.ArticleDescription;
-            ImageUrl = contentItem.ArticleImageUrl;
-        }
+        Model = await ArticleEmailTemplateMapper.MapProperties(webPageItem.WebPageGuid);
     }
 }

@@ -20,6 +20,9 @@ using Samples.DancingGoat;
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
+using DancingGoat.EmailTemplates;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +50,15 @@ builder.Services.AddKentico(features =>
 });
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
+builder.Services.Configure<EmailBuilderOptions>(options =>
+{
+    options.AllowedEmailContentTypeNames = ["DancingGoat.Email"];
+    options.RegisterDefaultSection = false;
+    options.DefaultSectionIdentifier = FullWidthEmailSection.IDENTIFIER;
+});
+builder.Services.AddScoped<IProductEmailTemplateMapper, ExampleProductEmailTemplateMapper>();
+builder.Services.AddScoped<IArticleEmailTemplateMapper, ExampleArticleEmailTemplateMapper>();
 
 builder.Services.AddLocalization()
     .AddControllersWithViews()

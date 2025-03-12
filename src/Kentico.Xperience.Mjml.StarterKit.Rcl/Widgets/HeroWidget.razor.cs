@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
     identifier: nameof(HeroWidget),
     name: "Hero Widget",
     componentType: typeof(HeroWidget),
-    PropertiesType = typeof(HeroWidget)
+    PropertiesType = typeof(HeroWidgetProperties)
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
