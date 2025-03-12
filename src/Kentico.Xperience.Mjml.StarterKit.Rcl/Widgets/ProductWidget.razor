@@ -1,16 +1,10 @@
 ﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
 
-<mj-text font-size="16px"
-         padding="10px">
-    @Model.Title
-</mj-text>
-
-<mj-text font-size="14px"
-         color="#333333"
-         align="left"
-         line-height="1.5"
-         css-class="content-text">
-    @Model.Content
+<mj-text>
+    <div class="text">
+        <h1>@Model.Title</h1>
+        <p>@Model.Content</p>
+    </div>
 </mj-text>
 
 @code {

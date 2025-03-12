@@ -3,29 +3,24 @@
 @using Kentico.VisualBuilderComponents.Rcl.Components
 @using Kentico.EmailBuilder.Web.Mvc
 
-@* @inject CssLoaderService CssLoaderService *@
+@inject CssLoaderService CssLoaderService
 @inject IEmailContextAccessor emailContextAccessor
 @code {
     private string cssContent = string.Empty;
     private string sectionIdentifier = FullWidthEmailSection.IDENTIFIER;
 
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     cssContent = await CssLoaderService.GetCssAsync("assets/css/style.css"); // Path inside wwwroot
-    // }
+    protected override async Task OnInitializedAsync()
+    {
+        cssContent = await CssLoaderService.GetCssAsync();
+    }
 }
 <mjml>
     <mj-head>
         <mj-title>Simple Marketing Email</mj-title>
-        <EmailBuilderStyles />
         <mj-style inline="inline">
-            .header-image { 
-                max-width: 600px;
-            }
-            .content-text {
-          
-            @* @((MarkupString)cssContent) *@
+            @((MarkupString)cssContent)
         </mj-style>
+        <EmailBuilderStyles />
     </mj-head>
     <mj-body>
         <mj-section>

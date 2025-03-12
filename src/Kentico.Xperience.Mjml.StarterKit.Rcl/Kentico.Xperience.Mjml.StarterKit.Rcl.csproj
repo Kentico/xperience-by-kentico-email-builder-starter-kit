@@ -24,7 +24,7 @@
     <ItemGroup>
         <PackageReference Include="Kentico.Xperience.WebApp" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-		<PackageReference Include="Kentico.Xperience.Mjml"/>
+		<PackageReference Include="Kentico.Xperience.Mjml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -52,5 +52,4 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
-
 </Project>

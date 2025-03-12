@@ -1,9 +1,10 @@
-﻿#pragma warning disable KXE0001
-using CMS.ContentEngine;
-using CMS.DataEngine;
+﻿using CMS.ContentEngine;
 using CMS.Websites;
+
 using DancingGoat.Models;
+
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
+
 namespace DancingGoat.EmailTemplates;
 
 public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
@@ -28,7 +29,7 @@ public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
         var queryBuilder = new ContentItemQueryBuilder()
             .ForContentType(ArticlePage.CONTENT_TYPE_NAME,
                 config => config.WithLinkedItems(10)
-                .ForWebsite("DancingGoatPages")
+                .ForWebsite(WEBSITE_CHANNEL_NAME)
                 .Where(
                     x => x.WhereEquals(nameof(WebPageFields.WebPageItemGUID), webPageItemGuid)
                 )

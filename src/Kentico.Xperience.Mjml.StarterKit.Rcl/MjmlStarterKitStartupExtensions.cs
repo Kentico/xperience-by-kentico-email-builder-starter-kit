@@ -9,6 +9,7 @@ public static class MjmlStarterKitStartupExtensions
 {
     public static IServiceCollection AddMjmlStarterKit(this IServiceCollection serviceCollection)
     {
+        serviceCollection.AddScoped<CssLoaderService>();
         serviceCollection.AddScoped<IUrlHelper>(provider =>
         {
             var actionContext = provider.GetRequiredService<IActionContextAccessor>().ActionContext!;

@@ -4,10 +4,11 @@ public class CssLoaderService
 {
     private readonly IWebHostEnvironment enviroment;
 
+
     public CssLoaderService(IWebHostEnvironment enviroment)
         => this.enviroment = enviroment;
 
-    public async Task<string> GetCssAsync(string relativePath)
+    public async Task<string> GetCssAsync()
     {
         string path = System.IO.Path.Combine(enviroment.WebRootPath, relativePath.TrimStart('/'));
 

@@ -2,19 +2,15 @@
 
 @if (Properties.ButtonType == ButtonType.Link)
 {
-    <mj-text align="@Properties.Alignment">
-        <a href="@Properties.Url"
-           style="color: @Properties.TextColor;
-           text-decoration: none;
-           font-size: @Properties.FontSize;
-           font-weight: @Properties.FontWeight;">
+    <mj-text align="@Properties.Alignment" css-class="button">
+        <a href="@Properties.Url">
             @Properties.Text
         </a>
     </mj-text>
 }
 else
 {
-    <mj-button href="@Properties.Url" css-class="btn btn-secondary">
+    <mj-button href="@Properties.Url" css-class="button">
         @Properties.Text
     </mj-button>
 }
