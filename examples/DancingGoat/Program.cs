@@ -57,8 +57,6 @@ builder.Services.Configure<EmailBuilderOptions>(options =>
     options.RegisterDefaultSection = false;
     options.DefaultSectionIdentifier = FullWidthEmailSection.IDENTIFIER;
 });
-builder.Services.AddScoped<IProductEmailTemplateMapper, ExampleProductEmailTemplateMapper>();
-builder.Services.AddScoped<IArticleEmailTemplateMapper, ExampleArticleEmailTemplateMapper>();
 
 builder.Services.AddLocalization()
     .AddControllersWithViews()
@@ -70,7 +68,12 @@ builder.Services.AddLocalization()
 
 builder.Services.AddDancingGoatServices();
 builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrackingEvaluator>();
-builder.Services.AddKenticoMjmlStarterKit(builder.Configuration);
+
+builder.Services.AddKenticoMjmlStarterKit(builder.Configuration, configure =>
+{
+    configure.RegisterArticleMapper<ExampleArticleEmailTemplateMapper>();
+    configure.RegisterProductMapper<ExampleProductEmailTemplateMapper>();
+});
 builder.Services.AddMjmlForEmails();
 
 ConfigureMembershipServices(builder.Services);

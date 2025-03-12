@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Kentico.Xperience.Mjml.StarterKit.Rcl</RootNamespace>
+		<IsPackable>true</IsPackable>
+		<EnableScopedCss>false</EnableScopedCss>
     </PropertyGroup>
 
 	<PropertyGroup>
@@ -46,8 +48,14 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <Content Update="Widgets\ArticleWidget.razor">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		  <CopyToOutputDirectory>true</CopyToOutputDirectory>
       </Content>
+		<Content Update="Widgets\ButtonWidget.razor">
+			<CopyToOutputDirectory>true</CopyToOutputDirectory>
+		</Content>
+		<Content Update="Widgets\ArticleWidget.razor">
+			<CopyToOutputDirectory>true</CopyToOutputDirectory>
+		</Content>
       <Content Update="_Imports.razor">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
