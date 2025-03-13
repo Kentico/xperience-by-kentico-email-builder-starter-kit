@@ -1,23 +1,35 @@
-﻿using Kentico.Xperience.Mjml.StarterKit.Rcl;
-
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 
+namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
+
+/// <summary>
+/// Retriever of style sheets used for injection of css styles to razor email builder components.
+/// </summary>
 public class CssLoaderService
 {
-    private readonly IWebHostEnvironment enviroment;
+    private readonly IWebHostEnvironment environment;
     private readonly MjmlStarterKitOptions mjmlStarterKitOptions;
 
-    public CssLoaderService(IWebHostEnvironment enviroment,
+    /// <summary>
+    /// The <see cref="CssLoaderService"/> constructor.
+    /// </summary>
+    /// <param name="environment"></param>
+    /// <param name="mjmlStarterKitOptions"></param>
+    public CssLoaderService(IWebHostEnvironment environment,
         IOptions<MjmlStarterKitOptions> mjmlStarterKitOptions)
     {
-        this.enviroment = enviroment;
+        this.environment = environment;
         this.mjmlStarterKitOptions = mjmlStarterKitOptions.Value;
     }
 
+    /// <summary>
+    /// Retrieves the style sheet from the location specified in the appsettings.json.
+    /// </summary>
+    /// <returns></returns>
     public async Task<string> GetCssAsync()
     {
-        string path = System.IO.Path.Combine(enviroment.WebRootPath, mjmlStarterKitOptions.EmailBuilderStyleSheetPath.TrimStart('/'));
+        string path = System.IO.Path.Combine(environment.WebRootPath, mjmlStarterKitOptions.EmailBuilderStyleSheetPath.TrimStart('/'));
 
         if (File.Exists(path))
         {
@@ -25,6 +37,6 @@ public class CssLoaderService
             return text.Trim();
         }
 
-        return "/* CSS not found */";
+        return;
     }
 }

@@ -15,18 +15,25 @@ using Microsoft.AspNetCore.Components;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
+/// <summary>
+/// Product widget component.
+/// </summary>
 public partial class ProductWidget : ComponentBase
 {
+    /// <summary>
+    /// The component identifier.
+    /// </summary>
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ProductWidget)}";
-
-    [Inject]
-    private IContentQueryExecutor ContentQueryExecutor { get; set; } = default!;
 
     [Inject]
     private IProductEmailTemplateMapper ProductEmailTemplateMapper { get; set; } = default!;
 
+    /// <summary>
+    /// The widget model.
+    /// </summary>
     public ProductWidgetModel Model { get; set; } = new();
 
+    /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
         var webPageItem = Properties.Pages.FirstOrDefault();

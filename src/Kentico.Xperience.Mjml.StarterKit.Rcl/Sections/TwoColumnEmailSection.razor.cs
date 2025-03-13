@@ -9,7 +9,13 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 
+/// <summary>
+/// Basic section with two columns.
+/// </summary>
 public partial class TwoColumnEmailSection : ComponentBase
 {
+    /// <summary>
+    /// The component identifier.
+    /// </summary>
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(TwoColumnEmailSection)}";
 }

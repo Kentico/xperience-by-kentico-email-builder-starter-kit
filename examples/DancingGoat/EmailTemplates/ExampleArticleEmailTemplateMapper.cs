@@ -23,8 +23,6 @@ public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
         this.webPageMapper = webPageMapper;
     }
 
-    public override string WebPageItemSelectorDisplayedMessage { get; set; } = string.Empty;
-
     public override async Task<ArticleWidgetModel> MapProperties(Guid webPageItemGuid)
     {
         var queryBuilder = new ContentItemQueryBuilder()

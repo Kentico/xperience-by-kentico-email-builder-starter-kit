@@ -5,7 +5,7 @@
 @inject IUrlHelper Url
 
 
-@if (Properties.DescriptionPosition == nameof(DescriptionPositionOption.Above))
+@if (Properties.ContentPosition == nameof(ContentPositionOption.Above))
 {
     <mj-text>
         <div class="text">
@@ -19,7 +19,7 @@
               css-class="image">
     </mj-image>
 }
-@if (Properties.DescriptionPosition == nameof(DescriptionPositionOption.Below))
+@if (Properties.ContentPosition == nameof(ContentPositionOption.Below))
 {
     <mj-text>
         <div class="text">
