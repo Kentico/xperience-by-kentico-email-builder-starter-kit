@@ -28,11 +28,19 @@ public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
         var queryBuilder = new ContentItemQueryBuilder()
             .ForContentType(ArticlePage.CONTENT_TYPE_NAME,
                 config => config.WithLinkedItems(10)
+
+                // Because the webPageItemGuid is a reusable content item, we don't have a website channel name to use here
+                // so we use a hardcoded channel name.
+
                 .ForWebsite(WEBSITE_CHANNEL_NAME)
                 .Where(
                     x => x.WhereEquals(nameof(WebPageFields.WebPageItemGUID), webPageItemGuid)
                 )
             )
+
+            // Because the changedItem is a reusable content item, we don't have a language name to use here
+            // so we use a hardcoded channel name.
+
             .InLanguage(WEBSITE_LANGUAGE_NAME);
 
         var result = await contentQueryExecutor.GetWebPageResult(queryBuilder, webPageMapper.Map<ArticlePage>);

@@ -47,6 +47,16 @@
       <Content Update="Templates\ProductEmailTemplate.razor">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <Content Update="Widgets\ButtonWidget.razor">
+        <CopyToOutputDirectory>true</CopyToOutputDirectory>
+      </Content>
+      <Content Update="Widgets\HeroWidget.razor">
+        <CopyToOutputDirectory>true</CopyToOutputDirectory>
+      </Content>
+      <Content Update="Widgets\ContentWidget.razor">
+        <CopyToOutputDirectory>true</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
       <Content Update="Widgets\ArticleWidget.razor">
 		  <CopyToOutputDirectory>true</CopyToOutputDirectory>
       </Content>

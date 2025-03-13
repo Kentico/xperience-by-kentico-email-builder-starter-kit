@@ -1,0 +1,11 @@
+﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
+
+
+<mj-button href="@Properties.Url" css-class="button">
+    @Properties.Text
+</mj-button>
+
+@code {
+    [Parameter]
+    public ButtonWidgetProperties Properties { get; set; } = null!;
+}

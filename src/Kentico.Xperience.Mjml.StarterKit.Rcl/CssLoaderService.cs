@@ -37,6 +37,6 @@ public class CssLoaderService
             return text.Trim();
         }
 
-        return;
+        return string.Empty;
     }
 }

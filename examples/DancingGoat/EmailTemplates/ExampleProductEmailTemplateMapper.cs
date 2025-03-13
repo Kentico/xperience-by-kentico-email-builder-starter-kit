@@ -36,8 +36,6 @@ public class ExampleProductEmailTemplateMapper : ProductEmailTemplateMapper
         this.webPageMapper = webPageMapper;
     }
 
-    public override string WebPageItemSelectorDisplayedMessage { get; set; } = string.Empty;
-
     public override async Task<ProductWidgetModel> MapProperties(Guid webPageItemGuid)
     {
         var queryBuilder = new ContentItemQueryBuilder()
