@@ -6,9 +6,15 @@
 public interface IEmailTemplateMapper<TWidgetModel>
 {
     /// <summary>
-    /// Based on a web page item guid maps a web page item to a widget model.
+    /// Based on a web page item guid maps a web page item to a <typeparamref name="TWidgetModel"/> model.
     /// </summary>
     /// <param name="webPageItemGuid">The guid of a web page item.</param>
+    /// <param name="languageName">Language of the current email channel.</param>
     /// <returns>The <typeparamref name="TWidgetModel"/> of a widget.</returns>
-    Task<TWidgetModel> MapProperties(Guid webPageItemGuid);
+    Task<TWidgetModel> MapProperties(Guid webPageItemGuid, string languageName);
+
+    /// <summary>
+    /// The website channel where the web page item is selected.
+    /// </summary>
+    public string WebsiteChannelName { get; }
 }

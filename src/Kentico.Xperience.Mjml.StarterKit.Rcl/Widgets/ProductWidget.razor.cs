@@ -1,4 +1,5 @@
 ﻿using CMS.ContentEngine;
+using CMS.Websites;
 
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
@@ -28,10 +29,21 @@ public partial class ProductWidget : ComponentBase
     [Inject]
     private IProductEmailTemplateMapper ProductEmailTemplateMapper { get; set; } = default!;
 
+    [Inject]
+    private IWebPageUrlRetriever WebPageUrlRetriever { get; set; } = default!;
+
+    [Inject]
+    private IEmailContextAccessor EmailContextAccessor { get; set; } = default!;
+
     /// <summary>
     /// The widget model.
     /// </summary>
     public ProductWidgetModel Model { get; set; } = new();
+
+    /// <summary>
+    /// The Web Page Item url which the widget is mapped to.
+    /// </summary>
+    public string WebPageItemUrl { get; set; } = string.Empty;
 
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
@@ -43,6 +55,15 @@ public partial class ProductWidget : ComponentBase
             return;
         }
 
-        Model = await ProductEmailTemplateMapper.MapProperties(webPageItem.WebPageGuid);
+        string languageName = EmailContextAccessor.GetContext().LanguageName;
+
+        var webPageItemUrl = await WebPageUrlRetriever.Retrieve(webPageItem.WebPageGuid, languageName);
+
+        if (webPageItemUrl is not null)
+        {
+            WebPageItemUrl = webPageItemUrl.AbsoluteUrl;
+        }
+
+        Model = await ProductEmailTemplateMapper.MapProperties(webPageItem.WebPageGuid, languageName);
     }
 }
