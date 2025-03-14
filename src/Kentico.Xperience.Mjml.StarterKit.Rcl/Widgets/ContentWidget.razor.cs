@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
+/// <summary>
+/// Content widget component.
+/// </summary>
 public partial class ContentWidget : ComponentBase
 {
 }

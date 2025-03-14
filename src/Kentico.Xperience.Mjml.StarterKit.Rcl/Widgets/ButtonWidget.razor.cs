@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
+/// <summary>
+/// Button widget component.
+/// </summary>
 public partial class ButtonWidget : ComponentBase
 {
 }
