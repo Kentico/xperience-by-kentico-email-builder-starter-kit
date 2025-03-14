@@ -3,26 +3,41 @@ using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
+/// <summary>
+/// Configurable properties of the <see cref="HeroWidget"/>.
+/// </summary>
 public class HeroWidgetProperties : IEmailWidgetProperties
 {
+    /// <summary>
+    /// The image url.
+    /// </summary>
     [TextInputComponent(
         Label = "Image URL",
         Order = 1,
         ExplanationText = "Enter the URL of the hero image")]
     public string ImageUrl { get; set; } = string.Empty;
 
+    /// <summary>
+    /// The alt text of the image.
+    /// </summary>
     [TextInputComponent(
         Label = "Alt Text",
         Order = 2,
         ExplanationText = "Enter alternative text for the image")]
     public string AltText { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Text description of the image.
+    /// </summary>
     [TextAreaComponent(
         Label = "Description",
         Order = 3,
         ExplanationText = "Enter description text")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Vertical positioning of the description relative to the image.
+    /// </summary>
     [DropDownComponent(
         Label = "Description Position",
         Order = 4,
@@ -32,8 +47,18 @@ public class HeroWidgetProperties : IEmailWidgetProperties
     public string DescriptionPosition { get; set; } = nameof(Widgets.DescriptionPosition.Below);
 }
 
+/// <summary>
+/// Vertical position of the description relative to the image.
+/// </summary>
 public enum DescriptionPosition
 {
+    /// <summary>
+    /// Above the image.
+    /// </summary>
     Above,
+
+    /// <summary>
+    /// Below the image
+    /// </summary>
     Below
 }

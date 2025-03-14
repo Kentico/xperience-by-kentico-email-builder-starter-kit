@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
+/// <summary>
+/// Hero widget component.
+/// </summary>
 public partial class HeroWidget : ComponentBase
 {
 }
