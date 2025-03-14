@@ -12,6 +12,9 @@ Provides examples of how to create and use email templates and map them to exist
 ## Requirements
 
 ## Screenshots
+![Email Article Page Selector](/images/xperience-article-widget-configuration.png)
+![Email Builder](/images/xperience-section-usage.png)
+![Email Preview](/images/xperience-email-preview.png)
 
 ### Library Version Matrix
 
