@@ -8,13 +8,12 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailTemplates;
 
-public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
+public class ExampleArticleEmailTemplateMapper : IArticleEmailTemplateMapper
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
 
-    public const string WEBSITE_CHANNEL_NAME = "DancingGoatPages";
-    public const string WEBSITE_LANGUAGE_NAME = "en";
+    public string WebsiteChannelName { get; } = "DancingGoatPages";
 
     public ExampleArticleEmailTemplateMapper(IContentQueryExecutor contentQueryExecutor,
         IWebPageQueryResultMapper webPageMapper)
@@ -23,7 +22,7 @@ public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
         this.webPageMapper = webPageMapper;
     }
 
-    public override async Task<ArticleWidgetModel> MapProperties(Guid webPageItemGuid)
+    public async Task<ArticleWidgetModel> MapProperties(Guid webPageItemGuid, string languageName)
     {
         var queryBuilder = new ContentItemQueryBuilder()
             .ForContentType(ArticlePage.CONTENT_TYPE_NAME,
@@ -32,7 +31,7 @@ public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
                 // Because the webPageItemGuid is a reusable content item, we don't have a website channel name to use here
                 // so we use a hardcoded channel name.
 
-                .ForWebsite(WEBSITE_CHANNEL_NAME)
+                .ForWebsite(WebsiteChannelName)
                 .Where(
                     x => x.WhereEquals(nameof(WebPageFields.WebPageItemGUID), webPageItemGuid)
                 )
@@ -41,7 +40,7 @@ public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
             // Because the changedItem is a reusable content item, we don't have a language name to use here
             // so we use a hardcoded channel name.
 
-            .InLanguage(WEBSITE_LANGUAGE_NAME);
+            .InLanguage(languageName);
 
         var result = await contentQueryExecutor.GetWebPageResult(queryBuilder, webPageMapper.Map<ArticlePage>);
         var articlePage = result.FirstOrDefault();

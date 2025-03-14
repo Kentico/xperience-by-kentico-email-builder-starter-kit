@@ -1,4 +1,6 @@
-﻿using Kentico.EmailBuilder.Web.Mvc;
+﻿using CMS.Websites;
+
+using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -26,21 +28,41 @@ public partial class ArticleWidget : ComponentBase
     [Inject]
     private IArticleEmailTemplateMapper ArticleEmailTemplateMapper { get; set; } = default!;
 
+    [Inject]
+    private IWebPageUrlRetriever WebPageUrlRetriever { get; set; } = default!;
+
+    [Inject]
+    private IEmailContextAccessor EmailContextAccessor { get; set; } = default!;
+
     /// <summary>
     /// The widget model.
     /// </summary>
     public ArticleWidgetModel Model { get; set; } = new();
 
+    /// <summary>
+    /// The Web Page Item url which the widget is mapped to.
+    /// </summary>
+    public string WebPageItemUrl { get; set; } = string.Empty;
+
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
-        var webPageItem = Properties.Pages.FirstOrDefault();
+        var webPageItemGuid = Properties.Pages.FirstOrDefault();
 
-        if (webPageItem is null)
+        if (webPageItemGuid is null)
         {
             return;
         }
 
-        Model = await ArticleEmailTemplateMapper.MapProperties(webPageItem.WebPageGuid);
+        string languageName = EmailContextAccessor.GetContext().LanguageName;
+
+        var webPageItemUrl = await WebPageUrlRetriever.Retrieve(webPageItemGuid.WebPageGuid, languageName);
+
+        if (webPageItemUrl is not null)
+        {
+            WebPageItemUrl = webPageItemUrl.AbsoluteUrl;
+        }
+
+        Model = await ArticleEmailTemplateMapper.MapProperties(webPageItemGuid.WebPageGuid, languageName);
     }
 }
