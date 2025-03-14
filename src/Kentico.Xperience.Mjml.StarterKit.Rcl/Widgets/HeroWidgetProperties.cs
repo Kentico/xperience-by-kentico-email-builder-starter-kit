@@ -27,27 +27,9 @@ public sealed class HeroWidgetProperties : IEmailWidgetProperties
         Label = "Description Position",
         Order = 4,
         ExplanationText = "Select where to display the description",
-        Options = $"{nameof(DescriptionPosition.Below)};{nameof(DescriptionPosition.Below)}\r\n{nameof(DescriptionPosition.Above)};{nameof(DescriptionPosition.Above)}",
+        Options = $"{nameof(Widgets.DescriptionPosition.Below)};{nameof(Widgets.DescriptionPosition.Below)}\r\n{nameof(Widgets.DescriptionPosition.Above)};{nameof(Widgets.DescriptionPosition.Above)}",
         OptionsValueSeparator = ";")]
-    public string ButtonDescriptionPosition { get; set; } = nameof(DescriptionPosition.Below);
-
-    [TextInputComponent(
-        Label = "Border Radius",
-        Order = 5,
-        ExplanationText = "Enter border radius (e.g., '4px')")]
-    public string BorderRadius { get; set; } = "0px";
-
-    [TextInputComponent(
-        Label = "Background Color",
-        Order = 6,
-        ExplanationText = "Enter background color (e.g., '#ffffff')")]
-    public string BackgroundColor { get; set; } = "#ffffff";
-
-    [TextInputComponent(
-        Label = "Text Color",
-        Order = 7,
-        ExplanationText = "Enter text color for description")]
-    public string TextColor { get; set; } = "#000000";
+    public string DescriptionPosition { get; set; } = nameof(Widgets.DescriptionPosition.Below);
 }
 
 public enum DescriptionPosition
