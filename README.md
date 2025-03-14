@@ -4,9 +4,10 @@
 
 ## Description
 
-Xperience by Kentico starter kit components for [email builder](https://docs.kentico.com/developers-and-admins/development/builders/email-builder).
-Defines useful email builder widgets, sections and templates speeding up initial usage of email builder functionality.
-Shows examples on how to create and use email templates and map them to existing web page items.
+[Xperience by Kentico](https://docs.kentico.com/developers-and-admins/development/builders/email-builder) starter kit components for **Email Builder**.
+Defines useful **Email Builder** widgets, sections, and templates, speeding up the initial usage of **Email Builder** functionality.  
+Provides examples of how to create and use email templates and map them to existing web page items.
+
 
 ## Requirements
 
@@ -34,11 +35,12 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
 
 ## Quick Start
 
-1. Perform the neccesary steps to enable the [email builder](https://docs.kentico.com/developers-and-admins/development/builders/email-builder#enable-the-email-builder-feature) feature in your application.
+1. Perform the necessary steps to enable the [Email Builder](https://docs.kentico.com/developers-and-admins/development/builders/email-builder#enable-the-email-builder-feature) feature in your application.
 
-2. Define a custom `ArticleEmailTemplateMapper` and `ProductEmailTemplateMapper` implementation to customize how the Web Page Items are mapped to email builder widgets.
+2. Define custom implementations of `ArticleEmailTemplateMapper` and `ProductEmailTemplateMapper` to customize how Web Page Items are mapped to **Email Builder** widgets.
 
 3. Add this library to the application services, registering your custom `ArticleEmailTemplateMapper` and `ProductEmailTemplateMapper`.
+
     ```csharp
     // Program.cs
     builder.Services.AddKenticoMjmlStarterKit(builder.Configuration, configure =>
@@ -48,9 +50,10 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
     });
     ```
 
-4. Define custom style sheet file implementing css classes used by the email builder somewhere in your project's `wwwroot` folder.
+4. Define a custom stylesheet file that implements the CSS classes used by **Email Builder**, and place it somewhere in your project's `wwwroot` folder.
 
-5. Add the path of your email css style sheet file relative to application's `wwwroot` folder to the ASP.NET Core `appsettings.json` file:
+5. Add the path of your email CSS stylesheet file, relative to the application's `wwwroot` folder, to the ASP.NET Core `appsettings.json` file:
+
 
    ```json
    "MjmlStarterKitOptions": {
@@ -59,7 +62,8 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
     }
    ```
 
-6. [Register](https://docs.kentico.com/developers-and-admins/development/builders/email-builder/develop-email-builder-components#register-templates) the `ProductEmailTemplate` somewhere in your project specifying the `ContentTypeNames` containing content types for which the template will be available.
+6. [Register](https://docs.kentico.com/developers-and-admins/development/builders/email-builder/develop-email-builder-components#register-templates) the `ProductEmailTemplate` somewhere in your project, specifying the `ContentTypeNames` that contain the content types for which the template will be available.
+
 ```csharp
 [assembly: RegisterEmailTemplate(
     identifier: ProductEmailTemplate.IDENTIFIER,
@@ -71,14 +75,15 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
 ]
 ```
 
-7. Use the components in the email builder.
-- Head to an Email channel configuration in your Xperience by Kentico administration UI.
-- Create a new email by pressing `NEW EMAIL`.
-- Fill out the email's attributes and specify a content type which you have registered to have the `ProductEmailTemplate` avaialable.
-- Press `CONTINUE` and select the `Email builder Product template`.
-- Fill out the content of your email and press `SAVE`.
-- Head to the *Email Builder* section.
-- Now you can add the sections and widgets included in this library.
+7. Use the components in **Email Builder**.
+- Navigate to an **Email Channel** configuration in your **Xperience by Kentico** administration UI.
+- Create a new email by pressing **NEW EMAIL**.
+- Fill out the email's attributes and specify a content type that you have registered to make the `ProductEmailTemplate` available.
+- Press **CONTINUE** and select the **Email Builder Product Template**.
+- Fill out the content of your email and press **SAVE**.
+- Go to the **Email Builder** section.
+- Now, you can add the sections and widgets included in this library.
+
 
 ## Full Instructions
 

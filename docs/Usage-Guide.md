@@ -2,11 +2,12 @@
 
 ## Implement custom Web Page Item mappers.
 
-Define a custom `ArticleEmailTemplateMapper`. This class will be used to map Web Page Items selected in `Article` widget to display the content from a page in the `Article` widget elements.
+Define a custom `ArticleEmailTemplateMapper`, which maps Web Page Items selected in the `Article` widget to display content from a page within the widget's elements.
 
-Your custom implementation of `ArticleEmailTemplateMapper` can use dependency injection to define services and configuration used to retrieve and map the content to the `ArticleWidgetModel`.
+Your custom implementation of `ArticleEmailTemplateMapper` can use dependency injection to define services and configuration required to retrieve and map the content to the `ArticleWidgetModel`.
 
-The article widget model expects the following attributes to be set.
+The `ArticleWidgetModel` expects the following attributes to be set:
+
 
 ```csharp
 public class ArticleWidgetModel
@@ -28,7 +29,8 @@ public class ArticleWidgetModel
 }
 ```
 
-Implement the `MapProperties` method which provides the `WebPageItemGuid` from the `WebPageSelectorComponent`. Retrieve a page content item and assign it's desired properties to the `ArticleWidgetModel`. Return the model. You can map any Web Page `Content Type` to the widget.
+Implement the `MapProperties` method, which provides the `WebPageItemGuid` from the `WebPageSelectorComponent`. Retrieve a page content item and assign its desired properties to the `ArticleWidgetModel`. Return the model. You can map any Web Page `Content Type` to the widget.
+
 
 ```csharp
 public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
@@ -87,16 +89,18 @@ public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
 
 ![Article widget](/images/xperience-article-widget-configuration.png)
 
-Similiarly implement a custom `ProductEmailTemplateMapper` which maps `WebPageItemGuid`s to `ProductWidgetModel`s which are used by `Product` widgets. The `Product` widget is very similiar to the `Article` widget, except it does not contain an image.
+Similarly, implement a custom `ProductEmailTemplateMapper`, which maps `WebPageItemGuid`s to `ProductWidgetModel`s used by `Product` widgets. The `Product` widget is very similar to the `Article` widget, except it does not contain an image.
 
 ![Product widget](/images/xperience-product-widget-configuration.png)
 
 Register these mappers as explained in the [README](../README.md).
 
-## Define email css styles.
-Implement your custom css style sheet file with the classes expected by this library. Place the css file somewhere in your `wwwroot` folder and specify this path as explained in the [README](../README.md).
+## Define email CSS styles.
 
-These styles will be automaticaly injected into the email widgets. The styles however are not applied in the `Email Builder` UI. You can view the styling in the `Preview` section.
+Implement your custom CSS stylesheet file with the classes expected by this library. Place the CSS file somewhere in your `wwwroot` folder and specify this path as explained in the [README](../README.md).
+
+These styles will be automatically injected into the email widgets. However, the styles are not applied in the `Email Builder` UI. You can view the styling in the `Preview` section.
+
 
 ```css
 .text div,
@@ -157,42 +161,48 @@ These styles will be automaticaly injected into the email widgets. The styles ho
 ![Email preview](/images/xperience-email-preview.png)
 
 ## All components
+
 ### Widgets
-*Product*
+
+**Product**  
 - (explained above)
 
-*Article*
+**Article**  
 - (explained above)
 
-*Button*
+**Button**  
 The Button widget lets the user configure the following parameters:
-- Button text - the text displayed in the button.
-- Button type - whether the resulting element will be the `<button/>` or `<a/>` element.
-- URL - the `href` parameter.
-- Alignment - the horizontal aligment of the button.
+- **Button text** – The text displayed in the button.
+- **Button type** – Specifies whether the resulting element will be a `<button/>` or `<a/>` element.
+- **URL** – The `href` parameter.
+- **Alignment** – The horizontal alignment of the button.
+
 ![Button properties](/images/xperience-button-widget.png)
 
-*Content*
-The Content widget is a simple configurable text holder. It defines the property:
-- Content Text - the text displayed in the element.
+**Content**  
+The Content widget is a simple configurable text holder. It defines the following property:
+- **Content Text** – The text displayed in the element.
+
 ![Content properties](/images/xperience-content-widget.png)
 
-*Hero*
-The Hero widget renders a an image element. Available properties:
-- Image URL - the url of the image.
-- Alt text - the alt text.
-- Description - the description rendered together with the image.
-- Description position - the vertical position of the description relative to the image.
+**Hero**  
+The Hero widget renders an image element. Available properties:
+- **Image URL** – The URL of the image.
+- **Alt text** – The alternative text.
+- **Description** – The description rendered together with the image.
+- **Description position** – The vertical position of the description relative to the image.
+
 ![Hero properties](/images/xperience-hero-widget.png)
 
 ### Sections
-Select a section where you can add widgets.
+
+Select a section where you can add widgets.  
 ![Sections](/images/xperience-sections.png)
 
-*Full Width Email Section*
-The content will be displayed inside a single full width column.
+**Full Width Email Section**  
+The content will be displayed inside a single full-width column.
 
-*Two Columns Email Section*
-Two column will be displayed in one row.
+**Two Columns Email Section**  
+Two columns will be displayed in one row.
 
 ![Section usage](/images/xperience-section-usage.png)
