@@ -21,7 +21,6 @@ using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
-using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 using DancingGoat.EmailTemplates;
 
 var builder = WebApplication.CreateBuilder(args);
