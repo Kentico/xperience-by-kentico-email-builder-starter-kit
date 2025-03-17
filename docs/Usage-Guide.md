@@ -100,14 +100,18 @@ Register these mappers as explained in the [README](../README.md).
 Implement your custom CSS stylesheet file with the classes expected by this library. Place the CSS file somewhere in your `wwwroot` folder and specify this path as explained in the [README](../README.md).
 
 These styles will be automatically injected into the email widgets. However, the styles are not applied in the `Email Builder` UI. You can view the styling in the `Preview` section.
-
+Some styles must be marked *!important* to override the default styling of the mjml library.
 
 ```css
+
+/* The class of text contents. */
 .text div,
+/* The class specifying button texts. */
 .button td {
 	font-family: Roboto, Arial, sans-serif !important;
 }
 
+/* The classes applied to headings. */
 .text h1,
 .text h2,
 .text h3 {
@@ -138,10 +142,12 @@ These styles will be automatically injected into the email widgets. However, the
 		color: #F05A22;
 	}
 
+/* Class applied to button element of type button. */
 .button td {
 	background: none !important;
 }
 
+/* Class applied to button element of type link. */
 .button a {
 	background: #F05A22 !important;
 	border-radius: 24px !important;
@@ -152,8 +158,19 @@ These styles will be automatically injected into the email widgets. However, the
 	font-family: inherit !important;
 }
 
+/* Class of image inside the Article and Hero widgets. */
 .image img {
 	border-radius: 24px;
+}
+
+/* Class for the logo widget. */
+.logo {
+	align-content: center;
+}
+
+.logo img {
+	height: 4rem !important;
+	width: 4rem !important;
 }
 
 ```
@@ -187,10 +204,14 @@ The Content widget is a simple configurable text holder. It defines the followin
 
 **Hero**  
 The Hero widget renders an image element. Available properties:
-- **Image URL** – The URL of the image.
+- **Image** – The Image.
 - **Alt text** – The alternative text.
 - **Description** – The description rendered together with the image.
 - **Description position** – The vertical position of the description relative to the image.
+
+**Logo**
+The logo widget renders an image element. Available properties:
+- **Logo** - The logo.
 
 ![Hero properties](/images/xperience-hero-widget.png)
 
