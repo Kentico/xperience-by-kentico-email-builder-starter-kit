@@ -50,6 +50,10 @@
       <Content Update="Widgets\ButtonWidget.razor">
         <CopyToOutputDirectory>true</CopyToOutputDirectory>
       </Content>
+      <Content Update="Widgets\LogoWidget.razor">
+        <CopyToOutputDirectory>true</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
       <Content Update="Widgets\HeroWidget.razor">
         <CopyToOutputDirectory>true</CopyToOutputDirectory>
       </Content>

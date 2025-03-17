@@ -1,4 +1,6 @@
-﻿using Kentico.EmailBuilder.Web.Mvc;
+﻿using CMS.MediaLibrary;
+
+using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
@@ -9,13 +11,10 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 public class HeroWidgetProperties : IEmailWidgetProperties
 {
     /// <summary>
-    /// The image url.
+    /// The image.
     /// </summary>
-    [TextInputComponent(
-        Label = "Image URL",
-        Order = 1,
-        ExplanationText = "Enter the URL of the hero image")]
-    public string ImageUrl { get; set; } = string.Empty;
+    [AssetSelectorComponent(Label = "Image", Order = 1, ExplanationText = "Image from a library.", AllowedExtensions = "jpg;jpeg;png", MaximumAssets = 1)]
+    public IEnumerable<AssetRelatedItem> Image { get; set; } = [];
 
     /// <summary>
     /// The alt text of the image.
