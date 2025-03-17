@@ -23,6 +23,7 @@ public static class MjmlStarterKitStartupExtensions
     public static IServiceCollection AddKenticoMjmlStarterKit(this IServiceCollection services, IConfiguration configuration, Action<IMjmlStarterKitBuilder> configure)
     {
         services.AddScoped<CssLoaderService>()
+        .AddScoped<IMediaFileService, MediaFileService>()
         .AddScoped<IUrlHelper>(provider =>
         {
             var actionContext = provider.GetRequiredService<IActionContextAccessor>().ActionContext!;

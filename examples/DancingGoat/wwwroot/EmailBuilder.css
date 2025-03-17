@@ -50,3 +50,12 @@
 .image img {
 	border-radius: 24px;
 }
+
+.logo {
+	align-content: center;
+}
+
+.logo img {
+	height: 4rem !important;
+	width: 4rem !important;
+}

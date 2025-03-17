@@ -4,18 +4,18 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
-    identifier: HeroWidget.IDENTIFIER,
-    name: "Hero Widget",
-    componentType: typeof(HeroWidget),
-    PropertiesType = typeof(HeroWidgetProperties)
+    identifier: LogoWidget.IDENTIFIER,
+    name: "Logo Widget",
+    componentType: typeof(LogoWidget),
+    PropertiesType = typeof(LogoWidgetProperties)
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 /// <summary>
-/// Hero widget component.
+/// Logo widget component.
 /// </summary>
-public partial class HeroWidget : ComponentBase
+public partial class LogoWidget : ComponentBase
 {
     [Inject]
     private IMediaFileService MediaFileService { get; set; } = default!;
@@ -23,7 +23,7 @@ public partial class HeroWidget : ComponentBase
     /// <summary>
     /// The component identifier.
     /// </summary>
-    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(HeroWidget)}";
+    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(LogoWidget)}";
 
     /// <summary>
     /// Image url.
@@ -32,6 +32,6 @@ public partial class HeroWidget : ComponentBase
 
     /// <inheritdoc/>
     protected override void OnInitialized()
-    => ImageUrl = MediaFileService.GetImageUrlFromMediaFileSelectorOrEmpty(Properties.Image);
+    => ImageUrl = MediaFileService.GetImageUrlFromMediaFileSelectorOrEmpty(Properties.Logo);
 }
 
