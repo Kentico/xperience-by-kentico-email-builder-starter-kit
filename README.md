@@ -40,16 +40,16 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
 
 1. Perform the necessary steps to enable the [Email Builder](https://docs.kentico.com/developers-and-admins/development/builders/email-builder#enable-the-email-builder-feature) feature in your application.
 
-2. Define custom implementations of `ArticleEmailTemplateMapper` and `ProductEmailTemplateMapper` to customize how Web Page Items are mapped to **Email Builder** widgets.
+2. Define custom implementations of `IEmailWidgetMapper` for `ArticleWidgetModel` and `ProductWidgetModel` to customize how Web Page Items are mapped to **Email Builder** widgets.
 
-3. Add this library to the application services, registering your custom `ArticleEmailTemplateMapper` and `ProductEmailTemplateMapper`.
+3. Add this library to the application services, registering your custom `ExampleArticleWidgetEmailDataRetriever` and `ExampleProductWidgetEmailDataRetriever`.
 
     ```csharp
     // Program.cs
     builder.Services.AddKenticoMjmlStarterKit(builder.Configuration, configure =>
     {
-        configure.RegisterArticleMapper<ExampleArticleEmailTemplateMapper>();
-        configure.RegisterProductMapper<ExampleProductEmailTemplateMapper>();
+        configure.RegisterWidgetDataRetriever<ExampleArticleWidgetEmailDataRetriever, ArticleWidgetModel>();
+        configure.RegisterWidgetDataRetriever<ExampleProductWidgetEmailDataRetriever, ProductWidgetModel>();
     });
     ```
 
@@ -70,7 +70,7 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
 ```csharp
 [assembly: RegisterEmailTemplate(
     identifier: ProductEmailTemplate.IDENTIFIER,
-    name: "Email builder Product template",
+    name: "Mjml starter kit template",
     componentType: typeof(ProductEmailTemplate),
     ContentTypeNames = ["DancingGoat.Email"],
     Description = "Product template.",
@@ -82,7 +82,7 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
 - Navigate to an **Email Channel** configuration in your **Xperience by Kentico** administration UI.
 - Create a new email by pressing **NEW EMAIL**.
 - Fill out the email's attributes and specify a content type that you have registered to make the `ProductEmailTemplate` available.
-- Press **CONTINUE** and select the **Email Builder Product Template**.
+- Press **CONTINUE** and select the **Mjml starter kit template**.
 - Fill out the content of your email and press **SAVE**.
 - Go to the **Email Builder** section.
 - Now, you can add the sections and widgets included in this library.

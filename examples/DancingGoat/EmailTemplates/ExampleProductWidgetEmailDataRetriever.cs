@@ -11,7 +11,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 #pragma warning disable KXE0001
 [assembly: RegisterEmailTemplate(
     identifier: ProductEmailTemplate.IDENTIFIER,
-    name: "Email builder Product template",
+    name: "Mjml starter kit template",
     componentType: typeof(ProductEmailTemplate),
     ContentTypeNames = ["DancingGoat.Email"],
     Description = "Product template.",
@@ -21,14 +21,14 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailTemplates;
 
-public class ExampleProductEmailTemplateMapper : IProductEmailTemplateMapper
+public class ExampleProductWidgetEmailDataRetriever : WidgetDataRetriever<ProductWidgetModel>
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
 
     public string WebsiteChannelName { get; } = "DancingGoatPages";
 
-    public ExampleProductEmailTemplateMapper(IContentQueryExecutor contentQueryExecutor,
+    public ExampleProductWidgetEmailDataRetriever(IContentQueryExecutor contentQueryExecutor,
         IWebPageQueryResultMapper webPageMapper)
     {
         this.contentQueryExecutor = contentQueryExecutor;

@@ -2,9 +2,9 @@
 
 ## Implement custom Web Page Item mappers.
 
-Define a custom `ArticleEmailTemplateMapper`, which maps Web Page Items selected in the `Article` widget to display content from a page within the widget's elements.
+Define a custom `WidgetDataRetriever<ArticleWidgetModel>`, which maps Web Page Items selected in the `Article` widget to display content from a page within the widget's elements.
 
-Your custom implementation of `ArticleEmailTemplateMapper` can use dependency injection to define services and configuration required to retrieve and map the content to the `ArticleWidgetModel`.
+Your custom implementation of `WidgetDataRetriever<ArticleWidgetModel>` can use dependency injection to define services and configuration required to retrieve and map the content to the `ArticleWidgetModel`.
 
 The `ArticleWidgetModel` expects the following attributes to be set:
 
@@ -33,7 +33,7 @@ Implement the `MapProperties` method, which provides the `WebPageItemGuid` from 
 
 
 ```csharp
-public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
+public class ExampleArticleWidgetEmailDataRetriever : WidgetDataRetriever<ArticleWidgetModel>
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
@@ -89,7 +89,7 @@ public class ExampleArticleEmailTemplateMapper : ArticleEmailTemplateMapper
 
 ![Article widget](/images/xperience-article-widget-configuration.png)
 
-Similarly, implement a custom `ProductEmailTemplateMapper`, which maps `WebPageItemGuid`s to `ProductWidgetModel`s used by `Product` widgets. The `Product` widget is very similar to the `Article` widget, except it does not contain an image.
+Similarly, implement a custom `WidgetDataRetriever<ProductWidgetModel>`, which maps `WebPageItemGuid`s to `ProductWidgetModel`s used by `Product` widgets. The `Product` widget is very similar to the `Article` widget, except it does not contain an image.
 
 ![Product widget](/images/xperience-product-widget-configuration.png)
 
@@ -181,11 +181,21 @@ Some styles must be marked *!important* to override the default styling of the m
 
 ### Widgets
 
-**Product**  
-- (explained above)
-
 **Article**  
-- (explained above)
+In addition to the `WidgetDataRetriever<ArticleWidgetModel>` mapper explained above, this widget allows the user to configure the following parameters:  
+
+- **Select a web page** – The article web page item used to set the content of this widget.  
+- **Content Position** – The vertical positioning of the content relative to the displayed image.  
+- **Web Page Link Button Position** – Choose the vertical positioning of the button relative to the text content of this widget or set the title as a link to the original page.  
+- **Go to Web Page Button Text** – The text displayed on the button that links to the original page.  
+
+**Product**  
+In addition to the `WidgetDataRetriever<ProductWidgetModel>` mapper explained above, this widget allows the user to configure the following parameters:  
+
+- **Select a web page** – The product web page item used to set the content of this widget.  
+- **Web Page Link Button Position** – Choose the vertical positioning of the button relative to the text content of this widget or set the title as a link to the original page.  
+- **Go to Web Page Button Text** – The text displayed on the button that links to the original page.
+
 
 **Button**  
 The Button widget lets the user configure the following parameters:

@@ -3,7 +3,7 @@
 /// <summary>
 /// Mapper which defines methods required to map selected web page items to email builder widget models.
 /// </summary>
-public interface IEmailTemplateMapper<TWidgetModel>
+public interface WidgetDataRetriever<TWidgetModel>
 {
     /// <summary>
     /// Based on a web page item guid maps a web page item to a <typeparamref name="TWidgetModel"/> model.

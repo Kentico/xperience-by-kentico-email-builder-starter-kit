@@ -40,7 +40,7 @@ else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.
     </mj-text>
     <mj-button href="@WebPageItemUrl
     " css-class="button">
-        READ MORE
+        @Properties.ReadMoreButtonText
     </mj-button>
     @if (Properties.ContentPosition == nameof(ContentPositionOption.Below))
     {
@@ -95,7 +95,7 @@ else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.
         </mj-text>
     }
     <mj-button href="@WebPageItemUrl" css-class="button">
-        READ MORE
+        @Properties.ReadMoreButtonText
     </mj-button>
 }
 else

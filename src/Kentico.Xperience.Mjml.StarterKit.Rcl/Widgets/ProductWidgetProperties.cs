@@ -21,13 +21,22 @@ public class ProductWidgetProperties : IEmailWidgetProperties
     /// Web page item url position.
     /// </summary>
     [DropDownComponent(
-        Label = "Web Page Item Url Position",
-        Order = 4,
-        ExplanationText = "Select where to display the link to the web page item.",
+        Label = "Web Page Link Button Position",
+        Order = 2,
+        ExplanationText = "Select where to display the link to the original web page item.",
         Options = $"{nameof(WebPageItemUrlPositionType.Above)};{nameof(WebPageItemUrlPositionType.Above)}" +
         $"\r\n{nameof(WebPageItemUrlPositionType.Below)};{nameof(WebPageItemUrlPositionType.Below)}" +
         $"\r\n{nameof(WebPageItemUrlPositionType.Title)};{nameof(WebPageItemUrlPositionType.Title)}" +
         $"\r\n{nameof(WebPageItemUrlPositionType.NotDisplayed)};{nameof(WebPageItemUrlPositionType.NotDisplayed)}",
         OptionsValueSeparator = ";")]
     public string WebPageItemUrlPosition { get; set; } = nameof(WebPageItemUrlPositionType.Below);
+
+    /// <summary>
+    /// Text of the button which links the original web page item.
+    /// </summary>
+    [TextInputComponent(
+        Label = "Go to Web Page Button Text",
+        Order = 3,
+        ExplanationText = "Set the text of the button which links the original web page item.")]
+    public string ReadMoreButtonText { get; set; } = "READ MORE";
 }

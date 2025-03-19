@@ -1,5 +1,4 @@
-﻿using CMS.ContentEngine;
-using CMS.Websites;
+﻿using CMS.Websites;
 
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
@@ -27,7 +26,7 @@ public partial class ProductWidget : ComponentBase
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ProductWidget)}";
 
     [Inject]
-    private IProductEmailTemplateMapper ProductEmailTemplateMapper { get; set; } = default!;
+    private WidgetDataRetriever<ProductWidgetModel> ProductWidgetEmailMapper { get; set; } = default!;
 
     [Inject]
     private IWebPageUrlRetriever WebPageUrlRetriever { get; set; } = default!;
@@ -64,6 +63,6 @@ public partial class ProductWidget : ComponentBase
             WebPageItemUrl = webPageItemUrl.AbsoluteUrl;
         }
 
-        Model = await ProductEmailTemplateMapper.MapProperties(webPageItem.WebPageGuid, languageName);
+        Model = await ProductWidgetEmailMapper.MapProperties(webPageItem.WebPageGuid, languageName);
     }
 }
