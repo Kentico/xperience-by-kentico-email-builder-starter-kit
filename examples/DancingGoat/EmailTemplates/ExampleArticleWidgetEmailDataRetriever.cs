@@ -8,14 +8,14 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailTemplates;
 
-public class ExampleArticleEmailTemplateMapper : IArticleEmailTemplateMapper
+public class ExampleArticleWidgetEmailDataRetriever : WidgetDataRetriever<ArticleWidgetModel>
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
 
     public string WebsiteChannelName { get; } = "DancingGoatPages";
 
-    public ExampleArticleEmailTemplateMapper(IContentQueryExecutor contentQueryExecutor,
+    public ExampleArticleWidgetEmailDataRetriever(IContentQueryExecutor contentQueryExecutor,
         IWebPageQueryResultMapper webPageMapper)
     {
         this.contentQueryExecutor = contentQueryExecutor;

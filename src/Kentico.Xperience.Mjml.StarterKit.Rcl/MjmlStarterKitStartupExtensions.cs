@@ -40,23 +40,15 @@ public static class MjmlStarterKitStartupExtensions
 }
 
 /// <summary>
-/// The mjml starter kit builder used to configure the <see cref="IEmailTemplateMapper{TWidgetModel}"/>s.
+/// The mjml starter kit builder used to configure the <see cref="WidgetDataRetriever{TWidgetModel}"/>s.
 /// </summary>
 public interface IMjmlStarterKitBuilder
 {
     /// <summary>
-    /// Registers the given <typeparamref name="TMapper"/> as a scoped service.
+    /// Registers the given <typeparamref name="TWidgetDataRetriever"/> for given <typeparamref name="TWidgetModel"/> as a scoped service.
     /// </summary>
-    /// <typeparam name="TMapper">The custom type of <see cref="IProductEmailTemplateMapper"/>.</typeparam>
     /// <returns>Returns this instance of <see cref="IMjmlStarterKitBuilder"/>, allowing for further configuration in a fluent manner.</returns>
-    IMjmlStarterKitBuilder RegisterProductMapper<TMapper>() where TMapper : class, IProductEmailTemplateMapper;
-
-    /// <summary>
-    /// Registers the given <typeparamref name="TMapper"/> as a scoped service.
-    /// </summary>
-    /// <typeparam name="TMapper">The custom type of <see cref="IArticleEmailTemplateMapper"/>.</typeparam>
-    /// <returns>Returns this instance of <see cref="IMjmlStarterKitBuilder"/>, allowing for further configuration in a fluent manner.</returns>
-    IMjmlStarterKitBuilder RegisterArticleMapper<TMapper>() where TMapper : class, IArticleEmailTemplateMapper;
+    IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TWidgetDataRetriever, TWidgetModel>() where TWidgetDataRetriever : class, WidgetDataRetriever<TWidgetModel>;
 }
 
 
@@ -66,16 +58,9 @@ internal class MjmlStarterKitBuilder : IMjmlStarterKitBuilder
     public MjmlStarterKitBuilder(IServiceCollection serviceCollection)
     => this.serviceCollection = serviceCollection;
 
-    public IMjmlStarterKitBuilder RegisterProductMapper<TMapper>() where TMapper : class, IProductEmailTemplateMapper
+    public IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TMapper, TWidgetModel>() where TMapper : class, WidgetDataRetriever<TWidgetModel>
     {
-        serviceCollection.AddScoped<IProductEmailTemplateMapper, TMapper>();
-
-        return this;
-    }
-
-    public IMjmlStarterKitBuilder RegisterArticleMapper<TMapper>() where TMapper : class, IArticleEmailTemplateMapper
-    {
-        serviceCollection.AddScoped<IArticleEmailTemplateMapper, TMapper>();
+        serviceCollection.AddScoped<WidgetDataRetriever<TWidgetModel>, TMapper>();
 
         return this;
     }

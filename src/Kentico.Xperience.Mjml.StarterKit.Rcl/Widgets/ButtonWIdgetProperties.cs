@@ -38,7 +38,7 @@ public sealed class ButtonWidgetProperties : IEmailWidgetProperties
     public string ButtonType { get; set; } = nameof(Widgets.ButtonType.Button);
 
     /// <summary>
-    /// The horizontal alignment of the button. <see cref="ButtonHorizontalAligment"/>
+    /// The horizontal alignment of the button. <see cref="ButtonHorizontalAlignment"/>
     /// </summary>
     [DropDownComponent(
         Label = "Alignment",
@@ -46,7 +46,7 @@ public sealed class ButtonWidgetProperties : IEmailWidgetProperties
         ExplanationText = "Select button alignment",
         Options = $"{nameof(ButtonAlignment.Left)};{nameof(ButtonAlignment.Left)}\r\n{nameof(ButtonAlignment.Centre)};{nameof(ButtonAlignment.Centre)}\r\n{nameof(ButtonAlignment.Right)};{nameof(ButtonAlignment.Right)}",
         OptionsValueSeparator = ";")]
-    public string ButtonHorizontalAligment { get; set; } = nameof(ButtonAlignment.Left);
+    public string ButtonHorizontalAlignment { get; set; } = nameof(ButtonAlignment.Left);
 }
 
 /// <summary>
