@@ -16,7 +16,7 @@ public sealed class ArticleWidgetModel
     public string Content { get; set; } = string.Empty;
 
     /// <summary>
-    /// The url of an image displayed in the widget.
+    /// The URL of an image displayed in the widget.
     /// </summary>
     public string ImageUrl { get; set; } = string.Empty;
 }
