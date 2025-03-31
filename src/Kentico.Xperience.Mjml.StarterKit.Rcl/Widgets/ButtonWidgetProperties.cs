@@ -23,7 +23,7 @@ public sealed class ButtonWidgetProperties : IEmailWidgetProperties
     [TextInputComponent(
         Label = "URL",
         Order = 2,
-        ExplanationText = "Enter the button link URL")]
+        ExplanationText = "Enter the button link URL. Allowed formats: absolute (starting with protocol), rooted (starting with /), or virtual (starting with ~)")]
     public string Url { get; set; } = string.Empty;
 
     /// <summary>
