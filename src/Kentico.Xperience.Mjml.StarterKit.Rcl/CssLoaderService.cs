@@ -29,7 +29,7 @@ public class CssLoaderService
     /// <returns></returns>
     public async Task<string> GetCssAsync()
     {
-        string path = System.IO.Path.Combine(environment.WebRootPath, mjmlStarterKitOptions.EmailBuilderStyleSheetPath.TrimStart('/'));
+        string path = CMS.IO.Path.Combine(environment.WebRootPath, mjmlStarterKitOptions.EmailBuilderStyleSheetPath.TrimStart('/'));
 
         if (File.Exists(path))
         {
