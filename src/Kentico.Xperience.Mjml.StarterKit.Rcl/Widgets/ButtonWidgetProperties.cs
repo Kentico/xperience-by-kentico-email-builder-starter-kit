@@ -1,5 +1,6 @@
 ﻿using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -33,9 +34,9 @@ public sealed class ButtonWidgetProperties : IEmailWidgetProperties
         Label = "Button Type",
         Order = 3,
         ExplanationText = "Select the button type",
-        Options = $"{nameof(Widgets.ButtonType.Button)};{nameof(Widgets.ButtonType.Button)}\r\n{nameof(Widgets.ButtonType.Link)};{nameof(Widgets.ButtonType.Link)}",
+        Options = $"{nameof(Enums.ButtonType.Button)};{nameof(Enums.ButtonType.Button)}\r\n{nameof(Enums.ButtonType.Link)};{nameof(Enums.ButtonType.Link)}",
         OptionsValueSeparator = ";")]
-    public string ButtonType { get; set; } = nameof(Widgets.ButtonType.Button);
+    public string ButtonType { get; set; } = nameof(Enums.ButtonType.Button);
 
     /// <summary>
     /// The horizontal alignment of the button. <see cref="ButtonHorizontalAlignment"/>
@@ -44,44 +45,7 @@ public sealed class ButtonWidgetProperties : IEmailWidgetProperties
         Label = "Alignment",
         Order = 11,
         ExplanationText = "Select button alignment",
-        Options = $"{nameof(ButtonAlignment.Left)};{nameof(ButtonAlignment.Left)}\r\n{nameof(ButtonAlignment.Centre)};{nameof(ButtonAlignment.Centre)}\r\n{nameof(ButtonAlignment.Right)};{nameof(ButtonAlignment.Right)}",
+        Options = $"{nameof(ButtonHorizontalAlingnment.Left)};{nameof(ButtonHorizontalAlingnment.Left)}\r\n{nameof(ButtonHorizontalAlingnment.Centre)};{nameof(ButtonHorizontalAlingnment.Centre)}\r\n{nameof(ButtonHorizontalAlingnment.Right)};{nameof(ButtonHorizontalAlingnment.Right)}",
         OptionsValueSeparator = ";")]
-    public string ButtonHorizontalAlignment { get; set; } = nameof(ButtonAlignment.Left);
-}
-
-/// <summary>
-/// The type of html element rendered by button widget.
-/// </summary>
-public enum ButtonType
-{
-    /// <summary>
-    /// <button/> html element.
-    /// </summary>
-    Button,
-
-    /// <summary>
-    /// <a/> html element.
-    /// </summary>
-    Link
-}
-
-/// <summary>
-/// The button horizontal alignment.
-/// </summary>
-public enum ButtonAlignment
-{
-    /// <summary>
-    /// Left
-    /// </summary>
-    Left,
-
-    /// <summary>
-    /// Centre.
-    /// </summary>
-    Centre,
-
-    /// <summary>
-    /// Right.
-    /// </summary>
-    Right
+    public string ButtonHorizontalAlignment { get; set; } = nameof(ButtonHorizontalAlingnment.Left);
 }
