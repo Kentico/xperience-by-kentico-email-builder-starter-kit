@@ -12,6 +12,6 @@
     <PackageVersion Include="kentico.xperience.imageprocessing" Version="30.3.0" />
 	<PackageVersion Include="kentico.xperience.mjml" Version="30.3.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
-	<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.12" />
+	<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.14" />
   </ItemGroup>
 </Project>
