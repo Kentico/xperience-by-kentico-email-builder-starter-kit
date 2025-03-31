@@ -26,7 +26,7 @@ public partial class ProductWidget : ComponentBase
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ProductWidget)}";
 
     [Inject]
-    private WidgetDataRetriever<ProductWidgetModel> ProductWidgetEmailMapper { get; set; } = default!;
+    private IWidgetDataRetriever<ProductWidgetModel> ProductWidgetEmailMapper { get; set; } = default!;
 
     [Inject]
     private IWebPageUrlRetriever WebPageUrlRetriever { get; set; } = default!;

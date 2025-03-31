@@ -40,7 +40,7 @@ public static class MjmlStarterKitStartupExtensions
 }
 
 /// <summary>
-/// The mjml starter kit builder used to configure the <see cref="WidgetDataRetriever{TWidgetModel}"/>s.
+/// The mjml starter kit builder used to configure the <see cref="IWidgetDataRetriever{TWidgetModel}"/>s.
 /// </summary>
 public interface IMjmlStarterKitBuilder
 {
@@ -48,7 +48,7 @@ public interface IMjmlStarterKitBuilder
     /// Registers the given <typeparamref name="TWidgetDataRetriever"/> for given <typeparamref name="TWidgetModel"/> as a scoped service.
     /// </summary>
     /// <returns>Returns this instance of <see cref="IMjmlStarterKitBuilder"/>, allowing for further configuration in a fluent manner.</returns>
-    IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TWidgetDataRetriever, TWidgetModel>() where TWidgetDataRetriever : class, WidgetDataRetriever<TWidgetModel>;
+    IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TWidgetDataRetriever, TWidgetModel>() where TWidgetDataRetriever : class, IWidgetDataRetriever<TWidgetModel>;
 }
 
 
@@ -58,9 +58,9 @@ internal class MjmlStarterKitBuilder : IMjmlStarterKitBuilder
     public MjmlStarterKitBuilder(IServiceCollection serviceCollection)
     => this.serviceCollection = serviceCollection;
 
-    public IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TMapper, TWidgetModel>() where TMapper : class, WidgetDataRetriever<TWidgetModel>
+    public IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TMapper, TWidgetModel>() where TMapper : class, IWidgetDataRetriever<TWidgetModel>
     {
-        serviceCollection.AddScoped<WidgetDataRetriever<TWidgetModel>, TMapper>();
+        serviceCollection.AddScoped<IWidgetDataRetriever<TWidgetModel>, TMapper>();
 
         return this;
     }

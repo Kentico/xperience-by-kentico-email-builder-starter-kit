@@ -8,7 +8,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailTemplates;
 
-public class ExampleArticleWidgetEmailDataRetriever : WidgetDataRetriever<ArticleWidgetModel>
+public class ExampleArticleWidgetEmailDataRetriever : IWidgetDataRetriever<ArticleWidgetModel>
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;

@@ -19,7 +19,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailTemplates;
 
-public class ExampleProductWidgetEmailDataRetriever : WidgetDataRetriever<ProductWidgetModel>
+public class ExampleProductWidgetEmailDataRetriever : IWidgetDataRetriever<ProductWidgetModel>
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
