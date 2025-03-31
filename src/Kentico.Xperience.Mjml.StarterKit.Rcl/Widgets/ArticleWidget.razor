@@ -5,18 +5,18 @@
 @if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Title))
 {
     <mj-text>
-        <div class="text">
+        <div class="mj-email-text">
             <h1><a href="@WebPageItemUrl">@((MarkupString)Model.Title)</a></h1>
         </div>
     </mj-text>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Below))
     {
         <mj-image src="@ImageUrl"
-        css-class="image">
+                  css-class="mj-email-image">
         </mj-image>
     }
     <mj-text>
-        <div class="text">
+        <div class="mj-email-text">
             <p>
                 @((MarkupString)Model.Content)
             </p>
@@ -25,29 +25,29 @@
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Above))
     {
         <mj-image src="@ImageUrl"
-            css-class="image">
+                  css-class="mj-email-image">
         </mj-image>
     }
 }
 else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Above))
 {
     <mj-text>
-        <div class="text">
+        <div class="mj-email-text">
             <h1>@((MarkupString)Model.Title)</h1>
         </div>
     </mj-text>
-    <mj-button href="@WebPageItemUrl
-    " css-class="button">
+    <mj-button href="@WebPageItemUrl"
+               css-class="mj-email-button">
         @Properties.ReadMoreButtonText
     </mj-button>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Below))
     {
         <mj-image src="@ImageUrl"
-        css-class="image">
+                  css-class="mj-email-image">
         </mj-image>
     }
     <mj-text>
-        <div class="text">
+        <div class=".mj-email-text">
             <p>
                 @((MarkupString)Model.Content)
             </p>
@@ -56,7 +56,7 @@ else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Above))
     {
         <mj-image src="@ImageUrl"
-        css-class="image">
+                  css-class="mj-email-image">
         </mj-image>
     }
 }
@@ -65,52 +65,52 @@ else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Above))
     {
         <mj-text>
-            <div class="text">
+            <div class="mj-email-text">
                 <h1>@((MarkupString)Model.Title)</h1>
                 <p>
                     @((MarkupString)Model.Content)
                 </p>
             </div>
         </mj-text>
-        <mj-image src="@ImageUrl" css-class="image">
+        <mj-image src="@ImageUrl" css-class="mj-email-image">
         </mj-image>
     }
     else
     {
         <mj-text>
-            <div class="text">
+            <div class="mj-email-text">
                 <h1>@((MarkupString)Model.Title)</h1>
             </div>
         </mj-text>
-        <mj-image src="@ImageUrl" css-class="image">
+        <mj-image src="@ImageUrl" css-class="mj-email-image">
         </mj-image>
         <mj-text>
-            <div class="text">
+            <div class="mj-email-text">
                 <p>
                     @((MarkupString)Model.Content)
                 </p>
             </div>
         </mj-text>
     }
-    <mj-button href="@WebPageItemUrl" css-class="button">
+    <mj-button href="@WebPageItemUrl" css-class="mj-email-button">
         @Properties.ReadMoreButtonText
     </mj-button>
 }
 else
 {
     <mj-text>
-        <div class="text">
+        <div class="mj-email-text">
             <h1>@((MarkupString)Model.Title)</h1>
         </div>
     </mj-text>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Below))
     {
         <mj-image src="@ImageUrl"
-                  css-class="image">
+                  css-class="mj-email-image">
         </mj-image>
     }
     <mj-text>
-        <div class="text">
+        <div class="mj-email-text">
             <p>
                 @((MarkupString)Model.Content)
             </p>
@@ -119,7 +119,7 @@ else
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Above))
     {
         <mj-image src="@ImageUrl"
-                  css-class="image">
+                  css-class="mj-email-image">
         </mj-image>
     }
 }

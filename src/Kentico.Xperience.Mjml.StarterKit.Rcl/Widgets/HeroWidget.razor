@@ -4,18 +4,18 @@
 
 @if (Properties.DescriptionPosition == nameof(DescriptionPositionType.Above))
 {
-    <mj-text css-class="text">
+    <mj-text css-class="mj-email-text">
         @Properties.Description
     </mj-text>
 }
 
-<mj-image src="@ImageUrl" css-class="image"
+<mj-image src="@ImageUrl" css-class="mj-email-image"
           alt="@Properties.AltText">
 </mj-image>
 
 @if (Properties.DescriptionPosition == nameof(DescriptionPositionType.Below))
 {
-    <mj-text css-class="text">
+    <mj-text css-class="mj-email-text">
         @Properties.Description
     </mj-text>
 }
