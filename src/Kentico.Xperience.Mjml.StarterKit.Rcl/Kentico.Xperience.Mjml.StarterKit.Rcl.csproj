@@ -40,7 +40,7 @@
       <Content Update="Sections\EmailSectionBase.razor">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-      <Content Update="Templates\ProductEmailTemplate.razor">
+      <Content Update="Templates\EmailBuilderStarterKitTemplate.razor">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <Content Update="Widgets\ButtonWidget.razor">

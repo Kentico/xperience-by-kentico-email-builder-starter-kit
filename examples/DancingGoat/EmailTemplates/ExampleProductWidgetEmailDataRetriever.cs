@@ -9,9 +9,9 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 [assembly: RegisterEmailTemplate(
-    identifier: ProductEmailTemplate.IDENTIFIER,
+    identifier: EmailBuilderStarterKitTemplate.IDENTIFIER,
     name: "Mjml starter kit template",
-    componentType: typeof(ProductEmailTemplate),
+    componentType: typeof(EmailBuilderStarterKitTemplate),
     ContentTypeNames = ["DancingGoat.Email"],
     Description = "Product template.",
     IconClass = "xp-c-sharp")
