@@ -3,7 +3,7 @@
 /// <summary>
 /// The product widget model.
 /// </summary>
-public class ProductWidgetModel
+public sealed class ProductWidgetModel
 {
     /// <summary>
     /// The title of the widget.

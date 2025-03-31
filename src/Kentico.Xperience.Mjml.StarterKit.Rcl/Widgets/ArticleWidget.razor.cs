@@ -1,5 +1,4 @@
 ﻿using CMS.Core;
-using CMS.EventLog;
 using CMS.Websites;
 
 using Kentico.EmailBuilder.Web.Mvc;

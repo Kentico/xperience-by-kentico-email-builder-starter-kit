@@ -3,7 +3,7 @@
 /// <summary>
 /// The article widget model.
 /// </summary>
-public class ArticleWidgetModel
+public sealed class ArticleWidgetModel
 {
     /// <summary>
     /// The title of the widget.
