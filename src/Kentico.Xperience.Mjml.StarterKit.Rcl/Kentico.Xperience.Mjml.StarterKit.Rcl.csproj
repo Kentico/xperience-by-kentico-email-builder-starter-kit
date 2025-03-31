@@ -9,10 +9,6 @@
 		<EnableScopedCss>false</EnableScopedCss>
     </PropertyGroup>
 
-	<PropertyGroup>
-		<NoWarn>KXE0001</NoWarn>
-	</PropertyGroup>
-
 	<ItemGroup>
 	  <Compile Remove="Properties\**" />
 	  <Content Remove="Properties\**" />
