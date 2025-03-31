@@ -44,6 +44,12 @@ public partial class ArticleWidget : ComponentBase
     /// </summary>
     public string WebPageItemUrl { get; set; } = string.Empty;
 
+    /// <summary>
+    /// The widget properties.
+    /// </summary>
+    [Parameter]
+    public ArticleWidgetProperties Properties { get; set; } = new();
+
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {

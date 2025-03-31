@@ -30,6 +30,12 @@ public partial class HeroWidget : ComponentBase
     /// </summary>
     public string ImageUrl { get; set; } = string.Empty;
 
+    /// <summary>
+    /// The widget properties.
+    /// </summary>
+    [Parameter]
+    public HeroWidgetProperties Properties { get; set; } = null!;
+
     /// <inheritdoc/>
     protected override void OnInitialized()
     => ImageUrl = MediaFileService.GetImageUrlFromMediaFileSelectorOrEmpty(Properties.Image);

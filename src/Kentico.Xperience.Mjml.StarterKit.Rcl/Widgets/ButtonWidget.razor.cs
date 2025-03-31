@@ -17,4 +17,9 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// </summary>
 public partial class ButtonWidget : ComponentBase
 {
+    /// <summary>
+    /// The widget properties.
+    /// </summary>
+    [Parameter]
+    public ButtonWidgetProperties Properties { get; set; } = null!;
 }

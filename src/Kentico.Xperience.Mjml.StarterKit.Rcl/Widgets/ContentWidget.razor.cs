@@ -17,4 +17,9 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// </summary>
 public partial class ContentWidget : ComponentBase
 {
+    /// <summary>
+    /// The widget properties.
+    /// </summary>
+    [Parameter]
+    public ContentWidgetProperties Properties { get; set; } = null!;
 }
