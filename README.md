@@ -61,7 +61,7 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
    ```json
    "MjmlStarterKitOptions": {
       // the style sheet file is defined at <Project root>/wwwroot/EmailBuilder.css
-      "EmailBuilderStyleSheetPath": "EmailBuilder.css"
+      "StyleSheetPath": "EmailBuilder.css"
     }
    ```
 
