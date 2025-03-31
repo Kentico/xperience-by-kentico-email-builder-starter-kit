@@ -13,7 +13,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
     name: "Mjml starter kit template",
     componentType: typeof(EmailBuilderStarterKitTemplate),
     ContentTypeNames = ["DancingGoat.Email"],
-    Description = "Product template.",
+    Description = "Email builder starter kit template.",
     IconClass = "xp-c-sharp")
 ]
 

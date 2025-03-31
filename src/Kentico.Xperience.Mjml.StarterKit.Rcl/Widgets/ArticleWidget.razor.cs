@@ -27,7 +27,7 @@ public partial class ArticleWidget : ComponentBase
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ArticleWidget)}";
 
     [Inject]
-    private IWidgetDataRetriever<ArticleWidgetModel> ArticleWidgetEmailMapper { get; set; } = default!;
+    private IWidgetDataRetriever<ArticleWidgetModel> ArticleWidgetDataRetriever { get; set; } = default!;
 
     [Inject]
     private IWebPageUrlRetriever WebPageUrlRetriever { get; set; } = default!;
@@ -73,7 +73,7 @@ public partial class ArticleWidget : ComponentBase
             WebPageItemUrl = webPageItemUrl.AbsoluteUrl;
         }
 
-        Model = await ArticleWidgetEmailMapper.MapProperties(webPageItemGuid.WebPageGuid, languageName);
+        Model = await ArticleWidgetDataRetriever.MapProperties(webPageItemGuid.WebPageGuid, languageName);
 
         if (Model is null)
         {

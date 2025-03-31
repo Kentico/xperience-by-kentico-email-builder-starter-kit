@@ -40,7 +40,7 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
 
 1. Perform the necessary steps to enable the [Email Builder](https://docs.kentico.com/developers-and-admins/development/builders/email-builder#enable-the-email-builder-feature) feature in your application.
 
-2. Define custom implementations of `IEmailWidgetMapper` for `ArticleWidgetModel` and `ProductWidgetModel` to customize how Web Page Items are mapped to **Email Builder** widgets.
+2. Define custom implementations of `IWidgetDataRetriever` for `ArticleWidgetModel` and `ProductWidgetModel` to customize how Web Page Items are mapped to **Email Builder** widgets.
 
 3. Add this library to the application services, registering your custom `ExampleArticleWidgetEmailDataRetriever` and `ExampleProductWidgetEmailDataRetriever`.
 
@@ -69,11 +69,11 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
 
 ```csharp
 [assembly: RegisterEmailTemplate(
-    identifier: ProductEmailTemplate.IDENTIFIER,
+    identifier: EmailBuilderStarterKitTemplate.IDENTIFIER,
     name: "Mjml starter kit template",
-    componentType: typeof(ProductEmailTemplate),
+    componentType: typeof(EmailBuilderStarterKitTemplate),
     ContentTypeNames = ["DancingGoat.Email"],
-    Description = "Product template.",
+    Description = "Email builder starter kit template.",
     IconClass = "xp-c-sharp")
 ]
 ```
@@ -81,7 +81,7 @@ dotnet add package Kentico.Xperience.Mjml.StarterKit
 7. Use the components in **Email Builder**.
 - Navigate to an **Email Channel** configuration in your **Xperience by Kentico** administration UI.
 - Create a new email by pressing **NEW EMAIL**.
-- Fill out the email's attributes and specify a content type that you have registered to make the `ProductEmailTemplate` available.
+- Fill out the email's attributes and specify a content type that you have registered to make the `EmailBuilderStarterKitTemplate` available.
 - Press **CONTINUE** and select the **Mjml starter kit template**.
 - Fill out the content of your email and press **SAVE**.
 - Go to the **Email Builder** section.

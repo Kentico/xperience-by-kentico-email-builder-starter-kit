@@ -58,9 +58,9 @@ internal class MjmlStarterKitBuilder : IMjmlStarterKitBuilder
     public MjmlStarterKitBuilder(IServiceCollection serviceCollection)
     => this.serviceCollection = serviceCollection;
 
-    public IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TMapper, TWidgetModel>() where TMapper : class, IWidgetDataRetriever<TWidgetModel>
+    public IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TWidgetDataRetriever, TWidgetModel>() where TWidgetDataRetriever : class, IWidgetDataRetriever<TWidgetModel>
     {
-        serviceCollection.AddScoped<IWidgetDataRetriever<TWidgetModel>, TMapper>();
+        serviceCollection.AddScoped<IWidgetDataRetriever<TWidgetModel>, TWidgetDataRetriever>();
 
         return this;
     }
