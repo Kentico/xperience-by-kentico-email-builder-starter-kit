@@ -4,15 +4,6 @@
 
 @inject CssLoaderService CssLoaderService
 @inject IEmailContextAccessor emailContextAccessor
-@code {
-    private string cssContent = string.Empty;
-    private string sectionIdentifier = FullWidthEmailSection.IDENTIFIER;
-
-    protected override async Task OnInitializedAsync()
-    {
-        cssContent = await CssLoaderService.GetCssAsync();
-    }
-}
 <mjml>
     <mj-head>
         <mj-title>Simple Marketing Email</mj-title>
