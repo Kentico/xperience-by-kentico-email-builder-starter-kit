@@ -1,7 +1,6 @@
 ﻿using CMS.EmailEngine;
 
 using Kentico.EmailBuilder.Web.Mvc;
-using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 
 using Microsoft.AspNetCore.Components;
 
