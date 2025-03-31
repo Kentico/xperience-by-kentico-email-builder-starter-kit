@@ -2,6 +2,7 @@
 
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -41,7 +42,7 @@ public sealed class HeroWidgetProperties : IEmailWidgetProperties
         Label = "Description Position",
         Order = 4,
         ExplanationText = "Select where to display the description",
-        Options = $"{nameof(Widgets.DescriptionPosition.Below)};{nameof(Widgets.DescriptionPosition.Below)}\r\n{nameof(Widgets.DescriptionPosition.Above)};{nameof(Widgets.DescriptionPosition.Above)}",
+        Options = $"{nameof(DescriptionPositionType.Below)};{nameof(DescriptionPositionType.Below)}\r\n{nameof(DescriptionPositionType.Above)};{nameof(DescriptionPositionType.Above)}",
         OptionsValueSeparator = ";")]
-    public string DescriptionPosition { get; set; } = nameof(Widgets.DescriptionPosition.Below);
+    public string DescriptionPosition { get; set; } = nameof(DescriptionPositionType.Below);
 }

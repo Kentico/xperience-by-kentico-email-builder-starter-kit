@@ -1,6 +1,8 @@
-﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
+﻿@using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums
 
-@if (Properties.DescriptionPosition == nameof(DescriptionPosition.Above))
+@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
+
+@if (Properties.DescriptionPosition == nameof(DescriptionPositionType.Above))
 {
     <mj-text css-class="text">
         @Properties.Description
@@ -11,7 +13,7 @@
           alt="@Properties.AltText">
 </mj-image>
 
-@if (Properties.DescriptionPosition == nameof(DescriptionPosition.Below))
+@if (Properties.DescriptionPosition == nameof(DescriptionPositionType.Below))
 {
     <mj-text css-class="text">
         @Properties.Description
