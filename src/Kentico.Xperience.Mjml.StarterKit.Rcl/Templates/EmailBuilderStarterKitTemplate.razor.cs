@@ -15,8 +15,6 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
     private string cssContent = string.Empty;
     private string emailSubject = string.Empty;
 
-    private readonly string sectionIdentifier = FullWidthEmailSection.IDENTIFIER;
-
     [Inject]
     private CssLoaderService CssLoaderService { get; set; } = default!;
 
