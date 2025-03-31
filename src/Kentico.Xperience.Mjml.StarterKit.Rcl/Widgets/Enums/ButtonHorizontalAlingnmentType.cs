@@ -3,10 +3,10 @@
 /// <summary>
 /// The button horizontal alignment.
 /// </summary>
-public enum ButtonHorizontalAlingnment
+public enum ButtonHorizontalAlingnmentType
 {
     /// <summary>
-    /// Left
+    /// Left.
     /// </summary>
     Left,
 

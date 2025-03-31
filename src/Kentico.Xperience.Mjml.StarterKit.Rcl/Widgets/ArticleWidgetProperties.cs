@@ -3,6 +3,7 @@
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
 using Kentico.Xperience.Admin.Websites.FormAnnotations;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -27,9 +28,9 @@ public sealed class ArticleWidgetProperties : IEmailWidgetProperties
         Label = "Content Position",
         Order = 2,
         ExplanationText = "Select where to display the content relative to the displayed image.",
-        Options = $"{nameof(ContentPositionOption.Above)};{nameof(ContentPositionOption.Above)}\r\n{nameof(ContentPositionOption.Below)};{nameof(ContentPositionOption.Below)}",
+        Options = $"{nameof(ContentVerticalPositionType.Above)};{nameof(ContentVerticalPositionType.Above)}\r\n{nameof(ContentVerticalPositionType.Below)};{nameof(ContentVerticalPositionType.Below)}",
         OptionsValueSeparator = ";")]
-    public string ContentPosition { get; set; } = nameof(ContentPositionOption.Above);
+    public string ContentPosition { get; set; } = nameof(ContentVerticalPositionType.Above);
 
     /// <summary>
     /// Web page item url position.
@@ -53,19 +54,4 @@ public sealed class ArticleWidgetProperties : IEmailWidgetProperties
         Order = 4,
         ExplanationText = "Set the text of the button which links the original web page item.")]
     public string ReadMoreButtonText { get; set; } = "READ MORE";
-}
-
-/// <summary>
-/// Vertical positioning of the text content within a widget relative to the displayed image.
-/// </summary>
-public enum ContentPositionOption
-{
-    /// <summary>
-    /// Display content above an image.
-    /// </summary>
-    Above,
-    /// <summary>
-    /// Display content below image.
-    /// </summary>
-    Below
 }

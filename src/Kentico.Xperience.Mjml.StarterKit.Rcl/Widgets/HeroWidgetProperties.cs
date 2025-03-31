@@ -45,19 +45,3 @@ public sealed class HeroWidgetProperties : IEmailWidgetProperties
         OptionsValueSeparator = ";")]
     public string DescriptionPosition { get; set; } = nameof(Widgets.DescriptionPosition.Below);
 }
-
-/// <summary>
-/// Vertical position of the description relative to the image.
-/// </summary>
-public enum DescriptionPosition
-{
-    /// <summary>
-    /// Above the image.
-    /// </summary>
-    Above,
-
-    /// <summary>
-    /// Below the image
-    /// </summary>
-    Below
-}

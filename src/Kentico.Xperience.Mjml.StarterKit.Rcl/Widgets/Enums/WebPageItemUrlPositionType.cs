@@ -1,4 +1,4 @@
-﻿namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
+﻿namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 /// <summary>
 /// Type of the positioning of web page item url within a widget.

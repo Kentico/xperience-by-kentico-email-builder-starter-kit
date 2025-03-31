@@ -45,7 +45,7 @@ public sealed class ButtonWidgetProperties : IEmailWidgetProperties
         Label = "Alignment",
         Order = 11,
         ExplanationText = "Select button alignment",
-        Options = $"{nameof(ButtonHorizontalAlingnment.Left)};{nameof(ButtonHorizontalAlingnment.Left)}\r\n{nameof(ButtonHorizontalAlingnment.Centre)};{nameof(ButtonHorizontalAlingnment.Centre)}\r\n{nameof(ButtonHorizontalAlingnment.Right)};{nameof(ButtonHorizontalAlingnment.Right)}",
+        Options = $"{nameof(ButtonHorizontalAlingnmentType.Left)};{nameof(ButtonHorizontalAlingnmentType.Left)}\r\n{nameof(ButtonHorizontalAlingnmentType.Centre)};{nameof(ButtonHorizontalAlingnmentType.Centre)}\r\n{nameof(ButtonHorizontalAlingnmentType.Right)};{nameof(ButtonHorizontalAlingnmentType.Right)}",
         OptionsValueSeparator = ";")]
-    public string ButtonHorizontalAlignment { get; set; } = nameof(ButtonHorizontalAlingnment.Left);
+    public string ButtonHorizontalAlignment { get; set; } = nameof(ButtonHorizontalAlingnmentType.Left);
 }
