@@ -1,4 +1,6 @@
-﻿using CMS.Websites;
+﻿using CMS.Core;
+using CMS.EventLog;
+using CMS.Websites;
 
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
@@ -33,6 +35,9 @@ public partial class ArticleWidget : ComponentBase
 
     [Inject]
     private IEmailContextAccessor EmailContextAccessor { get; set; } = default!;
+
+    [Inject]
+    private IEventLogService EventLogService { get; set; } = default!;
 
     /// <summary>
     /// The widget model.
@@ -70,5 +75,10 @@ public partial class ArticleWidget : ComponentBase
         }
 
         Model = await ArticleWidgetEmailMapper.MapProperties(webPageItemGuid.WebPageGuid, languageName);
+
+        if (Model is null)
+        {
+            EventLogService.LogError(nameof(ArticleWidget), nameof(OnInitializedAsync), $"An attempt to use the {nameof(ArticleWidget)} email builder widget component has been made, but the {nameof(IWidgetDataRetriever<ArticleWidgetModel>)} has not been registered.");
+        }
     }
 }
