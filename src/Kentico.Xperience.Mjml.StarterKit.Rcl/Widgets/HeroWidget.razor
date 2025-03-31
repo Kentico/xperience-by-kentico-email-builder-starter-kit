@@ -1,26 +1,19 @@
 ﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
 
-@if (Properties.ButtonDescriptionPosition == nameof(DescriptionPosition.Above))
+@if (Properties.DescriptionPosition == nameof(DescriptionPosition.Above))
 {
-    <mj-text color="@Properties.TextColor"
-             font-size="16px"
-             padding="10px">
+    <mj-text css-class="text">
         @Properties.Description
     </mj-text>
 }
 
-<mj-image src="@Properties.ImageUrl"
-          alt="@Properties.AltText"
-          border-radius="@Properties.BorderRadius"
-          background-color="@Properties.BackgroundColor"
-          padding="0px">
+<mj-image src="@ImageUrl" css-class="image"
+          alt="@Properties.AltText">
 </mj-image>
 
-@if (Properties.ButtonDescriptionPosition == nameof(DescriptionPosition.Below))
+@if (Properties.DescriptionPosition == nameof(DescriptionPosition.Below))
 {
-    <mj-text color="@Properties.TextColor"
-             font-size="16px"
-             padding="10px">
+    <mj-text css-class="text">
         @Properties.Description
     </mj-text>
 }

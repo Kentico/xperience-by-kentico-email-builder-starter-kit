@@ -3,11 +3,17 @@ using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
+/// <summary>
+/// Configurable properties of the <see cref="ContentWidget"/>.
+/// </summary>
 public sealed class ContentWidgetProperties : IEmailWidgetProperties
 {
-    [TextInputComponent(
+    /// <summary>
+    /// The content text.
+    /// </summary>
+    [RichTextEditorComponent(
         Label = "Content Text",
         Order = 1,
-        ExplanationText = "Enter the text content for this widget")]
+        ExplanationText = "Enter the content for this widget")]
     public string Text { get; set; } = string.Empty;
 }

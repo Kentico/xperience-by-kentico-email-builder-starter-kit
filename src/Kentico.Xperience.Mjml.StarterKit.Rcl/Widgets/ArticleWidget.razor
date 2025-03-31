@@ -4,36 +4,126 @@
 
 @inject IUrlHelper Url
 
-
-@if (Properties.ContentPosition == nameof(ContentPositionOption.Above))
+@if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Title))
 {
     <mj-text>
         <div class="text">
-            <h1>@((MarkupString)Model.Title)</h1>
+            <h1><a href="@WebPageItemUrl">@((MarkupString)Model.Title)</a></h1>
+        </div>
+    </mj-text>
+    @if (Properties.ContentPosition == nameof(ContentPositionOption.Below))
+    {
+        <mj-image src="@Url.Content(Model.ImageUrl)"
+        css-class="image">
+        </mj-image>
+    }
+    <mj-text>
+        <div class="text">
             <p>
                 @((MarkupString)Model.Content)
             </p>
         </div>
     </mj-text>
-    <mj-image src="@Url.Content(Model.ImageUrl)"
-              css-class="image">
-    </mj-image>
+    @if (Properties.ContentPosition == nameof(ContentPositionOption.Above))
+    {
+        <mj-image src="@Url.Content(Model.ImageUrl)"
+            css-class="image">
+        </mj-image>
+    }
 }
-@if (Properties.ContentPosition == nameof(ContentPositionOption.Below))
+else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Above))
 {
     <mj-text>
         <div class="text">
-            @((MarkupString)Model.Title)
+            <h1>@((MarkupString)Model.Title)</h1>
         </div>
     </mj-text>
-    <mj-image src="@Url.Content(Model.ImageUrl)"
-              css-class="image">
-    </mj-image>
+    <mj-button href="@WebPageItemUrl
+    " css-class="button">
+        @Properties.ReadMoreButtonText
+    </mj-button>
+    @if (Properties.ContentPosition == nameof(ContentPositionOption.Below))
+    {
+        <mj-image src="@Url.Content(Model.ImageUrl)"
+        css-class="image">
+        </mj-image>
+    }
     <mj-text>
         <div class="text">
-            <p>@((MarkupString)Model.Content)</p>
+            <p>
+                @((MarkupString)Model.Content)
+            </p>
         </div>
     </mj-text>
+    @if (Properties.ContentPosition == nameof(ContentPositionOption.Above))
+    {
+        <mj-image src="@Url.Content(Model.ImageUrl)"
+        css-class="image">
+        </mj-image>
+    }
+}
+else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Below))
+{
+    @if (Properties.ContentPosition == nameof(ContentPositionOption.Above))
+    {
+        <mj-text>
+            <div class="text">
+                <h1>@((MarkupString)Model.Title)</h1>
+                <p>
+                    @((MarkupString)Model.Content)
+                </p>
+            </div>
+        </mj-text>
+        <mj-image src="@Url.Content(Model.ImageUrl)" css-class="image">
+        </mj-image>
+    }
+    else
+    {
+        <mj-text>
+            <div class="text">
+                <h1>@((MarkupString)Model.Title)</h1>
+            </div>
+        </mj-text>
+        <mj-image src="@Url.Content(Model.ImageUrl)" css-class="image">
+        </mj-image>
+        <mj-text>
+            <div class="text">
+                <p>
+                    @((MarkupString)Model.Content)
+                </p>
+            </div>
+        </mj-text>
+    }
+    <mj-button href="@WebPageItemUrl" css-class="button">
+        @Properties.ReadMoreButtonText
+    </mj-button>
+}
+else
+{
+    <mj-text>
+        <div class="text">
+            <h1>@((MarkupString)Model.Title)</h1>
+        </div>
+    </mj-text>
+    @if (Properties.ContentPosition == nameof(ContentPositionOption.Below))
+    {
+        <mj-image src="@Url.Content(Model.ImageUrl)"
+                  css-class="image">
+        </mj-image>
+    }
+    <mj-text>
+        <div class="text">
+            <p>
+                @((MarkupString)Model.Content)
+            </p>
+        </div>
+    </mj-text>
+    @if (Properties.ContentPosition == nameof(ContentPositionOption.Above))
+    {
+        <mj-image src="@Url.Content(Model.ImageUrl)"
+                  css-class="image">
+        </mj-image>
+    }
 }
 @code {
     [Parameter]

@@ -10,7 +10,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 [assembly: RegisterEmailTemplate(
     identifier: ProductEmailTemplate.IDENTIFIER,
-    name: "Email builder Product template",
+    name: "Mjml starter kit template",
     componentType: typeof(ProductEmailTemplate),
     ContentTypeNames = ["DancingGoat.Email"],
     Description = "Product template.",
@@ -19,32 +19,31 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailTemplates;
 
-public class ExampleProductEmailTemplateMapper : ProductEmailTemplateMapper
+public class ExampleProductWidgetEmailDataRetriever : WidgetDataRetriever<ProductWidgetModel>
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
 
-    public const string WEBSITE_CHANNEL_NAME = "DancingGoatPages";
-    public const string WEBSITE_LANGUAGE_NAME = "en";
+    public string WebsiteChannelName { get; } = "DancingGoatPages";
 
-    public ExampleProductEmailTemplateMapper(IContentQueryExecutor contentQueryExecutor,
+    public ExampleProductWidgetEmailDataRetriever(IContentQueryExecutor contentQueryExecutor,
         IWebPageQueryResultMapper webPageMapper)
     {
         this.contentQueryExecutor = contentQueryExecutor;
         this.webPageMapper = webPageMapper;
     }
 
-    public override async Task<ProductWidgetModel> MapProperties(Guid webPageItemGuid)
+    public async Task<ProductWidgetModel> MapProperties(Guid webPageItemGuid, string languageName)
     {
         var queryBuilder = new ContentItemQueryBuilder()
             .ForContentType(CoffeePage.CONTENT_TYPE_NAME,
                 config => config.WithLinkedItems(10)
-                .ForWebsite(WEBSITE_CHANNEL_NAME)
+                .ForWebsite(WebsiteChannelName)
                 .Where(
                     x => x.WhereEquals(nameof(WebPageFields.WebPageItemGUID), webPageItemGuid)
                 )
             )
-            .InLanguage(WEBSITE_LANGUAGE_NAME);
+            .InLanguage(languageName);
 
         var result = await contentQueryExecutor.GetWebPageResult(queryBuilder, webPageMapper.Map<CoffeePage>);
         var coffeePage = result.FirstOrDefault();

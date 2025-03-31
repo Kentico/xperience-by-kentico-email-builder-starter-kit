@@ -22,6 +22,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 using DancingGoat.EmailTemplates;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,8 +69,8 @@ builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrac
 
 builder.Services.AddKenticoMjmlStarterKit(builder.Configuration, configure =>
 {
-    configure.RegisterArticleMapper<ExampleArticleEmailTemplateMapper>();
-    configure.RegisterProductMapper<ExampleProductEmailTemplateMapper>();
+    configure.RegisterWidgetDataRetriever<ExampleArticleWidgetEmailDataRetriever, ArticleWidgetModel>();
+    configure.RegisterWidgetDataRetriever<ExampleProductWidgetEmailDataRetriever, ProductWidgetModel>();
 });
 builder.Services.AddMjmlForEmails();
 
