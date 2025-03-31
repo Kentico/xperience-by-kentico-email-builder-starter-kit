@@ -25,8 +25,6 @@ using DancingGoat.EmailTemplates;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#pragma warning disable KXE0001
-
 builder.Services.AddKentico(features =>
 {
     features.UsePageBuilder(new PageBuilderOptions

@@ -8,7 +8,6 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-#pragma warning disable KXE0001
 [assembly: RegisterEmailTemplate(
     identifier: ProductEmailTemplate.IDENTIFIER,
     name: "Email builder Product template",
@@ -17,7 +16,6 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
     Description = "Product template.",
     IconClass = "xp-c-sharp")
 ]
-#pragma warning restore KXE0001
 
 namespace DancingGoat.EmailTemplates;
 
