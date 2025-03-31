@@ -12,9 +12,4 @@ public interface IWidgetDataRetriever<TWidgetModel>
     /// <param name="languageName">Language of the current email channel.</param>
     /// <returns>The <typeparamref name="TWidgetModel"/> of a widget.</returns>
     public Task<TWidgetModel> MapProperties(Guid webPageItemGuid, string languageName);
-
-    /// <summary>
-    /// The website channel where the web page item is selected.
-    /// </summary>
-    public string WebsiteChannelName { get; }
 }

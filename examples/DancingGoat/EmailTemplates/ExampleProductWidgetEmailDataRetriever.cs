@@ -24,8 +24,6 @@ public class ExampleProductWidgetEmailDataRetriever : IWidgetDataRetriever<Produ
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
 
-    public string WebsiteChannelName { get; } = "DancingGoatPages";
-
     public ExampleProductWidgetEmailDataRetriever(IContentQueryExecutor contentQueryExecutor,
         IWebPageQueryResultMapper webPageMapper)
     {
@@ -36,12 +34,10 @@ public class ExampleProductWidgetEmailDataRetriever : IWidgetDataRetriever<Produ
     public async Task<ProductWidgetModel> MapProperties(Guid webPageItemGuid, string languageName)
     {
         var queryBuilder = new ContentItemQueryBuilder()
-            .ForContentType(CoffeePage.CONTENT_TYPE_NAME,
-                config => config.WithLinkedItems(10)
-                .ForWebsite(WebsiteChannelName)
-                .Where(
-                    x => x.WhereEquals(nameof(WebPageFields.WebPageItemGUID), webPageItemGuid)
-                )
+            .ForContentTypes(parameters => parameters
+                .OfContentType(CoffeePage.CONTENT_TYPE_NAME)
+                .ForWebsite([webPageItemGuid])
+                .WithLinkedItems(10)
             )
             .InLanguage(languageName);
 

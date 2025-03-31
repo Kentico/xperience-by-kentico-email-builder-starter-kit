@@ -13,8 +13,6 @@ public class ExampleArticleWidgetEmailDataRetriever : IWidgetDataRetriever<Artic
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
 
-    public string WebsiteChannelName { get; } = "DancingGoatPages";
-
     public ExampleArticleWidgetEmailDataRetriever(IContentQueryExecutor contentQueryExecutor,
         IWebPageQueryResultMapper webPageMapper)
     {
@@ -25,16 +23,10 @@ public class ExampleArticleWidgetEmailDataRetriever : IWidgetDataRetriever<Artic
     public async Task<ArticleWidgetModel> MapProperties(Guid webPageItemGuid, string languageName)
     {
         var queryBuilder = new ContentItemQueryBuilder()
-            .ForContentType(ArticlePage.CONTENT_TYPE_NAME,
-                config => config.WithLinkedItems(10)
-
-                // Because the webPageItemGuid is a reusable content item, we don't have a website channel name to use here
-                // so we use a hardcoded channel name.
-
-                .ForWebsite(WebsiteChannelName)
-                .Where(
-                    x => x.WhereEquals(nameof(WebPageFields.WebPageItemGUID), webPageItemGuid)
-                )
+            .ForContentTypes(parameters => parameters
+                .OfContentType(ArticlePage.CONTENT_TYPE_NAME)
+                .ForWebsite([webPageItemGuid])
+                .WithLinkedItems(10)
             )
 
             // Because the changedItem is a reusable content item, we don't have a language name to use here
