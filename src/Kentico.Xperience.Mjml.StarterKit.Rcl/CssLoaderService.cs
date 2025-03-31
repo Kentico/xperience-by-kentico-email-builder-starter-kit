@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
 
 /// <summary>
-/// Retriever of style sheets used for injection of css styles to razor email builder components.
+/// Retriever of style sheets used for injection of CSS styles to Razor email builder components.
 /// </summary>
 public class CssLoaderService
 {
