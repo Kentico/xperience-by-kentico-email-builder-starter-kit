@@ -2,7 +2,7 @@
     @for (int i = 0; i < NumberOfSectionColumns; i++)
     {
         <mj-column width="@($"{100m / (decimal)NumberOfSectionColumns}%")">
-            <WidgetZone ZoneName="@($"Widget_Zone_{NumberOfSectionColumns}")" />
+            <WidgetZone ZoneName="@($"Widget_Zone_{i}")" />
         </mj-column>
     }
 </mj-section>
