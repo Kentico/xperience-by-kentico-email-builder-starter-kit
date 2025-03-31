@@ -1,9 +1,6 @@
 ﻿@using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums
-@using Microsoft.AspNetCore.Mvc
 
 @namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
-
-@inject IUrlHelper Url
 
 @if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Title))
 {
@@ -14,7 +11,7 @@
     </mj-text>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Below))
     {
-        <mj-image src="@Url.Content(Model.ImageUrl)"
+        <mj-image src="@ImageUrl"
         css-class="image">
         </mj-image>
     }
@@ -27,7 +24,7 @@
     </mj-text>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Above))
     {
-        <mj-image src="@Url.Content(Model.ImageUrl)"
+        <mj-image src="@ImageUrl"
             css-class="image">
         </mj-image>
     }
@@ -45,7 +42,7 @@ else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.
     </mj-button>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Below))
     {
-        <mj-image src="@Url.Content(Model.ImageUrl)"
+        <mj-image src="@ImageUrl"
         css-class="image">
         </mj-image>
     }
@@ -58,7 +55,7 @@ else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.
     </mj-text>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Above))
     {
-        <mj-image src="@Url.Content(Model.ImageUrl)"
+        <mj-image src="@ImageUrl"
         css-class="image">
         </mj-image>
     }
@@ -75,7 +72,7 @@ else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.
                 </p>
             </div>
         </mj-text>
-        <mj-image src="@Url.Content(Model.ImageUrl)" css-class="image">
+        <mj-image src="@ImageUrl" css-class="image">
         </mj-image>
     }
     else
@@ -85,7 +82,7 @@ else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.
                 <h1>@((MarkupString)Model.Title)</h1>
             </div>
         </mj-text>
-        <mj-image src="@Url.Content(Model.ImageUrl)" css-class="image">
+        <mj-image src="@ImageUrl" css-class="image">
         </mj-image>
         <mj-text>
             <div class="text">
@@ -108,7 +105,7 @@ else
     </mj-text>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Below))
     {
-        <mj-image src="@Url.Content(Model.ImageUrl)"
+        <mj-image src="@ImageUrl"
                   css-class="image">
         </mj-image>
     }
@@ -121,7 +118,7 @@ else
     </mj-text>
     @if (Properties.ContentPosition == nameof(ContentVerticalPositionType.Above))
     {
-        <mj-image src="@Url.Content(Model.ImageUrl)"
+        <mj-image src="@ImageUrl"
                   css-class="image">
         </mj-image>
     }

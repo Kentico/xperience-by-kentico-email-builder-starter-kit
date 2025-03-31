@@ -6,6 +6,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
 
 [assembly: RegisterEmailWidget(
     identifier: ArticleWidget.IDENTIFIER,
@@ -37,6 +38,11 @@ public partial class ArticleWidget : ComponentBase
 
     [Inject]
     private IEventLogService EventLogService { get; set; } = default!;
+
+    [Inject]
+    private IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
+
+    private string ImageUrl { get; set; } = string.Empty;
 
     /// <summary>
     /// The widget model.
@@ -78,6 +84,13 @@ public partial class ArticleWidget : ComponentBase
         if (Model is null)
         {
             EventLogService.LogError(nameof(ArticleWidget), nameof(OnInitializedAsync), $"An attempt to use the {nameof(ArticleWidget)} email builder widget component has been made, but the {nameof(IWidgetDataRetriever<ArticleWidgetModel>)} has not been registered.");
+            return;
+        }
+
+        if (HttpContextAccessor.HttpContext is not null && !string.IsNullOrWhiteSpace(Model.ImageUrl))
+        {
+            var request = HttpContextAccessor.HttpContext.Request;
+            ImageUrl = $"{request.Scheme}://{request.Host}{Model.ImageUrl.TrimStart('~')}";
         }
     }
 }
