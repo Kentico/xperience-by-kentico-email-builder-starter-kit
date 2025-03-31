@@ -15,7 +15,7 @@ public interface IMediaFileService
     /// </summary>
     /// <param name="assets">The asset collection.</param>
     /// <returns>The media file url or empty string.</returns>
-    string GetImageUrlFromMediaFileSelectorOrEmpty(IEnumerable<AssetRelatedItem> assets);
+    public string GetImageUrlFromMediaFileSelectorOrEmpty(IEnumerable<AssetRelatedItem> assets);
 }
 
 /// <inheritdoc/>

@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
-using Kentico.EmailBuilder.Web.Mvc;
+﻿using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
+
+using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailSection(
     identifier: FullWidthEmailSection.IDENTIFIER,
