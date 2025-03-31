@@ -2,11 +2,9 @@
 @using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections
 @using Kentico.EmailBuilder.Web.Mvc
 
-@inject CssLoaderService CssLoaderService
-@inject IEmailContextAccessor emailContextAccessor
 <mjml>
     <mj-head>
-        <mj-title>Simple Marketing Email</mj-title>
+        <mj-title>@emailSubject</mj-title>
         <mj-style inline="inline">
             @((MarkupString)cssContent)
         </mj-style>

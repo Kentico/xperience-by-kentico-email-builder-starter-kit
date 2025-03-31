@@ -1,4 +1,7 @@
-﻿using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
+﻿using CMS.EmailEngine;
+
+using Kentico.EmailBuilder.Web.Mvc;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 
 using Microsoft.AspNetCore.Components;
 
@@ -10,13 +13,24 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
 public partial class EmailBuilderStarterKitTemplate : ComponentBase
 {
     private string cssContent = string.Empty;
+    private string emailSubject = string.Empty;
 
     private readonly string sectionIdentifier = FullWidthEmailSection.IDENTIFIER;
+
+    [Inject]
+    private CssLoaderService CssLoaderService { get; set; } = default!;
+
+    [Inject]
+    private IEmailContextAccessor EmailContextAccessor { get; set; } = default!;
 
     /// <summary>
     /// The component identifier.
     /// </summary>
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(EmailBuilderStarterKitTemplate)}";
 
-    protected override async Task OnInitializedAsync() => cssContent = await CssLoaderService.GetCssAsync();
+    protected override async Task OnInitializedAsync()
+    {
+        emailSubject = (string)EmailContextAccessor.GetContext().EmailFields[nameof(EmailInfo.EmailSubject)];
+        cssContent = await CssLoaderService.GetCssAsync();
+    }
 }
