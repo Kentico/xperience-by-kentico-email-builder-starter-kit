@@ -8,7 +8,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// <summary>
 /// Configurable properties of the <see cref="ProductWidget"/>.
 /// </summary>
-public class ProductWidgetProperties : IEmailWidgetProperties
+public sealed class ProductWidgetProperties : IEmailWidgetProperties
 {
     /// <summary>
     /// Specifies the <see cref="WebPageRelatedItem"/> which is used as the content of the product widget.

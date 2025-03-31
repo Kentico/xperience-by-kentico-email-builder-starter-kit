@@ -3,7 +3,7 @@ using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-public class HeroWidgetProperties : IEmailWidgetProperties
+public sealed class HeroWidgetProperties : IEmailWidgetProperties
 {
     [TextInputComponent(
         Label = "Image URL",

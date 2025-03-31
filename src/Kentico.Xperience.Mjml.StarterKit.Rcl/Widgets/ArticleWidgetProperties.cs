@@ -9,7 +9,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// <summary>
 /// Configurable properties of the <see cref="ArticleWidget"/>.
 /// </summary>
-public class ArticleWidgetProperties : IEmailWidgetProperties
+public sealed class ArticleWidgetProperties : IEmailWidgetProperties
 {
     /// <summary>
     /// Configures the vertical position where the content is displayed relative to the image..

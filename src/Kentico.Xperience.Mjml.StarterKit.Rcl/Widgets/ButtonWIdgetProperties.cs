@@ -3,7 +3,7 @@ using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-public class ButtonWidgetProperties : IEmailWidgetProperties
+public sealed class ButtonWidgetProperties : IEmailWidgetProperties
 {
     [TextInputComponent(
         Label = "Button Text",
