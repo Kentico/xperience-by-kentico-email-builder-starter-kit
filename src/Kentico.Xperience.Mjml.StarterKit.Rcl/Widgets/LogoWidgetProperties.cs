@@ -8,7 +8,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// <summary>
 /// Configurable properties of the <see cref="LogoWidget"/>.
 /// </summary>
-public class LogoWidgetProperties : IEmailWidgetProperties
+public sealed class LogoWidgetProperties : IEmailWidgetProperties
 {
     /// <summary>
     /// The logo.
