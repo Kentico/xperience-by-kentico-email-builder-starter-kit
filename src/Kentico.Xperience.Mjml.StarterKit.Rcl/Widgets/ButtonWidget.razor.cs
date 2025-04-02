@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Components;
     identifier: nameof(ButtonWidget),
     name: "Button Widget",
     componentType: typeof(ButtonWidget),
-    PropertiesType = typeof(ButtonWidgetProperties)
+    PropertiesType = typeof(ButtonWidgetProperties),
+    IconClass = "icon-triangle-right"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Http;
     identifier: ArticleWidget.IDENTIFIER,
     name: "Article Widget",
     componentType: typeof(ArticleWidget),
-    PropertiesType = typeof(ArticleWidgetProperties)
+    PropertiesType = typeof(ArticleWidgetProperties),
+    IconClass = "icon-l-list-img-article"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

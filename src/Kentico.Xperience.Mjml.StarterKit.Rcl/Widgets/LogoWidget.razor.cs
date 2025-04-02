@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Components;
     identifier: LogoWidget.IDENTIFIER,
     name: "Logo Widget",
     componentType: typeof(LogoWidget),
-    PropertiesType = typeof(LogoWidgetProperties)
+    PropertiesType = typeof(LogoWidgetProperties),
+    IconClass = "icon-l-lightbox"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

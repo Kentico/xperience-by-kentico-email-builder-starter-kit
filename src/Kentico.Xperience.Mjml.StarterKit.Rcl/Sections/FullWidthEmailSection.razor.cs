@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Components;
 [assembly: RegisterEmailSection(
     identifier: FullWidthEmailSection.IDENTIFIER,
     name: "Full Width Email Section",
-    componentType: typeof(FullWidthEmailSection))]
+    componentType: typeof(FullWidthEmailSection),
+    IconClass = "icon-l-header-text")]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 

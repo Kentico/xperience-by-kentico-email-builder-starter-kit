@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Components;
 [assembly: RegisterEmailSection(
     identifier: TwoColumnEmailSection.IDENTIFIER,
     name: "Two Columns Email Section",
-    componentType: typeof(TwoColumnEmailSection))]
+    componentType: typeof(TwoColumnEmailSection),
+    IconClass = "icon-l-cols-2")]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 

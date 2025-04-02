@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Components;
     identifier: ProductWidget.IDENTIFIER,
     name: "Product Widget",
     componentType: typeof(ProductWidget),
-    PropertiesType = typeof(ProductWidgetProperties)
+    PropertiesType = typeof(ProductWidgetProperties),
+    IconClass = "icon-l-list-article"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

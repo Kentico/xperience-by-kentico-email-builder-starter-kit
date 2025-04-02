@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Components;
     identifier: HeroWidget.IDENTIFIER,
     name: "Hero Widget",
     componentType: typeof(HeroWidget),
-    PropertiesType = typeof(HeroWidgetProperties)
+    PropertiesType = typeof(HeroWidgetProperties),
+    IconClass = "icon-l-lightbox"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Components;
     identifier: nameof(ContentWidget),
     name: "Content Widget",
     componentType: typeof(ContentWidget),
-    PropertiesType = typeof(ContentWidgetProperties)
+    PropertiesType = typeof(ContentWidgetProperties),
+    IconClass = "icon-l-list-article"
+    )]
 )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
