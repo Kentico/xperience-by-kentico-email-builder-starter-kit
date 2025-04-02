@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Components;
     PropertiesType = typeof(ContentWidgetProperties),
     IconClass = "icon-l-list-article"
     )]
-)]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
