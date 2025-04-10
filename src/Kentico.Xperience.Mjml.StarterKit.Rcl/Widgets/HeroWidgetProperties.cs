@@ -42,7 +42,7 @@ public sealed class HeroWidgetProperties : IEmailWidgetProperties
         Label = "Description Position",
         Order = 4,
         ExplanationText = "Select where to display the description",
-        Options = $"{nameof(DescriptionPositionType.Below)};{nameof(DescriptionPositionType.Below)}\r\n{nameof(DescriptionPositionType.Above)};{nameof(DescriptionPositionType.Above)}",
+        Options = $"{nameof(ContentPositionType.Below)};{nameof(ContentPositionType.Below)}\r\n{nameof(ContentPositionType.Above)};{nameof(ContentPositionType.Above)}",
         OptionsValueSeparator = ";")]
-    public string DescriptionPosition { get; set; } = nameof(DescriptionPositionType.Below);
+    public string DescriptionPosition { get; set; } = nameof(ContentPositionType.Below);
 }

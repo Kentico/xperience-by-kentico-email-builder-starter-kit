@@ -1,17 +1,17 @@
 ﻿namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 /// <summary>
-/// Vertical position of the description relative to the image.
+/// Vertical position of the content relative to the other element.
 /// </summary>
-public enum DescriptionPositionType
+public enum ContentPositionType
 {
     /// <summary>
-    /// Above the image.
+    /// Above the element.
     /// </summary>
     Above,
 
     /// <summary>
-    /// Below the image.
+    /// Below the element.
     /// </summary>
     Below
 }

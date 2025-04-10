@@ -2,7 +2,7 @@
 
 @namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
 
-@if (Properties.DescriptionPosition == nameof(DescriptionPositionType.Above))
+@if (Properties.DescriptionPosition == nameof(ContentPositionType.Above))
 {
     <mj-text css-class="mj-email-text">
         @Properties.Description
@@ -13,7 +13,7 @@
           alt="@Properties.AltText">
 </mj-image>
 
-@if (Properties.DescriptionPosition == nameof(DescriptionPositionType.Below))
+@if (Properties.DescriptionPosition == nameof(ContentPositionType.Below))
 {
     <mj-text css-class="mj-email-text">
         @Properties.Description
