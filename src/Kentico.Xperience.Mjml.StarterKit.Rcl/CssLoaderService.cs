@@ -27,16 +27,17 @@ public sealed class CssLoaderService
     /// Retrieves the style sheet from the location specified in the appsettings.json.
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetCssAsync()
+    public Task<string> GetCssAsync()
     {
-        string path = CMS.IO.Path.Combine(environment.WebRootPath, mjmlStarterKitOptions.StyleSheetPath.TrimStart('/'));
+        var path = CMS.IO.Path.Combine(environment.WebRootPath, mjmlStarterKitOptions.StyleSheetPath.TrimStart('/'));
 
-        if (File.Exists(path))
+        if (!CMS.IO.File.Exists(path))
         {
-            string text = await File.ReadAllTextAsync(path);
-            return text.Trim();
+            return Task.FromResult(string.Empty);
         }
 
-        return string.Empty;
+        var text = CMS.IO.File.ReadAllText(path);
+        
+        return Task.FromResult(text.Trim());
     }
 }
