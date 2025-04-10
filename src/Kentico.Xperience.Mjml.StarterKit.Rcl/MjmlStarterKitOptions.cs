@@ -9,4 +9,9 @@ public sealed class MjmlStarterKitOptions
     /// The path of style sheets within the consuming application's wwwroot.
     /// </summary>
     public string StyleSheetPath { get; set; } = string.Empty;
+  
+    /// <summary>
+    /// The list of content type identifiers that are allowed to be used in the Product Widget.
+    /// </summary>
+    public IEnumerable<Guid> AllowedProductContentTypes { get; set; } = Array.Empty<Guid>();
 }

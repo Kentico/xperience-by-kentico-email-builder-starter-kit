@@ -19,46 +19,43 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailComponents;
 
-public class ExampleProductModelMapper : IComponentModelMapper<ProductWidgetModel>
+public class ExampleProductModelMapper(IContentQueryExecutor executor, IWebPageUrlRetriever webPageUrlRetriever)
+    : IComponentModelMapper<ProductWidgetModel>
 {
-    private readonly IContentQueryExecutor contentQueryExecutor;
-    private readonly IWebPageQueryResultMapper webPageMapper;
-
-    public ExampleProductModelMapper(IContentQueryExecutor contentQueryExecutor,
-        IWebPageQueryResultMapper webPageMapper)
-    {
-        this.contentQueryExecutor = contentQueryExecutor;
-        this.webPageMapper = webPageMapper;
-    }
-
     public async Task<ProductWidgetModel> Map(Guid webPageItemGuid, string languageName)
     {
-        var queryBuilder = new ContentItemQueryBuilder()
-            .ForContentTypes(parameters => parameters
-                .OfContentType(CoffeePage.CONTENT_TYPE_NAME)
-                .ForWebsite([webPageItemGuid])
-                .WithLinkedItems(10)
-            )
+        var query = new ContentItemQueryBuilder()
+            .ForContentType(CoffeePage.CONTENT_TYPE_NAME,
+                config => config
+                    .WithLinkedItems(10)
+                    .ForWebsite(DancingGoatConstants.WEBSITE_CHANNEL_NAME, includeUrlPath: true)
+                    .Where(where => where
+                        .WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), webPageItemGuid)))
             .InLanguage(languageName);
 
-        var result = await contentQueryExecutor.GetWebPageResult(queryBuilder, webPageMapper.Map<CoffeePage>);
+        var result = await executor.GetMappedResult<CoffeePage>(query);
+        
         var coffeePage = result.FirstOrDefault();
 
         if (coffeePage is null)
         {
-            return new();
+            return new ProductWidgetModel();
         }
 
+        var webPageItemUrl = await webPageUrlRetriever.Retrieve(coffeePage.SystemFields.WebPageItemID, languageName);
+
         var coffee = coffeePage.RelatedItem?.FirstOrDefault();
+        
         if (coffee is null)
         {
-            return new();
+            return new ProductWidgetModel();
         }
 
         return new ProductWidgetModel
         {
             Title = coffee.ProductFieldsName,
-            Content = coffee.ProductFieldsDescription
+            Content = coffee.ProductFieldsDescription,
+            WebPageItemUrl = webPageItemUrl?.AbsoluteUrl
         };
     }
 }

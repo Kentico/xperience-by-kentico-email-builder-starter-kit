@@ -1,61 +1,60 @@
 ﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
 @using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums
 
-@if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Title))
+@switch (Properties.WebPageItemUrlPosition)
 {
-    <mj-text>
-        <div class="mj-email-text">
-            <h1><a href="@WebPageItemUrl">@((MarkupString)Model.Title)</a></h1>
-        </div>
-    </mj-text>
-    <mj-text>
-        <div class="mj-email-text">
-            <p>
-                @((MarkupString)Model.Content)
-            </p>
-        </div>
-    </mj-text>
-}
-else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Above))
-{
-    <mj-text>
-        <div class="mj-email-text">
-            <h1>@((MarkupString)Model.Title)</h1>
-        </div>
-    </mj-text>
-    <mj-button href="@WebPageItemUrl" css-class="mj-email-button">
-        @Properties.ReadMoreButtonText
-    </mj-button>
-    <mj-text>
-        <div class="mj-email-text">
-            <p>
-                @((MarkupString)Model.Content)
-            </p>
-        </div>
-    </mj-text>
-}
-else if (Properties.WebPageItemUrlPosition == nameof(WebPageItemUrlPositionType.Below))
-{
-    <mj-text>
-        <div class="mj-email-text">
-            <h1>@((MarkupString)Model.Title)</h1>
-            <p>
-                @((MarkupString)Model.Content)
-            </p>
-        </div>
-    </mj-text>
-    <mj-button href="@WebPageItemUrl" css-class="mj-email-button">
-        @Properties.ReadMoreButtonText
-    </mj-button>
-}
-else
-{
-    <mj-text>
-        <div class="mj-email-text">
-            <h1>@((MarkupString)Model.Title)</h1>
-            <p>
-                @((MarkupString)Model.Content)
-            </p>
-        </div>
-    </mj-text>
+    case nameof(WebPageItemUrlPositionType.Title):
+        <mj-text>
+            <div class="mj-email-text">
+                <h1><a href="@Model.WebPageItemUrl">@((MarkupString)Model.Title)</a></h1>
+            </div>
+        </mj-text>
+        <mj-text>
+            <div class="mj-email-text">
+                <p>
+                    @((MarkupString)Model.Content)
+                </p>
+            </div>
+        </mj-text>
+        break;
+    case nameof(WebPageItemUrlPositionType.Above):
+        <mj-text>
+            <div class="mj-email-text">
+                <h1>@((MarkupString)Model.Title)</h1>
+            </div>
+        </mj-text>
+        <mj-button href="@Model.WebPageItemUrl" css-class="mj-email-button">
+            @Properties.ReadMoreButtonText
+        </mj-button>
+        <mj-text>
+            <div class="mj-email-text">
+                <p>
+                    @((MarkupString)Model.Content)
+                </p>
+            </div>
+        </mj-text>
+        break;
+    case nameof(WebPageItemUrlPositionType.Below):
+        <mj-text>
+            <div class="mj-email-text">
+                <h1>@((MarkupString)Model.Title)</h1>
+                <p>
+                    @((MarkupString)Model.Content)
+                </p>
+            </div>
+        </mj-text>
+        <mj-button href="@Model.WebPageItemUrl" css-class="mj-email-button">
+            @Properties.ReadMoreButtonText
+        </mj-button>
+        break;
+    default:
+        <mj-text>
+            <div class="mj-email-text">
+                <h1>@((MarkupString)Model.Title)</h1>
+                <p>
+                    @((MarkupString)Model.Content)
+                </p>
+            </div>
+        </mj-text>
+        break;
 }

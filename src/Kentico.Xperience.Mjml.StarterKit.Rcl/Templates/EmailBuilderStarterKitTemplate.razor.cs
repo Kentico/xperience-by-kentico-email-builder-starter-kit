@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
 
 /// <summary>
-/// The product email template component.
+/// The email starter kit template component.
 /// </summary>
 public partial class EmailBuilderStarterKitTemplate : ComponentBase
 {

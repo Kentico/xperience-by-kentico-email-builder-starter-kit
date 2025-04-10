@@ -14,6 +14,6 @@ public sealed class ContentWidgetProperties : IEmailWidgetProperties
     [RichTextEditorComponent(
         Label = "Content Text",
         Order = 1,
-        ExplanationText = "Enter the content for this widget")]
+        ExplanationText = "{$TextWidget.Description$}")] //Enter the content for this widget
     public string Text { get; set; } = string.Empty;
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: nameof(ContentWidget),
-    name: "$TextWidget.Name$",
+    name: "{$TextWidget.Name$}",
     componentType: typeof(ContentWidget),
     PropertiesType = typeof(ContentWidgetProperties),
     IconClass = "icon-l-list-article",
