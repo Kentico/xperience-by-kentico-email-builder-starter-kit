@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Kentico.Xperience.Mjml.StarterKit.Rcl {
+namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
     using System;
     
     
@@ -21,7 +21,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class MjmlStarterKitResources {
+    internal partial class MjmlStarterKitResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
