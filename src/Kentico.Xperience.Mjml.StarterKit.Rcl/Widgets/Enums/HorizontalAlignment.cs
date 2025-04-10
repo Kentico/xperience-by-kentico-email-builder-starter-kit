@@ -1,9 +1,9 @@
 ﻿namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 /// <summary>
-/// The button horizontal alignment.
+/// The horizontal alignment.
 /// </summary>
-public enum ButtonHorizontalAlingnmentType
+public enum HorizontalAlignment
 {
     /// <summary>
     /// Left.
@@ -13,7 +13,7 @@ public enum ButtonHorizontalAlingnmentType
     /// <summary>
     /// Centre.
     /// </summary>
-    Centre,
+    Center,
 
     /// <summary>
     /// Right.
