@@ -13,6 +13,11 @@
 	  <Compile Remove="Properties\**" />
 	  <Content Remove="Properties\**" />
 	  <None Remove="Properties\**" />
+	  <Compile Update="MjmlStarterKitResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>MjmlStarterKitResources.resx</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
     <ItemGroup>
@@ -28,5 +33,12 @@
     <ItemGroup>
         <AssemblyAttribute Include="CMS.AssemblyDiscoverableAttribute">
         </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="MjmlStarterKitResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>MjmlStarterKitResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 </Project>

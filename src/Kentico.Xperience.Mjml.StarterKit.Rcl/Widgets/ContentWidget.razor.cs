@@ -1,14 +1,16 @@
 ﻿using Kentico.EmailBuilder.Web.Mvc;
+using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: nameof(ContentWidget),
-    name: "Content Widget",
+    name: "$TextWidget.Name$",
     componentType: typeof(ContentWidget),
     PropertiesType = typeof(ContentWidgetProperties),
-    IconClass = "icon-l-list-article"
+    IconClass = "icon-l-list-article",
+    Description = "Displays text content in your email."
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

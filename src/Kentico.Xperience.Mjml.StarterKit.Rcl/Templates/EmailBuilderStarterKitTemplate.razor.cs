@@ -15,10 +15,10 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
     private string emailSubject = string.Empty;
 
     [Inject]
-    private CssLoaderService CssLoaderService { get; set; } = default!;
+    private CssLoaderService CssLoaderService { get; set; } = null!;
 
     [Inject]
-    private IEmailContextAccessor EmailContextAccessor { get; set; } = default!;
+    private IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
 
     /// <summary>
     /// The component identifier.

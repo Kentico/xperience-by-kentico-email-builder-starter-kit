@@ -1,14 +1,11 @@
-﻿@using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
-@using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections
-@using Kentico.EmailBuilder.Web.Mvc
-
-<mjml>
+﻿<mjml>
     <mj-head>
         <mj-title>@emailSubject</mj-title>
         <mj-style inline="inline">
             @((MarkupString)cssContent)
         </mj-style>
         <EmailBuilderStyles />
+        <mj-preview>@EmailContextAccessor.GetContext().EmailFields["EmailPreviewText"]</mj-preview>
     </mj-head>
     <mj-body>
         <EditableArea AreaIdentifier="MainContent"/>

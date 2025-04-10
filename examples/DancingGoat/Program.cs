@@ -4,6 +4,8 @@ using DancingGoat.Models;
 
 using CMS.Base;
 
+using DancingGoat.EmailComponents;
+
 using Kentico.Activities.Web.Mvc;
 using Kentico.Content.Web.Mvc.Routing;
 using Kentico.Membership;
@@ -21,7 +23,6 @@ using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
-using DancingGoat.EmailTemplates;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,8 +70,8 @@ builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrac
 
 builder.Services.AddKenticoMjmlStarterKit(builder.Configuration, configure =>
 {
-    configure.RegisterWidgetDataRetriever<ExampleArticleWidgetEmailDataRetriever, ArticleWidgetModel>();
-    configure.RegisterWidgetDataRetriever<ExampleProductWidgetEmailDataRetriever, ProductWidgetModel>();
+    configure.RegisterWidgetDataRetriever<ExampleArticleModelMapper, ArticleWidgetModel>();
+    configure.RegisterWidgetDataRetriever<ExampleProductModelMapper, ProductWidgetModel>();
 });
 builder.Services.AddMjmlForEmails();
 

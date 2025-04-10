@@ -6,16 +6,16 @@ using Kentico.Content.Web.Mvc;
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
 
 /// <inheritdoc/>
-public sealed class MediaFileService : IMediaFileService
+internal sealed class MediaFileService : IMediaFileService
 {
     private readonly IInfoProvider<MediaFileInfo> mediaFileInfoProvider;
     private readonly IMediaFileUrlRetriever mediaFileUrlRetriever;
 
     /// <summary>
-    /// Constructor
+    /// Initializes a new instance of the <see cref="MediaFileService"/> class.
     /// </summary>
-    /// <param name="mediaFileInfoProvider"></param>
-    /// <param name="mediaFileUrlRetriever"></param>
+    /// <param name="mediaFileInfoProvider">The provider for media file information.</param>
+    /// <param name="mediaFileUrlRetriever">The retriever for media file URLs.</param>
     public MediaFileService(IInfoProvider<MediaFileInfo> mediaFileInfoProvider,
         IMediaFileUrlRetriever mediaFileUrlRetriever)
     {
@@ -24,9 +24,9 @@ public sealed class MediaFileService : IMediaFileService
     }
 
     /// <inheritdoc/>
-    public string GetImageUrlFromMediaFileSelectorOrEmpty(IEnumerable<AssetRelatedItem> assets)
+    public string GetFileUrl(AssetRelatedItem? asset)
     {
-        var imageIdentifier = assets.FirstOrDefault()?.Identifier;
+        var imageIdentifier = asset?.Identifier;
 
         if (imageIdentifier is null)
         {
@@ -38,6 +38,15 @@ public sealed class MediaFileService : IMediaFileService
 
     private IMediaFileUrl? GetMediaFileUrl(Guid identifier)
     {
+        // var mediaLibraryFiles = mediaFileInfoProvider
+        //     .Get()
+        //     .WhereEquals(nameof(MediaFileInfo.FileGUID), identifier);
+        //
+        // if (!mediaLibraryFiles.Any())
+        // {
+        //     return null;
+        // }
+
         var mediaLibraryFiles = mediaFileInfoProvider
             .Get()
             .WhereEquals(nameof(MediaFileInfo.FileGUID), identifier);
@@ -46,8 +55,10 @@ public sealed class MediaFileService : IMediaFileService
         {
             return null;
         }
-
-        var media = mediaFileUrlRetriever.Retrieve(mediaLibraryFiles.First());
+        
+        var mediaFile = mediaFileInfoProvider.Get(identifier);
+        //var media = mediaFileUrlRetriever.Retrieve(mediaLibraryFiles.First());
+        var media = mediaFileUrlRetriever.Retrieve(mediaFile);
 
         return media;
     }

@@ -6,21 +6,21 @@ using DancingGoat.Models;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-namespace DancingGoat.EmailTemplates;
+namespace DancingGoat.EmailComponents;
 
-public class ExampleArticleWidgetEmailDataRetriever : IWidgetDataRetriever<ArticleWidgetModel>
+public class ExampleArticleModelMapper : IComponentModelMapper<ArticleWidgetModel>
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
 
-    public ExampleArticleWidgetEmailDataRetriever(IContentQueryExecutor contentQueryExecutor,
+    public ExampleArticleModelMapper(IContentQueryExecutor contentQueryExecutor,
         IWebPageQueryResultMapper webPageMapper)
     {
         this.contentQueryExecutor = contentQueryExecutor;
         this.webPageMapper = webPageMapper;
     }
 
-    public async Task<ArticleWidgetModel> MapProperties(Guid webPageItemGuid, string languageName)
+    public async Task<ArticleWidgetModel> Map(Guid webPageItemGuid, string languageName)
     {
         var queryBuilder = new ContentItemQueryBuilder()
             .ForContentTypes(parameters => parameters

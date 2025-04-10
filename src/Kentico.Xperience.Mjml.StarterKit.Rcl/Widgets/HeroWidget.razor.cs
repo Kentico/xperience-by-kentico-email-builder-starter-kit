@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: HeroWidget.IDENTIFIER,
-    name: "Hero Widget",
+    name: "Hero",
     componentType: typeof(HeroWidget),
     PropertiesType = typeof(HeroWidgetProperties),
-    IconClass = "icon-l-lightbox"
+    IconClass = "icon-l-lightbox",
+    Description = "Displays a hero image with a title and a text content."
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
@@ -39,6 +40,6 @@ public partial class HeroWidget : ComponentBase
 
     /// <inheritdoc/>
     protected override void OnInitialized()
-    => ImageUrl = MediaFileService.GetImageUrlFromMediaFileSelectorOrEmpty(Properties.Image);
+    => ImageUrl = MediaFileService.GetFileUrl(Properties.Image.FirstOrDefault());
 }
 

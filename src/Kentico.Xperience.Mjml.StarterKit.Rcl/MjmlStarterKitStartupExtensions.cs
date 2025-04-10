@@ -1,6 +1,4 @@
-﻿using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
@@ -36,32 +34,5 @@ public static class MjmlStarterKitStartupExtensions
         configure(builder);
 
         return services;
-    }
-}
-
-/// <summary>
-/// The mjml starter kit builder used to configure the <see cref="IWidgetDataRetriever{TWidgetModel}"/>s.
-/// </summary>
-public interface IMjmlStarterKitBuilder
-{
-    /// <summary>
-    /// Registers the given <typeparamref name="TWidgetDataRetriever"/> for given <typeparamref name="TWidgetModel"/> as a scoped service.
-    /// </summary>
-    /// <returns>Returns this instance of <see cref="IMjmlStarterKitBuilder"/>, allowing for further configuration in a fluent manner.</returns>
-    public IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TWidgetDataRetriever, TWidgetModel>() where TWidgetDataRetriever : class, IWidgetDataRetriever<TWidgetModel>;
-}
-
-
-internal class MjmlStarterKitBuilder : IMjmlStarterKitBuilder
-{
-    private readonly IServiceCollection serviceCollection;
-    public MjmlStarterKitBuilder(IServiceCollection serviceCollection)
-    => this.serviceCollection = serviceCollection;
-
-    public IMjmlStarterKitBuilder RegisterWidgetDataRetriever<TWidgetDataRetriever, TWidgetModel>() where TWidgetDataRetriever : class, IWidgetDataRetriever<TWidgetModel>
-    {
-        serviceCollection.AddScoped<IWidgetDataRetriever<TWidgetModel>, TWidgetDataRetriever>();
-
-        return this;
     }
 }

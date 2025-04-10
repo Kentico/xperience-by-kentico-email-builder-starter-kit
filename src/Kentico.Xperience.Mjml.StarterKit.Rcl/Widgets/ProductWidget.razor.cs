@@ -9,10 +9,11 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: ProductWidget.IDENTIFIER,
-    name: "Product Widget",
+    name: "Product",
     componentType: typeof(ProductWidget),
     PropertiesType = typeof(ProductWidgetProperties),
-    IconClass = "icon-l-list-article"
+    IconClass = "icon-l-list-article",
+    Description = "Displays a product with an image, title, and text content from a selected web page."
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
@@ -28,7 +29,7 @@ public partial class ProductWidget : ComponentBase
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ProductWidget)}";
 
     [Inject]
-    private IWidgetDataRetriever<ProductWidgetModel> ProductWidgetDataRetriever { get; set; } = default!;
+    private IComponentModelMapper<ProductWidgetModel> ProductComponentModelMapper { get; set; } = default!;
 
     [Inject]
     private IWebPageUrlRetriever WebPageUrlRetriever { get; set; } = default!;
@@ -74,11 +75,11 @@ public partial class ProductWidget : ComponentBase
             WebPageItemUrl = webPageItemUrl.AbsoluteUrl;
         }
 
-        Model = await ProductWidgetDataRetriever.MapProperties(webPageItem.WebPageGuid, languageName);
+        Model = await ProductComponentModelMapper.Map(webPageItem.WebPageGuid, languageName);
 
         if (Model is null)
         {
-            EventLogService.LogError(nameof(ProductWidget), nameof(OnInitializedAsync), $"An attempt to use the {nameof(ProductWidget)} email builder widget component has been made, but the {nameof(IWidgetDataRetriever<ProductWidget>)} has not been registered.");
+            EventLogService.LogError(nameof(ProductWidget), nameof(OnInitializedAsync), $"An attempt to use the {nameof(ProductWidget)} email builder widget component has been made, but the {nameof(IComponentModelMapper<ProductWidget>)} has not been registered.");
         }
     }
 }

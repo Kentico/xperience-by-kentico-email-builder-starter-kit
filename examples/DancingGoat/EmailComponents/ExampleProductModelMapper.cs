@@ -17,21 +17,21 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
     IconClass = "xp-c-sharp")
 ]
 
-namespace DancingGoat.EmailTemplates;
+namespace DancingGoat.EmailComponents;
 
-public class ExampleProductWidgetEmailDataRetriever : IWidgetDataRetriever<ProductWidgetModel>
+public class ExampleProductModelMapper : IComponentModelMapper<ProductWidgetModel>
 {
     private readonly IContentQueryExecutor contentQueryExecutor;
     private readonly IWebPageQueryResultMapper webPageMapper;
 
-    public ExampleProductWidgetEmailDataRetriever(IContentQueryExecutor contentQueryExecutor,
+    public ExampleProductModelMapper(IContentQueryExecutor contentQueryExecutor,
         IWebPageQueryResultMapper webPageMapper)
     {
         this.contentQueryExecutor = contentQueryExecutor;
         this.webPageMapper = webPageMapper;
     }
 
-    public async Task<ProductWidgetModel> MapProperties(Guid webPageItemGuid, string languageName)
+    public async Task<ProductWidgetModel> Map(Guid webPageItemGuid, string languageName)
     {
         var queryBuilder = new ContentItemQueryBuilder()
             .ForContentTypes(parameters => parameters

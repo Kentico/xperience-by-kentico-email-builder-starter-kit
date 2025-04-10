@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: LogoWidget.IDENTIFIER,
-    name: "Logo Widget",
+    name: "Logo",
     componentType: typeof(LogoWidget),
     PropertiesType = typeof(LogoWidgetProperties),
-    IconClass = "icon-l-lightbox"
+    IconClass = "icon-l-lightbox",
+    Description = "Displays a logo image."
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
@@ -39,6 +40,6 @@ public partial class LogoWidget : ComponentBase
 
     /// <inheritdoc/>
     protected override void OnInitialized()
-    => ImageUrl = MediaFileService.GetImageUrlFromMediaFileSelectorOrEmpty(Properties.Logo);
+    => ImageUrl = MediaFileService.GetFileUrl(Properties.Logo.FirstOrDefault());
 }
 

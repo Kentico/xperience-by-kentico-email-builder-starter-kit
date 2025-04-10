@@ -10,10 +10,11 @@ using Microsoft.AspNetCore.Http;
 
 [assembly: RegisterEmailWidget(
     identifier: ArticleWidget.IDENTIFIER,
-    name: "Article Widget",
+    name: "Article",
     componentType: typeof(ArticleWidget),
     PropertiesType = typeof(ArticleWidgetProperties),
-    IconClass = "icon-l-list-img-article"
+    IconClass = "icon-l-list-img-article",
+    Description = "Displays an article with an image, title, and text content from a selected web page."
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
@@ -29,19 +30,19 @@ public partial class ArticleWidget : ComponentBase
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ArticleWidget)}";
 
     [Inject]
-    private IWidgetDataRetriever<ArticleWidgetModel> ArticleWidgetDataRetriever { get; set; } = default!;
+    private IComponentModelMapper<ArticleWidgetModel> ArticleComponentModelMapper { get; set; } = null!;
 
     [Inject]
-    private IWebPageUrlRetriever WebPageUrlRetriever { get; set; } = default!;
+    private IWebPageUrlRetriever WebPageUrlRetriever { get; set; } = null!;
 
     [Inject]
-    private IEmailContextAccessor EmailContextAccessor { get; set; } = default!;
+    private IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
 
     [Inject]
-    private IEventLogService EventLogService { get; set; } = default!;
+    private IEventLogService EventLogService { get; set; } = null!;
 
     [Inject]
-    private IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
+    private IHttpContextAccessor HttpContextAccessor { get; set; } = null!;
 
     private string ImageUrl { get; set; } = string.Empty;
 
@@ -71,7 +72,7 @@ public partial class ArticleWidget : ComponentBase
             return;
         }
 
-        string languageName = EmailContextAccessor.GetContext().LanguageName;
+        var languageName = EmailContextAccessor.GetContext().LanguageName;
 
         var webPageItemUrl = await WebPageUrlRetriever.Retrieve(webPageItemGuid.WebPageGuid, languageName);
 
@@ -80,11 +81,11 @@ public partial class ArticleWidget : ComponentBase
             WebPageItemUrl = webPageItemUrl.AbsoluteUrl;
         }
 
-        Model = await ArticleWidgetDataRetriever.MapProperties(webPageItemGuid.WebPageGuid, languageName);
+        Model = await ArticleComponentModelMapper.Map(webPageItemGuid.WebPageGuid, languageName);
 
         if (Model is null)
         {
-            EventLogService.LogError(nameof(ArticleWidget), nameof(OnInitializedAsync), $"An attempt to use the {nameof(ArticleWidget)} email builder widget component has been made, but the {nameof(IWidgetDataRetriever<ArticleWidgetModel>)} has not been registered.");
+            EventLogService.LogError(nameof(ArticleWidget), nameof(OnInitializedAsync), $"An attempt to use the {nameof(ArticleWidget)} email builder widget component has been made, but the {nameof(IComponentModelMapper<ArticleWidgetModel>)} has not been registered.");
             return;
         }
 

@@ -1,7 +1,7 @@
 ﻿namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
 
 /// <summary>
-/// The options defined in the appsettings.json.
+/// Configuration options for the MJML Starter Kit.
 /// </summary>
 public sealed class MjmlStarterKitOptions
 {
