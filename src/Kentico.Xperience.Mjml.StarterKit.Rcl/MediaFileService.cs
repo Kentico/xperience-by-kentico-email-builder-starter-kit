@@ -5,21 +5,8 @@ using Kentico.Content.Web.Mvc;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
 
-/// <summary>
-/// Media file retriever and sanitizer helper service.
-/// </summary>
-public interface IMediaFileService
-{
-    /// <summary>
-    /// Gets the file url of the first asset related item from the collection.
-    /// </summary>
-    /// <param name="assets">The asset collection.</param>
-    /// <returns>The media file url or empty string.</returns>
-    public string GetImageUrlFromMediaFileSelectorOrEmpty(IEnumerable<AssetRelatedItem> assets);
-}
-
 /// <inheritdoc/>
-public class MediaFileService : IMediaFileService
+public sealed class MediaFileService : IMediaFileService
 {
     private readonly IInfoProvider<MediaFileInfo> mediaFileInfoProvider;
     private readonly IMediaFileUrlRetriever mediaFileUrlRetriever;
