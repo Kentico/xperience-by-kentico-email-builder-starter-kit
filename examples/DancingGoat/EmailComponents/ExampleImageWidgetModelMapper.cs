@@ -30,7 +30,7 @@ public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor) : ICo
         return new ImageWidgetModel()
         {
             #warning fix url resolving
-            ImageUrl = item.ImageFile.Url.TrimStart('~'),
+            ImageUrl  = $"https://localhost:60303{item.ImageFile.Url.TrimStart('~')}",
             AltText = item.ImageShortDescription
         };
     }

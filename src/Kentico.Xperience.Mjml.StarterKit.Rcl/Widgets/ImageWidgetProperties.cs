@@ -9,7 +9,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// <summary>
 /// Configurable properties of the <see cref="ImageWidget"/>.
 /// </summary>
-public sealed class ImageWidgetProperties : IEmailWidgetProperties
+public sealed class ImageWidgetProperties : WidgetPropertiesBase
 {
     /// <summary>
     /// The image.

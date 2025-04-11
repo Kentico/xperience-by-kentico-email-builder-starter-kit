@@ -1,7 +1,6 @@
 ﻿using CMS.ContentEngine;
 using CMS.Websites;
 
-using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
@@ -10,7 +9,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// <summary>
 /// Configurable properties of the <see cref="ProductWidget"/>.
 /// </summary>
-public sealed class ProductWidgetProperties : IEmailWidgetProperties
+public sealed class ProductWidgetProperties : WidgetPropertiesBase
 {
     /// <summary>
     /// Specifies the <see cref="WebPageRelatedItem"/> which is used as the content of the product widget.

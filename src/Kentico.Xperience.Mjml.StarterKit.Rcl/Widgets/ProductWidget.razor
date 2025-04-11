@@ -4,54 +4,55 @@
 @switch (Properties.WebPageItemUrlPosition)
 {
     case nameof(WebPageItemUrlPositionType.Title):
-        <mj-text>
+        <mj-text padding="0 0 10px 0" line-height="1.5">
             <div class="mj-email-text">
-                <h1><a href="@Model.WebPageItemUrl">@((MarkupString)Model.Title)</a></h1>
+                <h1 style="margin: 0 0 10px 0;"><a href="@Model.WebPageItemUrl"
+                        style="color: inherit; text-decoration: none;">@((MarkupString)Model.Title)</a></h1>
             </div>
         </mj-text>
-        <mj-text>
+        <mj-text padding="0 0 20px 0" line-height="1.5">
             <div class="mj-email-text">
-                <p>
+                <p style="margin: 0;">
                     @((MarkupString)Model.Content)
                 </p>
             </div>
         </mj-text>
         break;
     case nameof(WebPageItemUrlPositionType.Above):
-        <mj-text>
+        <mj-text padding="0 0 10px 0" line-height="1.5">
             <div class="mj-email-text">
-                <h1>@((MarkupString)Model.Title)</h1>
+                <h1 style="margin: 0 0 10px 0;">@((MarkupString)Model.Title)</h1>
             </div>
         </mj-text>
-        <mj-button href="@Model.WebPageItemUrl" css-class="mj-email-button">
+        <mj-button href="@Model.WebPageItemUrl" css-class="mj-email-button" padding="0 0 20px 0">
             @Properties.ReadMoreButtonText
         </mj-button>
-        <mj-text>
+        <mj-text padding="0 0 20px 0" line-height="1.5">
             <div class="mj-email-text">
-                <p>
+                <p style="margin: 0;">
                     @((MarkupString)Model.Content)
                 </p>
             </div>
         </mj-text>
         break;
     case nameof(WebPageItemUrlPositionType.Below):
-        <mj-text>
+        <mj-text padding="0 0 10px 0" line-height="1.5">
             <div class="mj-email-text">
-                <h1>@((MarkupString)Model.Title)</h1>
-                <p>
+                <h1 style="margin: 0 0 10px 0;">@((MarkupString)Model.Title)</h1>
+                <p style="margin: 0;">
                     @((MarkupString)Model.Content)
                 </p>
             </div>
         </mj-text>
-        <mj-button href="@Model.WebPageItemUrl" css-class="mj-email-button">
+        <mj-button href="@Model.WebPageItemUrl" css-class="mj-email-button" padding="0 0 20px 0">
             @Properties.ReadMoreButtonText
         </mj-button>
         break;
     default:
-        <mj-text>
+        <mj-text padding="0 0 20px 0" line-height="1.5">
             <div class="mj-email-text">
-                <h1>@((MarkupString)Model.Title)</h1>
-                <p>
+                <h1 style="margin: 0 0 10px 0;">@((MarkupString)Model.Title)</h1>
+                <p style="margin: 0;">
                     @((MarkupString)Model.Content)
                 </p>
             </div>
