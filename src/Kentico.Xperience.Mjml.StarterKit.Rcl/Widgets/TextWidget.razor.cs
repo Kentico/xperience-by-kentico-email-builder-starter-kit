@@ -25,4 +25,7 @@ public partial class TextWidget : ComponentBase
     /// </summary>
     [Parameter]
     public TextWidgetProperties Properties { get; set; } = null!;
+    
+    [Inject]
+    private IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
 }

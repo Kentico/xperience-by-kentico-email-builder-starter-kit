@@ -1,4 +1,5 @@
-﻿using CMS.MediaLibrary;
+﻿using CMS.ContentEngine;
+using CMS.MediaLibrary;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
 
@@ -12,5 +13,5 @@ internal interface IMediaFileService
     /// </summary>
     /// <param name="asset">The asset.</param>
     /// <returns>The media file url or empty string.</returns>
-    public string GetFileUrl(AssetRelatedItem? asset);
+    string GetFileUrl(AssetRelatedItem? asset);
 }

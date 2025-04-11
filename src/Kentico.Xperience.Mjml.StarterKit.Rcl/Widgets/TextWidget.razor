@@ -1,3 +1,14 @@
-﻿<mj-text css-class="mj-email-text">
-    @((MarkupString)Properties.Text)
-</mj-text>
+﻿@using Kentico.EmailBuilder.Web.Mvc
+
+@if (EmailContextAccessor.GetContext().BuilderMode == EmailBuilderMode.Edit)
+{
+    <mj-text>
+        <RichTextInlineEditor PropertyName=@nameof(Properties.Text) />
+    </mj-text>
+}
+else
+{
+    <mj-text>
+        @((MarkupString)Properties.Text)
+    </mj-text>
+}

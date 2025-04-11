@@ -71,6 +71,7 @@ builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrac
 builder.Services.AddKenticoMjmlStarterKit(builder.Configuration, configure =>
 {
     configure.RegisterWidgetDataRetriever<ExampleProductModelMapper, ProductWidgetModel>();
+    configure.RegisterWidgetDataRetriever<ExampleImageWidgetModelMapper, ImageWidgetModel>();
 });
 builder.Services.AddMjmlForEmails();
 

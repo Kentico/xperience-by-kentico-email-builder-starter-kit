@@ -14,4 +14,9 @@ public sealed class MjmlStarterKitOptions
     /// The list of content type identifiers that are allowed to be used in the Product Widget.
     /// </summary>
     public IEnumerable<Guid> AllowedProductContentTypes { get; set; } = Array.Empty<Guid>();
+    
+    /// <summary>
+    /// The list of content type identifiers that are allowed to be used in the Image Widget.
+    /// </summary>
+    public IEnumerable<Guid> AllowedImageContentTypes { get; set; } = Array.Empty<Guid>();
 }

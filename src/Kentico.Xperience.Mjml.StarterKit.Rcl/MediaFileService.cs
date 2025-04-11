@@ -1,4 +1,5 @@
-﻿using CMS.DataEngine;
+﻿using CMS.ContentEngine;
+using CMS.DataEngine;
 using CMS.MediaLibrary;
 
 using Kentico.Content.Web.Mvc;
@@ -34,6 +35,20 @@ internal sealed class MediaFileService : IMediaFileService
         }
 
         return GetMediaFileUrl(imageIdentifier.Value)?.RelativePath.TrimStart('~') ?? string.Empty;
+    }
+
+    public string GetFileUrl(ContentItemReference? asset)
+    {
+        var imageIdentifier = asset?.Identifier;
+        
+        if (imageIdentifier is null)
+        {
+            return string.Empty;
+        }
+        
+        
+        
+        throw new NotImplementedException();
     }
 
     private IMediaFileUrl? GetMediaFileUrl(Guid identifier)

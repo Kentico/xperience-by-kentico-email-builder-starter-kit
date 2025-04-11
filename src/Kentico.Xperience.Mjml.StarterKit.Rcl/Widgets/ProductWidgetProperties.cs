@@ -3,7 +3,6 @@ using CMS.Websites;
 
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
-using Kentico.Xperience.Admin.Websites.FormAnnotations;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
@@ -13,10 +12,6 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// </summary>
 public sealed class ProductWidgetProperties : IEmailWidgetProperties
 {
-  
-    // [WebPageSelectorComponent(Label = "Select a web page.", MaximumPages = 1)]
-    // public IEnumerable<WebPageRelatedItem> Pages { get; set; } = [];
-
     /// <summary>
     /// Specifies the <see cref="WebPageRelatedItem"/> which is used as the content of the product widget.
     /// </summary>
