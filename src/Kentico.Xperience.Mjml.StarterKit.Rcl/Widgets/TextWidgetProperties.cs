@@ -16,4 +16,13 @@ public sealed class TextWidgetProperties : IEmailWidgetProperties
         Order = 1,
         ExplanationText = "{$TextWidget.Description$}")] //Enter the content for this widget
     public string Text { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The CSS class for this text block
+    /// </summary>
+    [TextInputComponent(
+        Label = "CSS class",
+        Order = 2,
+        ExplanationText = "CSS class for this text block.")]
+    public string CssClass { get; set; } = string.Empty;
 }

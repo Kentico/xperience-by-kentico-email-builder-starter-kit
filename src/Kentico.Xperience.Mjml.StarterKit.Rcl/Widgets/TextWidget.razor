@@ -2,13 +2,13 @@
 
 @if (EmailContextAccessor.GetContext().BuilderMode == EmailBuilderMode.Edit)
 {
-    <mj-text>
+    <mj-text css-class="@Properties.CssClass">
         <RichTextInlineEditor PropertyName=@nameof(Properties.Text) />
     </mj-text>
 }
 else
 {
-    <mj-text>
+    <mj-text css-class="@Properties.CssClass">
         @((MarkupString)Properties.Text)
     </mj-text>
 }
