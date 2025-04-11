@@ -5,10 +5,10 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
-    identifier: nameof(ContentWidget),
+    identifier: nameof(TextWidget),
     name: "{$TextWidget.Name$}",
-    componentType: typeof(ContentWidget),
-    PropertiesType = typeof(ContentWidgetProperties),
+    componentType: typeof(TextWidget),
+    PropertiesType = typeof(TextWidgetProperties),
     IconClass = "icon-l-list-article",
     Description = "Displays text content in your email."
     )]
@@ -16,13 +16,13 @@ using Microsoft.AspNetCore.Components;
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 /// <summary>
-/// Content widget component.
+/// Text widget component.
 /// </summary>
-public partial class ContentWidget : ComponentBase
+public partial class TextWidget : ComponentBase
 {
     /// <summary>
     /// The widget properties.
     /// </summary>
     [Parameter]
-    public ContentWidgetProperties Properties { get; set; } = null!;
+    public TextWidgetProperties Properties { get; set; } = null!;
 }
