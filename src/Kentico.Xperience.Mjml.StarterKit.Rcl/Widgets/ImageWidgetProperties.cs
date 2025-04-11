@@ -31,6 +31,6 @@ public sealed class ImageWidgetProperties : WidgetPropertiesBase
     /// <summary>
     /// The image width.
     /// </summary>
-    [NumberInputComponent(Label = "Width", Order = 3)]
-    public int Width { get; set; } = 200;
+    [NumberInputComponent(Label = "Width", Order = 3, ExplanationText = "Required width of the image")]
+    public int? Width { get; set; }
 }
