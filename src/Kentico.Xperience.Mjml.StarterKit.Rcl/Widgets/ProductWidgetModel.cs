@@ -6,17 +6,27 @@
 public sealed class ProductWidgetModel
 {
     /// <summary>
-    /// The title of the widget.
+    /// The product name.
     /// </summary>
-    public string Title { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// The text content of the widget.
+    /// The product description.
     /// </summary>
-    public string Content { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The product image url.
+    /// </summary>
+    public string ImageUrl { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// The product image alternate text.
+    /// </summary>
+    public string ImageAltText { get; set; } = string.Empty;
 
     /// <summary>
     /// The Web Page Item url which the widget is mapped to.
     /// </summary>
-    public string? WebPageItemUrl { get; set; }
+    public string Url { get; set; } = string.Empty;
 }

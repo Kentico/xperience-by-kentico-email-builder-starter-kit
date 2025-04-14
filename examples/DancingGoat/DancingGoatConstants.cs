@@ -24,5 +24,7 @@
 
 
         public const string NAVIGATION_MENU_FOLDER_PATH = "/Navigation_menu";
+
+        public const string EMAILS_BASE_URL_KEY = "DancingGoatEmailsBaseUrl";
     }
 }

@@ -19,7 +19,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailComponents;
 
-public class ExampleProductModelMapper(IContentQueryExecutor executor, IWebPageUrlRetriever webPageUrlRetriever)
+internal class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, IWebPageUrlRetriever webPageUrlRetriever, IImageUrlResolver imageUrlResolver)
     : IComponentModelMapper<ProductWidgetModel>
 {
     public async Task<ProductWidgetModel> Map(Guid webPageItemGuid, string languageName)
@@ -50,12 +50,16 @@ public class ExampleProductModelMapper(IContentQueryExecutor executor, IWebPageU
         {
             return new ProductWidgetModel();
         }
+        
+        var image = coffee.ProductFieldsImage.FirstOrDefault();
 
         return new ProductWidgetModel
         {
-            Title = coffee.ProductFieldsName,
-            Content = coffee.ProductFieldsDescription,
-            WebPageItemUrl = webPageItemUrl?.AbsoluteUrl
+            Name = coffee.ProductFieldsName,
+            Description = coffee.ProductFieldsDescription,
+            Url = webPageItemUrl.AbsoluteUrl,
+            ImageUrl = imageUrlResolver.ResolveImageUrl(image?.ImageFile),
+            ImageAltText = image != null ? image.ImageShortDescription : string.Empty
         };
     }
 }

@@ -1,29 +1,28 @@
-﻿using DancingGoat;
+﻿using CMS.Base;
+
+using DancingGoat;
+using DancingGoat.EmailComponents;
 using DancingGoat.Helpers.Generators;
 using DancingGoat.Models;
 
-using CMS.Base;
-
-using DancingGoat.EmailComponents;
-
 using Kentico.Activities.Web.Mvc;
 using Kentico.Content.Web.Mvc.Routing;
+using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Membership;
 using Kentico.OnlineMarketing.Web.Mvc;
 using Kentico.PageBuilder.Web.Mvc;
 using Kentico.Web.Mvc;
-
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc;
-
-using Samples.DancingGoat;
-using Kentico.EmailBuilder.Web.Mvc;
-using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml;
+using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Routing;
+
+using Samples.DancingGoat;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,9 +69,12 @@ builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrac
 
 builder.Services.AddKenticoMjmlStarterKit(builder.Configuration, configure =>
 {
-    configure.RegisterWidgetDataRetriever<ExampleProductModelMapper, ProductWidgetModel>();
+    configure.RegisterWidgetDataRetriever<ExampleProductWidgetModelMapper, ProductWidgetModel>();
     configure.RegisterWidgetDataRetriever<ExampleImageWidgetModelMapper, ImageWidgetModel>();
 });
+
+builder.Services.AddScoped<IImageUrlResolver, ImageUrlResolver>();
+
 builder.Services.AddMjmlForEmails();
 
 ConfigureMembershipServices(builder.Services);
