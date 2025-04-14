@@ -9,8 +9,8 @@ public abstract class WidgetPropertiesBase : IEmailWidgetProperties
     /// The CSS class for this widget
     /// </summary>
     [TextInputComponent(
-        Label = "CSS class",
+        Label = "{$WidgetPropertiesBase.CssClass.Label$}",
         Order = 100,
-        ExplanationText = "CSS class for this block.")]
+        ExplanationText = "{$WidgetPropertiesBase.CssClass.ExplanationText$}")]
     public string CssClass { get; set; } = string.Empty;
 }

@@ -11,8 +11,8 @@ public sealed class TextWidgetProperties : WidgetPropertiesBase
     /// The content text.
     /// </summary>
     [RichTextEditorComponent(
-        Label = "Text",
+        Label = "{$TextWidget.Text.Label$}",
         Order = 1,
-        ExplanationText = "{$TextWidget.Description$}")] //Enter the content for this widget
+        ExplanationText = "{$TextWidget.Text.ExplanationText$}")]
     public string Text { get; set; } = string.Empty;
 }

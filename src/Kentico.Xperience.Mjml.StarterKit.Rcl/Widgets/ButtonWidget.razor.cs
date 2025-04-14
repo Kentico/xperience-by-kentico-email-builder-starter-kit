@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: nameof(ButtonWidget),
-    name: "Button",
+    name: "{$ButtonWidget.Name$}",
     componentType: typeof(ButtonWidget),
     PropertiesType = typeof(ButtonWidgetProperties),
-    IconClass = "icon-triangle-right",
-    Description = "Displays a button with a link to a web page."
+    IconClass = "icon-arrow-right-top-square",
+    Description = "{$ButtonWidget.Description$}"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

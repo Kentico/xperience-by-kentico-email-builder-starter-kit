@@ -14,16 +14,20 @@ public sealed class ImageWidgetProperties : WidgetPropertiesBase
     /// <summary>
     /// The image.
     /// </summary>
-    [ContentItemSelectorComponent(typeof(ImageContentTypesFilter), Order = 1, Label = "Image", ExplanationText = "Image from the content hub.")]
+    [ContentItemSelectorComponent(
+        typeof(ImageContentTypesFilter), 
+        Order = 1, 
+        Label = "{$ImageWidget.Image.Label$}", 
+        ExplanationText = "{$ImageWidget.Image.ExplanationText$}")]
     public IEnumerable<ContentItemReference> Assets { get; set; } = [];
     
     /// <summary>
     /// The horizontal alignment of the button. <see cref="HorizontalAlignment"/>
     /// </summary>
     [DropDownComponent(
-        Label = "Alignment",
+        Label = "{$ImageWidget.Alignment.Label$}",
         Order = 2,
-        ExplanationText = "Select image alignment",
+        ExplanationText = "{$ImageWidget.Alignment.ExplanationText$}",
         Options = $"{nameof(HorizontalAlignment.Left)};{nameof(HorizontalAlignment.Left)}\r\n{nameof(HorizontalAlignment.Center)};{nameof(HorizontalAlignment.Center)}\r\n{nameof(HorizontalAlignment.Right)};{nameof(HorizontalAlignment.Right)}",
         OptionsValueSeparator = ";")]
     public string Alignment { get; set; } = nameof(HorizontalAlignment.Left);
@@ -31,6 +35,9 @@ public sealed class ImageWidgetProperties : WidgetPropertiesBase
     /// <summary>
     /// The image width.
     /// </summary>
-    [NumberInputComponent(Label = "Width", Order = 3, ExplanationText = "Required width of the image")]
+    [NumberInputComponent(
+        Label = "{$ImageWidget.Width.Label$}", 
+        Order = 3, 
+        ExplanationText = "{$ImageWidget.Width.ExplanationText$}")]
     public int? Width { get; set; }
 }

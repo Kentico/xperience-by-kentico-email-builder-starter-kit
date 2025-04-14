@@ -12,27 +12,27 @@ public sealed class ButtonWidgetProperties : WidgetPropertiesBase
     /// The button text.
     /// </summary>
     [TextInputComponent(
-        Label = "Button Text",
+        Label = "{$ButtonWidget.Text.Label$}",
         Order = 1,
-        ExplanationText = "Enter the button text")]
+        ExplanationText = "{$ButtonWidget.Text.ExplanationText$}")]
     public string Text { get; set; } = string.Empty;
 
     /// <summary>
     /// The url linked by button.
     /// </summary>
     [TextInputComponent(
-        Label = "URL",
+        Label = "{$ButtonWidget.Url.Label$}",
         Order = 2,
-        ExplanationText = "Enter the button link URL. Allowed formats: absolute (starting with protocol), rooted (starting with /), or virtual (starting with ~)")]
+        ExplanationText = "{$ButtonWidget.Url.ExplanationText$}")]
     public string Url { get; set; } = string.Empty;
 
     /// <summary>
     /// The button html element type. <see cref="ButtonType"/>
     /// </summary>
     [DropDownComponent(
-        Label = "Button Type",
+        Label = "{$ButtonWidget.ButtonType.Label$}",
         Order = 3,
-        ExplanationText = "Select the button type",
+        ExplanationText = "{$ButtonWidget.ButtonType.ExplanationText$}",
         Options = $"{nameof(Enums.ButtonType.Button)};{nameof(Enums.ButtonType.Button)}\r\n{nameof(Enums.ButtonType.Link)};{nameof(Enums.ButtonType.Link)}",
         OptionsValueSeparator = ";")]
     public string ButtonType { get; set; } = nameof(Enums.ButtonType.Button);
@@ -41,9 +41,9 @@ public sealed class ButtonWidgetProperties : WidgetPropertiesBase
     /// The horizontal alignment of the button. <see cref="HorizontalAlignment"/>
     /// </summary>
     [DropDownComponent(
-        Label = "Alignment",
+        Label = "{$ButtonWidget.Alignment.Label$}",
         Order = 11,
-        ExplanationText = "Select button alignment",
+        ExplanationText = "{$ButtonWidget.Alignment.Label$}",
         Options = $"{nameof(HorizontalAlignment.Left)};{nameof(HorizontalAlignment.Left)}\r\n{nameof(HorizontalAlignment.Center)};{nameof(HorizontalAlignment.Center)}\r\n{nameof(HorizontalAlignment.Right)};{nameof(HorizontalAlignment.Right)}",
         OptionsValueSeparator = ";")]
     public string ButtonHorizontalAlignment { get; set; } = nameof(HorizontalAlignment.Left);

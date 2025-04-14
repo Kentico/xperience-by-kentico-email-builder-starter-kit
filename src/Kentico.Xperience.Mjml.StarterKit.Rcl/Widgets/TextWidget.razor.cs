@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Components;
     name: "{$TextWidget.Name$}",
     componentType: typeof(TextWidget),
     PropertiesType = typeof(TextWidgetProperties),
-    IconClass = "icon-l-list-article",
-    Description = "Displays text content in your email."
+    IconClass = "icon-l-header-text",
+    Description = "{$TextWidget.Description$}"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

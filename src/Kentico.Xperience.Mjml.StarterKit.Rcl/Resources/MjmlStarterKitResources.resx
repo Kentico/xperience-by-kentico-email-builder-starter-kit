@@ -22,6 +22,127 @@
         <value>Text</value>
     </data>
     <data name="TextWidget.Description" xml:space="preserve">
-        <value>Short description</value>
+        <value>Displays text content in your email.</value>
+    </data>
+    <data name="ButtonWidget.Name" xml:space="preserve">
+        <value>Button</value>
+    </data>
+    <data name="ButtonWidget.Description" xml:space="preserve">
+        <value>Displays a button with a link to a web page.</value>
+    </data>
+    <data name="DividerWidget.Name" xml:space="preserve">
+        <value>Divider</value>
+    </data>
+    <data name="DividerWidget.Description" xml:space="preserve">
+        <value>Displays a divider.</value>
+    </data>
+    <data name="ImageWidget.Name" xml:space="preserve">
+        <value>Image</value>
+    </data>
+    <data name="ImageWidget.Description" xml:space="preserve">
+        <value>Displays an image.</value>
+    </data>
+    <data name="ProductWidget.Name" xml:space="preserve">
+        <value>Product</value>
+    </data>
+    <data name="ProductWidget.Description" xml:space="preserve">
+        <value>Displays a product with an image, title, and text content from a selected web page.</value>
+    </data>
+    <data name="FullWidthEmailSection.Name" xml:space="preserve">
+        <value>Full Width Email Section</value>
+    </data>
+    <data name="TwoColumnsEmailSection.Name" xml:space="preserve">
+        <value>Two Columns Email Section</value>
+    </data>
+
+    <data name="ButtonWidget.Text.Label" xml:space="preserve">
+        <value>Button Text</value>
+    </data>
+    <data name="ButtonWidget.Text.ExplanationText" xml:space="preserve">
+        <value>Enter the button text</value>
+    </data>
+    <data name="ButtonWidget.Url.Label" xml:space="preserve">
+        <value>URL</value>
+    </data>
+    <data name="ButtonWidget.Url.ExplanationText" xml:space="preserve">
+        <value>Enter the button link URL. Allowed formats: absolute (starting with protocol), rooted (starting with /), or virtual (starting with ~)</value>
+    </data>
+    <data name="ButtonWidget.ButtonType.Label" xml:space="preserve">
+        <value>ButtonType</value>
+    </data>
+    <data name="ButtonWidget.ButtonType.ExplanationText" xml:space="preserve">
+        <value>Select the button type</value>
+    </data>
+    <data name="ButtonWidget.Alignment.Label" xml:space="preserve">
+        <value>Alignment</value>
+    </data>
+    <data name="ButtonWidget.Alignment.ExplanationText" xml:space="preserve">
+        <value>Select the button alignment</value>
+    </data>
+
+    <data name="DividerWidget.BorderWidth.Label" xml:space="preserve">
+        <value>Border width</value>
+    </data>
+    <data name="DividerWidget.BorderWidth.ExplanationText" xml:space="preserve">
+        <value>Set the border of divider in pixels</value>
+    </data>
+    <data name="DividerWidget.BorderColor.Label" xml:space="preserve">
+        <value>Border color</value>
+    </data>
+    <data name="DividerWidget.BorderColor.ExplanationText" xml:space="preserve">
+        <value>Set the color of divider by name or hex code (ie. blue or #fed)</value>
+    </data>
+    <data name="DividerWidget.BorderStyle.Label" xml:space="preserve">
+        <value>Border color</value>
+    </data>
+    <data name="DividerWidget.BorderStyle.ExplanationText" xml:space="preserve">
+        <value>You can specify the border style here (dashed/dotted/solid).</value>
+    </data>
+
+    <data name="ImageWidget.Image.Label" xml:space="preserve">
+        <value>Image</value>
+    </data>
+    <data name="ImageWidget.Image.ExplanationText" xml:space="preserve">
+        <value>Image from the content hub.</value>
+    </data>
+    <data name="ImageWidget.Alignment.Label" xml:space="preserve">
+        <value>Alignment</value>
+    </data>
+    <data name="ImageWidget.Alignment.ExplanationText" xml:space="preserve">
+        <value>Select image alignment.</value>
+    </data>
+    <data name="ImageWidget.Width.Label" xml:space="preserve">
+        <value>Width</value>
+    </data>
+    <data name="ImageWidget.Width.ExplanationText" xml:space="preserve">
+        <value>Required width of the image.</value>
+    </data>
+
+
+    <data name="ProductWidget.Page.Label" xml:space="preserve">
+        <value>Page</value>
+    </data>
+    <data name="ProductWidget.Page.ExplanationText" xml:space="preserve">
+        <value>Select a web page.</value>
+    </data>
+    <data name="ProductWidget.ReadMoreButton.Label" xml:space="preserve">
+        <value>Go to Web Page Button Text</value>
+    </data>
+    <data name="ProductWidget.ReadMoreButton.ExplanationText" xml:space="preserve">
+        <value>Set the text of the button which links the original web page item.</value>
+    </data>
+
+    <data name="TextWidget.Text.Label" xml:space="preserve">
+        <value>Text</value>
+    </data>
+    <data name="TextWidget.Text.ExplanationText" xml:space="preserve">
+        <value>Enter custom text for your email.</value>
+    </data>
+
+    <data name="WidgetPropertiesBase.CssClass.Label" xml:space="preserve">
+        <value>CSS class</value>
+    </data>
+    <data name="WidgetPropertiesBase.CssClass.ExplanationText" xml:space="preserve">
+        <value>CSS class for this block.</value>
     </data>
 </root>

@@ -1,71 +1,20 @@
 ﻿@namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
-@using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums
 
-@switch (Properties.WebPageItemUrlPosition)
-{
-    @* case nameof(WebPageItemUrlPositionType.Title): *@
-    @*     <mj-text padding="0 0 10px 0" line-height="1.5"> *@
-    @*         <div class="mj-email-text"> *@
-    @*             <h1 style="margin: 0 0 10px 0;"><a href="@Model.Url" *@
-    @*                     style="color: inherit; text-decoration: none;">@((MarkupString)Model.Name)</a></h1> *@
-    @*         </div> *@
-    @*     </mj-text> *@
-    @*     <mj-text padding="0 0 20px 0" line-height="1.5"> *@
-    @*         <div class="mj-email-text"> *@
-    @*             <p style="margin: 0;"> *@
-    @*                 @((MarkupString)Model.Description) *@
-    @*             </p> *@
-    @*         </div> *@
-    @*     </mj-text> *@
-    @*     break; *@
-    @* case nameof(WebPageItemUrlPositionType.Above): *@
-    @*     <mj-text padding="0 0 10px 0" line-height="1.5"> *@
-    @*         <div class="mj-email-text"> *@
-    @*             <h1 style="margin: 0 0 10px 0;">@((MarkupString)Model.Title)</h1> *@
-    @*         </div> *@
-    @*     </mj-text> *@
-    @*     <mj-button href="@Model.WebPageItemUrl" css-class="mj-email-button" padding="0 0 20px 0"> *@
-    @*         @Properties.ReadMoreButtonText *@
-    @*     </mj-button> *@
-    @*     <mj-text padding="0 0 20px 0" line-height="1.5"> *@
-    @*         <div class="mj-email-text"> *@
-    @*             <p style="margin: 0;"> *@
-    @*                 @((MarkupString)Model.Content) *@
-    @*             </p> *@
-    @*         </div> *@
-    @*     </mj-text> *@
-    @*     break; *@
-    @* case nameof(WebPageItemUrlPositionType.Below): *@
-    @*     <mj-text padding="0 0 10px 0" line-height="1.5"> *@
-    @*         <div class="mj-email-text"> *@
-    @*             <h1 style="margin: 0 0 10px 0;">@((MarkupString)Model.Title)</h1> *@
-    @*             <p style="margin: 0;"> *@
-    @*                 @((MarkupString)Model.Content) *@
-    @*             </p> *@
-    @*         </div> *@
-    @*     </mj-text> *@
-    @*     <mj-button href="@Model.WebPageItemUrl" css-class="mj-email-button" padding="0 0 20px 0"> *@
-    @*         @Properties.ReadMoreButtonText *@
-    @*     </mj-button> *@
-    @*     break; *@
-    default:
-        <mj-image src="@Model.ImageUrl" alt="@Model.ImageAltText" css-class="@(Properties.CssClass + "_image")">
-        </mj-image>
+<mj-image src="@Model.ImageUrl" alt="@Model.ImageAltText" css-class="@(Properties.CssClass + "_image")">
+</mj-image>
         
-        <mj-text css-class="@(Properties.CssClass + "_title")">
-            <div>
+<mj-text css-class="@(Properties.CssClass + "_title")">
+        <div>
                 <h1>@((MarkupString)Model.Name)</h1>
-            </div>
-        </mj-text>
-        <mj-text css-class="@(Properties.CssClass + "_description")">
-            <div>
+        </div>
+</mj-text>
+<mj-text css-class="@(Properties.CssClass + "_description")">
+        <div>
                 <p>
-                    @((MarkupString)Model.Description)
+                        @((MarkupString)Model.Description)
                 </p>
-            </div>
-        </mj-text>
-        <mj-button href="@Model.Url" css-class="@(Properties.CssClass + "_button")">
-            @Properties.ReadMoreButtonText
-        </mj-button>
-        break;
-}
+        </div>
+</mj-text>
+<mj-button href="@Model.Url" css-class="@(Properties.CssClass + "_button")">
+        @Properties.ReadMoreButtonText
+</mj-button>

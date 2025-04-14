@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: ProductWidget.IDENTIFIER,
-    name: "Product",
+    name: "{$ProductWidget.Name$}",
     componentType: typeof(ProductWidget),
     PropertiesType = typeof(ProductWidgetProperties),
-    IconClass = "icon-l-list-article",
-    Description = "Displays a product with an image, title, and text content from a selected web page."
+    IconClass = "icon-t-shirt",
+    Description = "{$ProductWidget.Description$}"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

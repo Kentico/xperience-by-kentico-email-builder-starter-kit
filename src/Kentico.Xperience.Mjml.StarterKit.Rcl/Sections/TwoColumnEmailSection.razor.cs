@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailSection(
     identifier: TwoColumnEmailSection.IDENTIFIER,
-    name: "Two Columns Email Section",
+    name: "{$TwoColumnsEmailSection.Name$}",
     componentType: typeof(TwoColumnEmailSection),
     IconClass = "icon-l-cols-2")]
 

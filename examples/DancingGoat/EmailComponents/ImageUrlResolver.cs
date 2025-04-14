@@ -13,6 +13,6 @@ internal sealed class ImageUrlResolver(IConfiguration configuration) : IImageUrl
             return string.Empty;
         }
 
-        return $"{baseUrl.TrimEnd('/')}/{asset.Url.TrimStart('~')}";
+        return $"{baseUrl.TrimEnd('/')}{asset.Url.TrimStart('~')}";
     }
 }

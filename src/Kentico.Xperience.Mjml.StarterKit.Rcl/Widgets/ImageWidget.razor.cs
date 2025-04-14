@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: ImageWidget.IDENTIFIER,
-    name: "Image",
+    name: "{$ImageWidget.Name$}",
     componentType: typeof(ImageWidget),
     PropertiesType = typeof(ImageWidgetProperties),
-    IconClass = "icon-l-lightbox",
-    Description = "Displays an image."
+    IconClass = "icon-picture",
+    Description = "{$ImageWidget.Description$}"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;

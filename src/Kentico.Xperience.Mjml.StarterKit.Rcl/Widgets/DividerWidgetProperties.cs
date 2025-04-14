@@ -11,23 +11,27 @@ public sealed class DividerWidgetProperties : WidgetPropertiesBase
     /// <summary>
     /// The border width.
     /// </summary>
-    [NumberInputComponent(Label = "BorderWidth", Order = 3)]
+    [NumberInputComponent(
+        Label = "{$DividerWidget.BorderWidth.Label$}", 
+        Order = 1,
+        ExplanationText = "{$DividerWidget.BorderWidth.ExplanationText$}")]
     public int BorderWidth { get; set; } = 1;
-    
+
     /// <summary>
     /// The border color.
     /// </summary>
     [TextInputComponent(
-        Label = "Border color",
-        Order = 2)]
+        Label = "{$DividerWidget.BorderColor.Label$}",
+        Order = 2,
+        ExplanationText = "{$DividerWidget.BorderColor.ExplanationText$}")]
     public string BorderColor { get; set; } = string.Empty;
 
     /// <summary>
     /// The style of the border.
     /// </summary>
     [TextInputComponent(
-        Label = "Border style",
+        Label = "{$DividerWidget.BorderStyle.Label$}",
         Order = 3,
-        ExplanationText = "You can specify the border style here (dashed/dotted/solid).")]
+        ExplanationText = "{$DividerWidget.BorderStyle.ExplanationText$}")]
     public string BorderStyle { get; set; } = string.Empty;
 }

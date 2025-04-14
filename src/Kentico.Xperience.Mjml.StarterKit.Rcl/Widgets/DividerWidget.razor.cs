@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
     identifier: nameof(DividerWidget),
-    name: "Divider",
+    name: "{$DividerWidget.Name$}",
     componentType: typeof(DividerWidget),
     PropertiesType = typeof(DividerWidgetProperties),
-    IconClass = "icon-triangle-right",
-    Description = "Displays a divider."
+    IconClass = "icon-ellipsis",
+    Description = "{$DividerWidget.Description$}"
     )]
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
