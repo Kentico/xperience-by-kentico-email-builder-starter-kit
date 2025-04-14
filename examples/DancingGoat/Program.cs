@@ -14,6 +14,7 @@ using Kentico.PageBuilder.Web.Mvc;
 using Kentico.Web.Mvc;
 using Kentico.Xperience.Mjml;
 using Kentico.Xperience.Mjml.StarterKit.Rcl;
+using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -67,12 +68,9 @@ builder.Services.AddLocalization()
 builder.Services.AddDancingGoatServices();
 builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrackingEvaluator>();
 
-builder.Services.AddKenticoMjmlStarterKit(builder.Configuration, configure =>
-{
-    configure.RegisterWidgetDataRetriever<ExampleProductWidgetModelMapper, ProductWidgetModel>();
-    configure.RegisterWidgetDataRetriever<ExampleImageWidgetModelMapper, ImageWidgetModel>();
-});
-
+builder.Services.AddKenticoMjmlStarterKit(builder.Configuration);
+builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
+builder.Services.AddScoped<IComponentModelMapper<ImageWidgetModel>, ExampleImageWidgetModelMapper>();
 builder.Services.AddScoped<IImageUrlResolver, ImageUrlResolver>();
 
 builder.Services.AddMjmlForEmails();

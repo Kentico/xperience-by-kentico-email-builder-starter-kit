@@ -12,13 +12,12 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
 public static class MjmlStarterKitStartupExtensions
 {
     /// <summary>
-    /// Adds mjml starter kit services to application with customized options provided by the <see cref="IMjmlStarterKitBuilder"/>.
+    /// Adds mjml starter kit services to application with customized options.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> which will be modified.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> where <see cref="MjmlStarterKitOptions"/> are specified.</param>
-    /// <param name="configure"><see cref="Action"/> which will configure the <see cref="IMjmlStarterKitBuilder"/>.</param>
     /// <returns>This instance of <see cref="IServiceCollection"/>, allowing for further configuration in a fluent manner.</returns>
-    public static IServiceCollection AddKenticoMjmlStarterKit(this IServiceCollection services, IConfiguration configuration, Action<IMjmlStarterKitBuilder> configure)
+    public static IServiceCollection AddKenticoMjmlStarterKit(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<CssLoaderService>()
         .AddScoped<IUrlHelper>(provider =>
@@ -27,10 +26,6 @@ public static class MjmlStarterKitStartupExtensions
             return new UrlHelper(actionContext);
         })
         .Configure<MjmlStarterKitOptions>(configuration.GetSection(nameof(MjmlStarterKitOptions)));
-
-        var builder = new MjmlStarterKitBuilder(services);
-
-        configure(builder);
 
         return services;
     }
