@@ -1,5 +1,4 @@
 ﻿using Kentico.EmailBuilder.Web.Mvc;
-using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 using Microsoft.AspNetCore.Components;
@@ -25,7 +24,7 @@ public partial class TextWidget : ComponentBase
     /// </summary>
     [Parameter]
     public TextWidgetProperties Properties { get; set; } = null!;
-    
+
     [Inject]
-    private IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
+    protected IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
 }

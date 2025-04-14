@@ -22,15 +22,15 @@ public partial class ImageWidget : ComponentBase
 {
     [Inject]
     private IComponentModelMapper<ImageWidgetModel> ImageComponentModelMapper { get; set; } = default!;
-    
+
     [Inject]
     private IEmailContextAccessor EmailContextAccessor { get; set; } = default!;
-    
+
     /// <summary>
     /// The component identifier.
     /// </summary>
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ImageWidget)}";
-    
+
     /// <summary>
     /// The widget model.
     /// </summary>
@@ -45,15 +45,15 @@ public partial class ImageWidget : ComponentBase
     /// <inheritdoc/>
     protected override async Task OnInitializedAsync()
     {
-        var selectedId = Properties.Assets?.Select(i => i.Identifier).ToList().FirstOrDefault();
-        
+        var selectedId = Properties.Assets?.Select(i => i.Identifier).FirstOrDefault();
+
         if (selectedId is null)
         {
             return;
         }
 
         var languageName = EmailContextAccessor.GetContext().LanguageName;
-        
+
         Model = await ImageComponentModelMapper.Map(selectedId.Value, languageName);
     }
 }

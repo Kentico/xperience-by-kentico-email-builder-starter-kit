@@ -11,8 +11,8 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
 /// </summary>
 public partial class EmailBuilderStarterKitTemplate : ComponentBase
 {
-    private string cssContent = string.Empty;
-    private string emailSubject = string.Empty;
+    protected string CssContent { get; set; } = string.Empty;
+    protected string EmailSubject { get; set; } = string.Empty;
 
     [Inject]
     private CssLoaderService CssLoaderService { get; set; } = null!;
@@ -27,7 +27,7 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        emailSubject = (string)EmailContextAccessor.GetContext().EmailFields[nameof(EmailInfo.EmailSubject)];
-        cssContent = await CssLoaderService.GetCssAsync();
+        EmailSubject = (string)EmailContextAccessor.GetContext().EmailFields[nameof(EmailInfo.EmailSubject)];
+        CssContent = await CssLoaderService.GetCssAsync();
     }
 }

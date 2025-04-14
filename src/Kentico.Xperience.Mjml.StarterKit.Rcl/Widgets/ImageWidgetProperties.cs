@@ -1,6 +1,5 @@
 ﻿using CMS.ContentEngine;
 
-using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
@@ -15,12 +14,12 @@ public sealed class ImageWidgetProperties : WidgetPropertiesBase
     /// The image.
     /// </summary>
     [ContentItemSelectorComponent(
-        typeof(ImageContentTypesFilter), 
-        Order = 1, 
-        Label = "{$ImageWidget.Image.Label$}", 
+        typeof(ImageContentTypesFilter),
+        Order = 1,
+        Label = "{$ImageWidget.Image.Label$}",
         ExplanationText = "{$ImageWidget.Image.ExplanationText$}")]
     public IEnumerable<ContentItemReference> Assets { get; set; } = [];
-    
+
     /// <summary>
     /// The horizontal alignment of the button. <see cref="HorizontalAlignment"/>
     /// </summary>
@@ -36,8 +35,8 @@ public sealed class ImageWidgetProperties : WidgetPropertiesBase
     /// The image width.
     /// </summary>
     [NumberInputComponent(
-        Label = "{$ImageWidget.Width.Label$}", 
-        Order = 3, 
+        Label = "{$ImageWidget.Width.Label$}",
+        Order = 3,
         ExplanationText = "{$ImageWidget.Width.ExplanationText$}")]
     public int? Width { get; set; }
 }

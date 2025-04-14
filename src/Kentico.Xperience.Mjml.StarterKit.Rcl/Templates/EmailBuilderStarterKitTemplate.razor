@@ -1,9 +1,9 @@
 ﻿@using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections
 <mjml>
     <mj-head>
-        <mj-title>@emailSubject</mj-title>
+        <mj-title>@EmailSubject</mj-title>
         <mj-style inline="inline">
-            @((MarkupString)cssContent)
+            @((MarkupString)CssContent)
         </mj-style>
         <EmailBuilderStyles />
         <mj-preview>@EmailContextAccessor.GetContext().EmailFields["EmailPreviewText"]</mj-preview>

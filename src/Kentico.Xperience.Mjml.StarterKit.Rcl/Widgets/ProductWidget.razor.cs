@@ -51,7 +51,7 @@ public partial class ProductWidget : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         var webPageItem = Properties.Pages.FirstOrDefault();
-        
+
         if (webPageItem is null)
         {
             return;

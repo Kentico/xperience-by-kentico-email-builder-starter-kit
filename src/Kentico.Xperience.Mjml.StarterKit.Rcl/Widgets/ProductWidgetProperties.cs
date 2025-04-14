@@ -2,7 +2,6 @@
 using CMS.Websites;
 
 using Kentico.Xperience.Admin.Base.FormAnnotations;
-using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -14,8 +13,8 @@ public sealed class ProductWidgetProperties : WidgetPropertiesBase
     /// <summary>
     /// Specifies the <see cref="WebPageRelatedItem"/> which is used as the content of the product widget.
     /// </summary>
-    [ContentItemSelectorComponent(typeof(ProductContentTypesFilter), 
-        Label = "{$ProductWidget.Page.Label$}", 
+    [ContentItemSelectorComponent(typeof(ProductContentTypesFilter),
+        Label = "{$ProductWidget.Page.Label$}",
         MaximumItems = 1,
         Order = 1,
         ExplanationText = "{$ProductWidget.Page.ExplanationText$}")]

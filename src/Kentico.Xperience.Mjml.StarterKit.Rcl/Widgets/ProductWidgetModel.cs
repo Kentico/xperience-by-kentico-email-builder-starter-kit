@@ -19,7 +19,7 @@ public sealed class ProductWidgetModel
     /// The product image url.
     /// </summary>
     public string ImageUrl { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// The product image alternate text.
     /// </summary>

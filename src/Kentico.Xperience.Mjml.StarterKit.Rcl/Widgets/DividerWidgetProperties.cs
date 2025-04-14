@@ -1,5 +1,4 @@
 ﻿using Kentico.Xperience.Admin.Base.FormAnnotations;
-using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -12,7 +11,7 @@ public sealed class DividerWidgetProperties : WidgetPropertiesBase
     /// The border width.
     /// </summary>
     [NumberInputComponent(
-        Label = "{$DividerWidget.BorderWidth.Label$}", 
+        Label = "{$DividerWidget.BorderWidth.Label$}",
         Order = 1,
         ExplanationText = "{$DividerWidget.BorderWidth.ExplanationText$}")]
     public int BorderWidth { get; set; } = 1;

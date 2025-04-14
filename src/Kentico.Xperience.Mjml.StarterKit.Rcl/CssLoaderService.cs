@@ -37,7 +37,7 @@ public sealed class CssLoaderService
         }
 
         var text = CMS.IO.File.ReadAllText(path);
-        
+
         return Task.FromResult(text.Trim());
     }
 }
