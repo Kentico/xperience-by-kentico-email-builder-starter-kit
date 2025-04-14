@@ -4,13 +4,13 @@
 
 @if (Properties.ButtonType == nameof(ButtonType.Button))
 {
-    <mj-button align="@Properties.ButtonHorizontalAlignment" href="@Properties.Url" css-class="mj-email-button">
+    <mj-button align="@Properties.ButtonHorizontalAlignment" href="@Properties.Url" css-class="@Properties.CssClass">
         @Properties.Text
     </mj-button>
 }
 else
 {
-    <mj-text css-class="mj-email-button">
+    <mj-text css-class="@Properties.CssClass">
         <a align="@Properties.ButtonHorizontalAlignment" href="@Properties.Url">
             @Properties.Text
         </a>
