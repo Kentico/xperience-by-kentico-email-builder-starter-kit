@@ -375,24 +375,6 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter custom text for your email..
-        /// </summary>
-        internal static string TextWidget_Text_ExplanationText {
-            get {
-                return ResourceManager.GetString("TextWidget.Text.ExplanationText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Text.
-        /// </summary>
-        internal static string TextWidget_Text_Label {
-            get {
-                return ResourceManager.GetString("TextWidget.Text.Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Two Columns Email Section.
         /// </summary>
         internal static string TwoColumnsEmailSection_Name {

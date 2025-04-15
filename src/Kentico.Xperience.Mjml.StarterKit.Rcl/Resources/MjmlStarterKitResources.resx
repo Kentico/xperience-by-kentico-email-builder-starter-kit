@@ -131,14 +131,6 @@
     <data name="ProductWidget.ReadMoreButton.ExplanationText" xml:space="preserve">
         <value>Set the text of the button which links the original web page item.</value>
     </data>
-
-    <data name="TextWidget.Text.Label" xml:space="preserve">
-        <value>Text</value>
-    </data>
-    <data name="TextWidget.Text.ExplanationText" xml:space="preserve">
-        <value>Enter custom text for your email.</value>
-    </data>
-
     <data name="WidgetPropertiesBase.CssClass.Label" xml:space="preserve">
         <value>CSS class</value>
     </data>
