@@ -14,7 +14,7 @@ internal sealed class ProductContentTypesFilter : IContentTypesFilter
     /// Content type guid identifiers allowed for product widget
     /// </summary>
     public IEnumerable<Guid> AllowedContentTypeIdentifiers { get; }
-    
+
     /// <summary>
     /// Product content types filter.
     /// </summary>

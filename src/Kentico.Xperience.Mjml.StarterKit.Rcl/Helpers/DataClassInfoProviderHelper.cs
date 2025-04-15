@@ -12,7 +12,7 @@ internal static class DataClassInfoProviderHelper
     public static IEnumerable<Guid> GetClassGuidsByCodeNames(IEnumerable<string> codeNames)
     {
         var enumerable = codeNames as string[] ?? codeNames.ToArray();
-        
+
         if (enumerable.Length == 0)
         {
             return new List<Guid>();

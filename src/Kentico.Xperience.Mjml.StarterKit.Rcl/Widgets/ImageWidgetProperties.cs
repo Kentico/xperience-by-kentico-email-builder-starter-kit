@@ -17,7 +17,7 @@ public sealed class ImageWidgetProperties : WidgetPropertiesBase
         typeof(ImageContentTypesFilter),
         Order = 1,
         Label = "{$ImageWidget.Image.Label$}",
-        ExplanationText = "{$ImageWidget.Image.ExplanationText$}", 
+        ExplanationText = "{$ImageWidget.Image.ExplanationText$}",
         MaximumItems = 1)]
     public IEnumerable<ContentItemReference> Assets { get; set; } = [];
 

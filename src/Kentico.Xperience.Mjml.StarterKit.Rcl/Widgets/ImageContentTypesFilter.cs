@@ -14,7 +14,7 @@ internal sealed class ImageContentTypesFilter : IContentTypesFilter
     /// Content type guid identifiers allowed for image widget
     /// </summary>
     public IEnumerable<Guid> AllowedContentTypeIdentifiers { get; }
-    
+
     /// <summary>
     /// Image content types filter.
     /// </summary>
