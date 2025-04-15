@@ -11,12 +11,12 @@ public sealed class MjmlStarterKitOptions
     public string StyleSheetPath { get; set; } = string.Empty;
 
     /// <summary>
-    /// The list of content type identifiers that are allowed to be used in the Product Widget.
+    /// The list of content type code names that are allowed to be used in the Product Widget.
     /// </summary>
-    public IEnumerable<Guid> AllowedProductContentTypes { get; set; } = Array.Empty<Guid>();
+    public IEnumerable<string> AllowedProductContentTypes { get; set; } = Array.Empty<string>();
 
     /// <summary>
-    /// The list of content type identifiers that are allowed to be used in the Image Widget.
+    /// The list of content type code names that are allowed to be used in the Image Widget.
     /// </summary>
-    public IEnumerable<Guid> AllowedImageContentTypes { get; set; } = Array.Empty<Guid>();
+    public IEnumerable<string> AllowedImageContentTypes { get; set; } = Array.Empty<string>();
 }

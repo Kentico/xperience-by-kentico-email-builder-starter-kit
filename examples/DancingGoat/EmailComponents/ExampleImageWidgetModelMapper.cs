@@ -29,7 +29,7 @@ public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor, IImag
 
         return new ImageWidgetModel()
         {
-            ImageUrl = imageUrlResolver.ResolveImageUrl(item?.ImageFile),
+            ImageUrl = imageUrlResolver.ResolveImageUrl(item.ImageFile),
             AltText = item.ImageShortDescription
         };
     }
