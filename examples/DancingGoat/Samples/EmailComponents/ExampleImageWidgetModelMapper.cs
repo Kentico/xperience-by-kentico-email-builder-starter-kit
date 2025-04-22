@@ -5,7 +5,7 @@ using DancingGoat.Models;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
-namespace DancingGoat.EmailComponents;
+namespace Samples.DancingGoat;
 
 public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor) : IComponentModelMapper<ImageWidgetModel>
 {

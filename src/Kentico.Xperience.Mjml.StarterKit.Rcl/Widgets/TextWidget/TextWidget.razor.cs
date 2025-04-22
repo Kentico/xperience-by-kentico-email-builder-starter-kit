@@ -19,6 +19,8 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// </summary>
 public partial class TextWidget : ComponentBase
 {
+    private EmailContext? emailContext;
+    
     /// <summary>
     /// The component identifier.
     /// </summary>
@@ -30,6 +32,14 @@ public partial class TextWidget : ComponentBase
     [Parameter]
     public TextWidgetProperties Properties { get; set; } = null!;
 
+    /// <summary>
+    /// Gets or sets the email context accessor service.
+    /// </summary>
     [Inject]
     protected IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
+
+    /// <summary>
+    /// Gets the current email context.
+    /// </summary>
+    protected EmailContext EmailContext => emailContext ??= EmailContextAccessor.GetContext();
 }

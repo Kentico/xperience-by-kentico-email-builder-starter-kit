@@ -1,6 +1,7 @@
 ﻿using CMS.ContentEngine;
 using CMS.Websites;
 
+using DancingGoat;
 using DancingGoat.Models;
 
 using Kentico.EmailBuilder.Web.Mvc;
@@ -17,7 +18,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
     IconClass = "xp-c-sharp")
 ]
 
-namespace DancingGoat.EmailComponents;
+namespace Samples.DancingGoat;
 
 internal class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, IWebPageUrlRetriever webPageUrlRetriever)
     : IComponentModelMapper<ProductWidgetModel>

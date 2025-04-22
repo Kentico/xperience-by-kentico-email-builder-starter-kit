@@ -1,10 +1,10 @@
 ﻿@using Kentico.EmailBuilder.Web.Mvc
 @namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets
 
-@if (EmailContextAccessor.GetContext().BuilderMode == EmailBuilderMode.Edit)
+@if (EmailContext.BuilderMode == EmailBuilderMode.Edit)
 {
     <mj-text css-class="@Properties.CssClass">
-        <RichTextInlineEditor PropertyName=@nameof(Properties.Text) />
+        <RichTextInlineEditor PropertyName=@nameof(Properties.Text)/>
     </mj-text>
 }
 else

@@ -11,8 +11,37 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
 /// </summary>
 public partial class EmailBuilderStarterKitTemplate : ComponentBase
 {
-    protected string CssContent { get; set; } = string.Empty;
-    protected string EmailSubject { get; set; } = string.Empty;
+    /// <summary>
+    /// The component identifier.
+    /// </summary>
+    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(EmailBuilderStarterKitTemplate)}";
+    
+    private string? cssContent;
+    private string? emailSubject;
+    private EmailContext? emailContext;
+
+    /// <summary>
+    /// Gets or sets the CSS content for the email template.
+    /// </summary>
+    protected string CssContent
+    {
+        get => cssContent ?? string.Empty;
+        set => cssContent = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the email subject.
+    /// </summary>
+    protected string EmailSubject
+    {
+        get => emailSubject ?? string.Empty;
+        set => emailSubject = value;
+    }
+
+    /// <summary>
+    /// Gets the current email context.
+    /// </summary>
+    protected EmailContext EmailContext => emailContext ??= EmailContextAccessor.GetContext();
 
     [Inject]
     private CssLoaderService CssLoaderService { get; set; } = null!;
@@ -20,14 +49,10 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
     [Inject]
     private IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
 
-    /// <summary>
-    /// The component identifier.
-    /// </summary>
-    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(EmailBuilderStarterKitTemplate)}";
-
+    /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
-        EmailSubject = (string)EmailContextAccessor.GetContext().EmailFields[nameof(EmailInfo.EmailSubject)];
-        CssContent = await CssLoaderService.GetCssAsync();
+        emailSubject = (string)EmailContext.EmailFields[nameof(EmailInfo.EmailSubject)];
+        cssContent = await CssLoaderService.GetCssAsync();
     }
 }

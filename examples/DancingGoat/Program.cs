@@ -1,7 +1,6 @@
 ﻿using CMS.Base;
 
 using DancingGoat;
-using DancingGoat.EmailComponents;
 using DancingGoat.Helpers.Generators;
 using DancingGoat.Models;
 
@@ -68,7 +67,15 @@ builder.Services.AddLocalization()
 builder.Services.AddDancingGoatServices();
 builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrackingEvaluator>();
 
-builder.Services.AddKenticoMjmlStarterKit(builder.Configuration);
+//builder.Services.AddKenticoMjmlStarterKit(builder.Configuration);
+
+builder.Services.AddKenticoMjmlStarterKit(options =>
+{
+    options.StyleSheetPath = "EmailBuilder.css";
+    options.AllowedImageContentTypes = [Image.CONTENT_TYPE_NAME];
+    options.AllowedProductContentTypes = [CoffeePage.CONTENT_TYPE_NAME];
+});
+
 builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
 builder.Services.AddScoped<IComponentModelMapper<ImageWidgetModel>, ExampleImageWidgetModelMapper>();
 
