@@ -23,7 +23,7 @@ public partial class DividerWidget : ComponentBase
     /// The component identifier.
     /// </summary>
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(DividerWidget)}";
-    
+
     /// <summary>
     /// The divider properties.
     /// </summary>

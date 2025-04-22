@@ -23,7 +23,7 @@ public partial class ButtonWidget : ComponentBase
     /// The component identifier.
     /// </summary>
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(ButtonWidget)}";
-    
+
     /// <summary>
     /// The widget properties.
     /// </summary>

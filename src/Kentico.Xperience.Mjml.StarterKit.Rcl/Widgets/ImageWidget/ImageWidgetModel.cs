@@ -9,7 +9,7 @@ public sealed class ImageWidgetModel
     /// The image URL.
     /// </summary>
     public string? ImageUrl { get; set; }
-    
+
     /// <summary>
     /// The image alternate text.
     /// </summary>

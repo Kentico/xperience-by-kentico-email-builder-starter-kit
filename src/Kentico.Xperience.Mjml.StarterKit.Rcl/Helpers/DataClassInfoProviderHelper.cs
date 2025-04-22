@@ -15,24 +15,24 @@ internal static class DataClassInfoProviderHelper
     public static IEnumerable<Guid> GetClassGuidsByCodeNames(IEnumerable<string> codeNames)
     {
         var enumerable = codeNames as string[] ?? codeNames.ToArray();
-        
+
         if (enumerable.Length == 0)
         {
             return [];
         }
- 
+
         List<Guid> result = [];
- 
+
         foreach (var codeName in enumerable)
         {
             var classInfo = DataClassInfoProvider.ProviderObject.Get(codeName);
 
             if (classInfo != null)
             {
-                result.Add(classInfo.ClassGUID);    
+                result.Add(classInfo.ClassGUID);
             }
         }
- 
+
         return result.Distinct();
     }
 }

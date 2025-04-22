@@ -20,12 +20,12 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 public partial class TextWidget : ComponentBase
 {
     private EmailContext? emailContext;
-    
+
     /// <summary>
     /// The component identifier.
     /// </summary>
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(TextWidget)}";
-    
+
     /// <summary>
     /// The widget properties.
     /// </summary>

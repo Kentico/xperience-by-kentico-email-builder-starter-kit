@@ -15,7 +15,7 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
     /// The component identifier.
     /// </summary>
     public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(EmailBuilderStarterKitTemplate)}";
-    
+
     private string? cssContent;
     private string? emailSubject;
     private EmailContext? emailContext;
