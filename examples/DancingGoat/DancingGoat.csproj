@@ -1,10 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-	  <RootNamespace>DancingGoat</RootNamespace>
-	  <UserSecretsId>79c85aaf-5444-4954-8d08-l592a961e82a</UserSecretsId>
-	  <SeparatedAdmin Condition="'$(SeparatedAdmin)' == ''">false</SeparatedAdmin>
-	  <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-	  <Nullable>annotations</Nullable>
+    <RootNamespace>DancingGoat</RootNamespace>
+    <UserSecretsId>79c858af-5444-4954-8d08-6592a961e82a</UserSecretsId>
+    <SeparatedAdmin Condition="'$(SeparatedAdmin)' == ''">false</SeparatedAdmin>
+    <TargetFramework Condition="'$(TargetFramework)' == ''">net8.0</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="App_Data\CMSModules\WebFarm\webfarm.sync" />
@@ -26,7 +27,7 @@
     <PackageReference Include="kentico.xperience.azurestorage" />
     <PackageReference Include="kentico.xperience.imageprocessing" />
     <PackageReference Include="kentico.xperience.webapp" />
-	<PackageReference Include="Kentico.Xperience.Mjml" />
+    <PackageReference Include="kentico.xperience.mjml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Kentico.Xperience.Mjml.StarterKit.Rcl\Kentico.Xperience.Mjml.StarterKit.Rcl.csproj" />

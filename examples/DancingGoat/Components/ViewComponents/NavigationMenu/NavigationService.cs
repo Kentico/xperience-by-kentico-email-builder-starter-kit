@@ -33,24 +33,36 @@ namespace DancingGoat.ViewComponents
         }
 
 
-        public async Task<IEnumerable<NavigationItemViewModel>> GetNavigationItemViewModels(string languageName, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<NavigationItemViewModel>> GetSiteNavigationItemViewModels(string languageName, CancellationToken cancellationToken = default)
         {
-            var navigationItems = (await navigationItemRepository.GetNavigationItems(languageName, cancellationToken))
+            return await GetNavigationItemViewModelsInternal(DancingGoatConstants.SITE_NAVIGATION_MENU_TREE_PATH, languageName, cancellationToken);
+        }
+
+
+        public async Task<IEnumerable<NavigationItemViewModel>> GetStoreNavigationItemViewModels(string languageName, CancellationToken cancellationToken = default)
+        {
+            return await GetNavigationItemViewModelsInternal(DancingGoatConstants.STORE_NAVIGATION_MENU_TREE_PATH, languageName, cancellationToken);
+        }
+
+
+        public async Task<IEnumerable<NavigationItemViewModel>> GetNavigationItemViewModelsInternal(string treePath, string languageName, CancellationToken cancellationToken = default)
+        {
+            var navigationItems = (await navigationItemRepository.GetNavigationItems(treePath, languageName, cancellationToken))
                 .ToList();
 
             var menuItemGuids = navigationItems
                 .Select(navigationItem => navigationItem.NavigationItemLink.First().WebPageGuid)
                 .ToList();
 
-            var navigationModels = await GetModelsCached(navigationItems, menuItemGuids, languageName, cancellationToken);
+            var navigationModels = await GetModelsCached(treePath, navigationItems, menuItemGuids, languageName, cancellationToken);
 
             return navigationModels;
         }
 
 
-        private async Task<IEnumerable<NavigationItemViewModel>> GetModelsCached(List<NavigationItem> navigationItems, List<Guid> menuItemGuids, string languageName, CancellationToken cancellationToken)
+        private async Task<IEnumerable<NavigationItemViewModel>> GetModelsCached(string treePath, List<NavigationItem> navigationItems, List<Guid> menuItemGuids, string languageName, CancellationToken cancellationToken)
         {
-            var cacheSettings = new CacheSettings(5, websiteChannelContext.WebsiteChannelName, nameof(GetNavigationItemViewModels), languageName);
+            var cacheSettings = new CacheSettings(5, websiteChannelContext.WebsiteChannelName, nameof(NavigationService), treePath, languageName);
 
             return await progressiveCache.LoadAsync(async (settings, cancellationToken) =>
             {
@@ -73,7 +85,7 @@ namespace DancingGoat.ViewComponents
                         cacheKeys.Add(CacheHelper.BuildCacheItemName(new[] { "webpageitem", "byguid", key.ToString() }, false));
                     }
 
-                    cacheKeys.Add(CacheHelper.BuildCacheItemName(new[] { "webpageitem", "bychannel", websiteChannelContext.WebsiteChannelName, "childrenofpath", DancingGoatConstants.NAVIGATION_MENU_FOLDER_PATH }));
+                    cacheKeys.Add(CacheHelper.BuildCacheItemName(new[] { "webpageitem", "bychannel", websiteChannelContext.WebsiteChannelName, "childrenofpath", DancingGoatConstants.SITE_NAVIGATION_MENU_TREE_PATH }));
 
                     cacheSettings.CacheDependency = CacheHelper.GetCacheDependency(cacheKeys);
                 }

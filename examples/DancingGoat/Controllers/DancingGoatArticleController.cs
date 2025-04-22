@@ -50,7 +50,7 @@ namespace DancingGoat.Controllers
 
             var articlesSection = await articlesSectionRepository.GetArticlesSection(webPage.WebPageItemID, languageName, HttpContext.RequestAborted);
 
-            var articles = await articlePageRepository.GetArticles(articlesSection.SystemFields.WebPageItemTreePath, languageName, true, cancellationToken: HttpContext.RequestAborted);
+            var articles = await articlePageRepository.GetArticlePages(articlesSection.SystemFields.WebPageItemTreePath, languageName, true, cancellationToken: HttpContext.RequestAborted);
 
             var models = new List<ArticleViewModel>();
             foreach (var article in articles)
@@ -72,7 +72,7 @@ namespace DancingGoat.Controllers
             var languageName = currentLanguageRetriever.Get();
             var webPageItemId = webPageDataContextRetriever.Retrieve().WebPage.WebPageItemID;
 
-            var article = await articlePageRepository.GetArticle(webPageItemId, languageName, HttpContext.RequestAborted);
+            var article = await articlePageRepository.GetArticlePage(webPageItemId, languageName, HttpContext.RequestAborted);
 
             if (article is null)
             {

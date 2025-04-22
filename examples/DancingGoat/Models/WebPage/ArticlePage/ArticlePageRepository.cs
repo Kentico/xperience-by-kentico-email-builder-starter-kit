@@ -37,7 +37,7 @@ namespace DancingGoat.Models
         /// <summary>
         /// Returns list of <see cref="ArticlePage"/> web pages.
         /// </summary>
-        public async Task<IEnumerable<ArticlePage>> GetArticles(string treePath, string languageName, bool includeSecuredItems, int topN = 0, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ArticlePage>> GetArticlePages(string treePath, string languageName, bool includeSecuredItems, int topN = 0, CancellationToken cancellationToken = default)
         {
             var queryBuilder = GetQueryBuilder(topN, treePath, languageName);
 
@@ -55,7 +55,7 @@ namespace DancingGoat.Models
         /// <summary>
         /// Returns <see cref="ArticlePage"/> web page by ID and language name.
         /// </summary>
-        public async Task<ArticlePage> GetArticle(int id, string languageName, CancellationToken cancellationToken = default)
+        public async Task<ArticlePage> GetArticlePage(int id, string languageName, CancellationToken cancellationToken = default)
         {
             var queryBuilder = GetQueryBuilder(id, languageName);
 
@@ -112,7 +112,7 @@ namespace DancingGoat.Models
                 dependencyCacheKeys.UnionWith(GetDependencyCacheKeys(article));
             }
 
-            dependencyCacheKeys.UnionWith(await webPageLinkedItemsDependencyRetriever.Get(articles.Select(articlePage => articlePage.SystemFields.WebPageItemID), 1, cancellationToken));
+            dependencyCacheKeys.UnionWith(await webPageLinkedItemsDependencyRetriever.Get(articles.Select(articlePage => articlePage.SystemFields.WebPageItemID), 2, cancellationToken));
             dependencyCacheKeys.Add(CacheHelper.GetCacheItemName(null, WebsiteChannelInfo.OBJECT_TYPE, "byid", WebsiteChannelContext.WebsiteChannelID));
 
             return dependencyCacheKeys;

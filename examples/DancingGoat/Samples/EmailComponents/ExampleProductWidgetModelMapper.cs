@@ -26,7 +26,8 @@ internal class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, I
     public async Task<ProductWidgetModel> Map(Guid webPageItemGuid, string languageName)
     {
         var query = new ContentItemQueryBuilder()
-            .ForContentType(CoffeePage.CONTENT_TYPE_NAME,
+            .ForContentTypes()
+            .ForContentType(ProductPage.CONTENT_TYPE_NAME,
                 config => config
                     .WithLinkedItems(10)
                     .ForWebsite(DancingGoatConstants.WEBSITE_CHANNEL_NAME, includeUrlPath: true)
@@ -34,32 +35,32 @@ internal class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, I
                         .WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), webPageItemGuid)))
             .InLanguage(languageName);
 
-        var result = await executor.GetMappedResult<CoffeePage>(query);
-        
-        var coffeePage = result.FirstOrDefault();
+        var result = await executor.GetMappedResult<ProductPage>(query);
+    
+        var productPage = result.FirstOrDefault();
 
-        if (coffeePage is null)
+        if (productPage is null)
         {
             return new ProductWidgetModel();
         }
 
-        var webPageItemUrl = await webPageUrlRetriever.Retrieve(coffeePage.SystemFields.WebPageItemID, languageName);
+        var webPageItemUrl = await webPageUrlRetriever.Retrieve(productPage.SystemFields.WebPageItemID, languageName);
 
-        var coffee = coffeePage.RelatedItem?.FirstOrDefault();
-        
-        if (coffee is null)
+        var product = productPage.ProductPageProduct?.FirstOrDefault() as IProductFields;
+    
+        if (product is null)
         {
             return new ProductWidgetModel();
         }
-        
-        var image = coffee.ProductFieldsImage.FirstOrDefault();
+    
+        var image = product.ProductFieldImage.FirstOrDefault();
 
         return new ProductWidgetModel
         {
-            Name = coffee.ProductFieldsName,
-            Description = coffee.ProductFieldsDescription,
+            Name = product.ProductFieldName,
+            Description = product.ProductFieldDescription,
             Url = webPageItemUrl.AbsoluteUrl,
-            ImageUrl = image?.ImageFile?.Url,
+            ImageUrl = image?.ImageFile.Url,
             ImageAltText = image != null ? image.ImageShortDescription : string.Empty
         };
     }

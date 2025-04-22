@@ -1,11 +1,9 @@
-﻿using DancingGoat.Models;
+﻿using DancingGoat.Commerce;
+using DancingGoat.Models;
+using DancingGoat.Services;
 using DancingGoat.ViewComponents;
 
-using Kentico.OnlineMarketing.Web.Mvc;
-
 using Microsoft.Extensions.DependencyInjection;
-
-using Samples.DancingGoat;
 
 namespace DancingGoat
 {
@@ -20,6 +18,15 @@ namespace DancingGoat
             AddRepositories(services);
 
             services.AddSingleton<ICurrentWebsiteChannelPrimaryLanguageRetriever, CurrentWebsiteChannelPrimaryLanguageRetriever>();
+            services.AddSingleton<IProductParametersExtractor, ProductParametersExtractor>();
+            services.AddSingleton<IProductVariantsExtractor, ProductVariantsExtractor>();
+            services.AddSingleton<ITagTitleRetriever, TagTitleRetriever>();
+            services.AddSingleton<IWebPageUrlProvider, WebPageUrlProvider>();
+            services.AddSingleton<IOrderService, OrderService>();
+            services.AddSingleton<ICustomerDataRetriever, CustomerDataRetriever>();
+            services.AddSingleton<ProductNameProvider>();
+            services.AddSingleton<RazorPriceFormatter>();
+            services.AddSingleton<IOrderNumberGenerator, OrderNumberGenerator>();
         }
 
 
@@ -40,6 +47,9 @@ namespace DancingGoat
             services.AddSingleton<ProductSectionRepository>();
             services.AddSingleton<ProductPageRepository>();
             services.AddSingleton<ProductRepository>();
+            services.AddSingleton<StoreRepository>();
+            services.AddSingleton<ProductCategoryRepository>();
+            services.AddSingleton<CountryStateRepository>();
         }
 
 

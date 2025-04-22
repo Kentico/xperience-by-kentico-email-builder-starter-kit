@@ -49,7 +49,7 @@ namespace DancingGoat.ViewComponents
                 return View("~/Components/ViewComponents/Articles/Default.cshtml", ArticlesSectionViewModel.GetViewModel(null, Enumerable.Empty<ArticleViewModel>(), string.Empty));
             }
 
-            var articlePages = await articlePageRepository.GetArticles(articlesSection.SystemFields.WebPageItemTreePath,
+            var articlePages = await articlePageRepository.GetArticlePages(articlesSection.SystemFields.WebPageItemTreePath,
                 languageName, false, ARTICLES_PER_VIEW, HttpContext.RequestAborted);
 
             var models = new List<ArticleViewModel>();

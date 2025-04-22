@@ -1,10 +1,9 @@
 ﻿using CMS.Base;
-
 using DancingGoat;
 using DancingGoat.Helpers.Generators;
 using DancingGoat.Models;
-
 using Kentico.Activities.Web.Mvc;
+using Kentico.Commerce.Web.Mvc;
 using Kentico.Content.Web.Mvc.Routing;
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Membership;
@@ -16,15 +15,14 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Sections;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Routing;
-
 using Samples.DancingGoat;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddKentico(features =>
 {
@@ -43,8 +41,11 @@ builder.Services.AddKentico(features =>
     features.UseWebPageRouting();
     features.UseEmailMarketing();
     features.UseEmailStatisticsLogging();
-    features.UseEmailBuilder();
     features.UseActivityTracking();
+    features.UseEmailBuilder();
+#pragma warning disable KXE0002 // Commerce feature is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+    features.UseCommerce();
+#pragma warning restore KXE0002 // Commerce feature is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 });
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
@@ -73,7 +74,7 @@ builder.Services.AddKenticoMjmlStarterKit(options =>
 {
     options.StyleSheetPath = "EmailBuilder.css";
     options.AllowedImageContentTypes = [Image.CONTENT_TYPE_NAME];
-    options.AllowedProductContentTypes = [CoffeePage.CONTENT_TYPE_NAME];
+    options.AllowedProductContentTypes = [ProductPage.CONTENT_TYPE_NAME];
 });
 
 builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();

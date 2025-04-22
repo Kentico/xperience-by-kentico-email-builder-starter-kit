@@ -1,24 +1,19 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 
-using CMS.Websites;
+using DancingGoat.Helpers;
 
 namespace DancingGoat.Models
 {
-    public record ProductListItemViewModel(string Name, string ImagePath, string Url)
+    public record ProductListItemViewModel(string Name, string ImagePath, string Url, decimal Price, string Tag)
     {
-        public static async Task<ProductListItemViewModel> GetViewModel(IProductPage productPage, IWebPageUrlRetriever urlRetriever, string languageName)
+        public static ProductListItemViewModel GetViewModel(IProductFields product, string urlPath, string languageName, string tag)
         {
-            var product = productPage.RelatedItem.FirstOrDefault();
-            var image = product.ProductFieldsImage.FirstOrDefault();
-
-            var path = (await urlRetriever.Retrieve(productPage, languageName)).RelativePath;
-
             return new ProductListItemViewModel(
-                product.ProductFieldsName,
-                image?.ImageFile.Url,
-                path
-            );
+                            product.ProductFieldName,
+                            product.ProductFieldImage.FirstOrDefault()?.ImageFile.Url,
+                            urlPath,
+                            product.ProductFieldPrice,
+                            tag);
         }
     }
 }

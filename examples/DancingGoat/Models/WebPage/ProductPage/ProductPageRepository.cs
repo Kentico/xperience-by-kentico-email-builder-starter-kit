@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 using CMS.ContentEngine;
+using CMS.DataEngine;
 using CMS.Helpers;
 using CMS.Websites;
 using CMS.Websites.Routing;
@@ -16,7 +16,9 @@ namespace DancingGoat.Models
     /// </summary>
     public class ProductPageRepository : ContentRepositoryBase
     {
-        private readonly IWebPageLinkedItemsDependencyAsyncRetriever webPageLinkedItemsDependencyRetriever;
+        private readonly ProductRepository productRepository;
+        private readonly IWebPageUrlRetriever webPageUrlRetriever;
+        private readonly ICacheDependencyBuilderFactory cacheDependencyBuilderFactory;
 
 
         /// <summary>
@@ -26,126 +28,88 @@ namespace DancingGoat.Models
             IWebsiteChannelContext websiteChannelContext,
             IContentQueryExecutor executor,
             IProgressiveCache cache,
-            IWebPageLinkedItemsDependencyAsyncRetriever webPageLinkedItemsDependencyRetriever)
+            ProductRepository productRepository,
+            IWebPageUrlRetriever webPageUrlRetriever,
+            ICacheDependencyBuilderFactory cacheDependencyBuilderFactory)
             : base(websiteChannelContext, executor, cache)
         {
-            this.webPageLinkedItemsDependencyRetriever = webPageLinkedItemsDependencyRetriever;
+            this.productRepository = productRepository;
+            this.webPageUrlRetriever = webPageUrlRetriever;
+            this.cacheDependencyBuilderFactory = cacheDependencyBuilderFactory;
         }
 
 
         /// <summary>
-        /// Returns list of <see cref="IProductPage"/> web pages.
+        /// Returns <see cref="IProductFields"/> content item by its product url slug.
         /// </summary>
-        public async Task<IEnumerable<IProductPage>> GetProducts(string treePath, string languageName, IEnumerable<IProductFields> linkedProducts, bool includeSecuredItems = true, CancellationToken cancellationToken = default)
+        public async Task<ProductPage> GetProductPage(int webPageItemId, string languageName, CancellationToken cancellationToken)
         {
-            if (!linkedProducts.Any())
-            {
-                return Enumerable.Empty<IProductPage>();
-            }
-
-            var queryBuilder = GetQueryBuilder(treePath, languageName, linkedProducts);
-
-            var options = new ContentQueryExecutionOptions
-            {
-                IncludeSecuredItems = includeSecuredItems
-            };
-
-            var linkedProductCacheParts = linkedProducts.Select(product => product.ProductFieldsName).Join("|");
-            var cacheSettings = new CacheSettings(5, WebsiteChannelContext.WebsiteChannelName, treePath, languageName, includeSecuredItems, nameof(IProductPage), linkedProductCacheParts);
-
-            return await GetCachedQueryResult<IProductPage>(queryBuilder, options, cacheSettings, GetDependencyCacheKeys, cancellationToken);
-        }
-
-
-        public async Task<ProductPageType> GetProduct<ProductPageType>(string contentTypeName, int id, string languageName, bool includeSecuredItems = true, CancellationToken cancellationToken = default)
-            where ProductPageType : IWebPageFieldsSource, new()
-        {
-            var queryBuilder = GetQueryBuilder(id, languageName, contentTypeName);
-
-            var options = new ContentQueryExecutionOptions
-            {
-                IncludeSecuredItems = includeSecuredItems
-            };
-
-            var cacheSettings = new CacheSettings(5, WebsiteChannelContext.WebsiteChannelName, nameof(ProductPageType), id, languageName);
-
-            var result = await GetCachedQueryResult<ProductPageType>(queryBuilder, options, cacheSettings, GetDependencyCacheKeys, cancellationToken);
-
-            return result.FirstOrDefault();
-        }
-
-
-        private ContentItemQueryBuilder GetQueryBuilder(string treePath, string languageName, IEnumerable<IProductFields> linkedProducts)
-        {
-            return GetQueryBuilder(
-                languageName,
+            var queryBuilder = new ContentItemQueryBuilder()
+                .ForContentType(ProductPage.CONTENT_TYPE_NAME,
                 config => config
-                    .Linking(nameof(IProductPage.RelatedItem), linkedProducts.Select(linkedProduct => ((IContentItemFieldsSource)linkedProduct).SystemFields.ContentItemID))
-                    .WithLinkedItems(2)
-                    .ForWebsite(WebsiteChannelContext.WebsiteChannelName, PathMatch.Children(treePath)));
+                        .ForWebsite(WebsiteChannelContext.WebsiteChannelName)
+                        .WithLinkedItems(2)
+                        .Where(where => where.WhereEquals(nameof(WebPageFields.WebPageItemID), webPageItemId))
+                        .TopN(1))
+                .InLanguage(languageName);
+
+            var cacheSettings = new CacheSettings(5, WebsiteChannelContext.WebsiteChannelName, languageName, nameof(IProductFields), webPageItemId);
+
+            var productPage = (await GetCachedQueryResult<ProductPage>(queryBuilder, new ContentQueryExecutionOptions(), cacheSettings, GetDependencyCacheKeys, cancellationToken))
+                              .FirstOrDefault();
+
+            return productPage;
         }
 
 
-        private static ContentItemQueryBuilder GetQueryBuilder(string languageName, Action<ContentTypeQueryParameters> configure = null)
+        /// <summary>
+        /// Returns URLs of product pages linked to the specified reusable products.
+        /// </summary>
+        public async Task<Dictionary<int, string>> GetProductPageUrls(IEnumerable<IContentItemFieldsSource> linkedProducts, string languageName, CancellationToken cancellationToken)
         {
-            return new ContentItemQueryBuilder()
-                    .ForContentType(CoffeePage.CONTENT_TYPE_NAME, configure)
-                    .ForContentType(GrinderPage.CONTENT_TYPE_NAME, configure)
-                    .InLanguage(languageName);
-        }
+            var queryBuilder = new ContentItemQueryBuilder()
+                .ForContentType(ProductPage.CONTENT_TYPE_NAME,
+                    config => config
+                        .Linking(nameof(ProductPage.ProductPageProduct), linkedProducts.Select(linkedProduct => linkedProduct.SystemFields.ContentItemID))
+                        .WithLinkedItems(1)
+                        .ForWebsite(WebsiteChannelContext.WebsiteChannelName, PathMatch.Children(DancingGoatConstants.PRODUCTS_PAGE_TREE_PATH))
+                )
+                .InLanguage(languageName);
 
+            var cacheSettings = new CacheSettings(5, WebsiteChannelContext.WebsiteChannelName, nameof(GetProductPageUrls), string.Join("-", linkedProducts.Select(p => p.SystemFields.ContentItemID)), languageName);
 
-        private ContentItemQueryBuilder GetQueryBuilder(int id, string languageName, string contentTypeName)
-        {
-            return GetQueryBuilder(
-                languageName,
-                contentTypeName,
-                config => config
-                    .WithLinkedItems(2)
-                    .ForWebsite(WebsiteChannelContext.WebsiteChannelName)
-                    .Where(where => where.WhereEquals(nameof(IWebPageContentQueryDataContainer.WebPageItemID), id)));
-        }
+            var productPages = await GetCachedQueryResult<ProductPage>(queryBuilder, new ContentQueryExecutionOptions(), cacheSettings, GetDependencyCacheKeys, cancellationToken);
 
+            var productUrls = new Dictionary<int, string>();
 
-        private static ContentItemQueryBuilder GetQueryBuilder(string languageName, string contentTypeName, Action<ContentTypeQueryParameters> configureQuery = null)
-        {
-            return new ContentItemQueryBuilder()
-                    .ForContentType(contentTypeName, configureQuery)
-                    .InLanguage(languageName);
-        }
-
-
-        private async Task<ISet<string>> GetDependencyCacheKeys<ProductPageType>(IEnumerable<ProductPageType> products, CancellationToken cancellationToken)
-            where ProductPageType : IWebPageFieldsSource
-        {
-            var dependencyCacheKeys = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var product in products)
+            foreach (var linkedProduct in linkedProducts)
             {
-                dependencyCacheKeys.UnionWith(GetDependencyCacheKeys(product));
+                // Get product page by a linked product
+                var productPage = productPages.FirstOrDefault(p => p.ProductPageProduct.FirstOrDefault()?.SystemFields.ContentItemID == linkedProduct.SystemFields.ContentItemID);
+                if (productPage != null)
+                {
+                    productUrls[linkedProduct.SystemFields.ContentItemID] = (await webPageUrlRetriever.Retrieve(productPage, languageName, cancellationToken)).RelativePath;
+                }
             }
 
-            dependencyCacheKeys.UnionWith(await webPageLinkedItemsDependencyRetriever.Get(products.Select(productPage => productPage.SystemFields.WebPageItemID), 1, cancellationToken));
-            dependencyCacheKeys.Add(CacheHelper.GetCacheItemName(null, WebsiteChannelInfo.OBJECT_TYPE, "byid", WebsiteChannelContext.WebsiteChannelID));
-
-            return dependencyCacheKeys;
+            return productUrls;
         }
 
 
-        private IEnumerable<string> GetDependencyCacheKeys(IWebPageFieldsSource product)
+        private async Task<ISet<string>> GetDependencyCacheKeys(IEnumerable<ProductPage> productPages, CancellationToken cancellationToken)
         {
-            if (product == null)
-            {
-                return Enumerable.Empty<string>();
-            }
+            var productItemsDependencies = await productRepository.GetDependencyCacheKeys(productPages.Select(p => p.ProductPageProduct.FirstOrDefault() as IProductFields), cancellationToken);
 
-            return new List<string>()
-            {
-                CacheHelper.BuildCacheItemName(new[] { "webpageitem", "byid", product.SystemFields.WebPageItemID.ToString() }, false),
-                CacheHelper.BuildCacheItemName(new[] { "webpageitem", "bychannel", WebsiteChannelContext.WebsiteChannelName, "bypath", product.SystemFields.WebPageItemTreePath }, false),
-                CacheHelper.BuildCacheItemName(new[] { "webpageitem", "bychannel", WebsiteChannelContext.WebsiteChannelName, "childrenofpath", DataHelper.GetParentPath(product.SystemFields.WebPageItemTreePath) }, false),
-                CacheHelper.GetCacheItemName(null, ContentLanguageInfo.OBJECT_TYPE, "all")
-            };
+            var cacheDependencyBuilder = cacheDependencyBuilderFactory.Create();
+            var cacheDependencies = cacheDependencyBuilder
+                .ForWebPageItems()
+                    .ByContentType<ProductPage>(WebsiteChannelContext.WebsiteChannelName).Builder()
+                .ForInfoObjects<WebsiteChannelInfo>()
+                    .ById(WebsiteChannelContext.WebsiteChannelID).Builder()
+                .AddDependency(productItemsDependencies)
+                .Build();
+
+            return cacheDependencies.CacheKeys.ToHashSet();
         }
     }
 }

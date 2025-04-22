@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 
 using CMS.Websites;
 
@@ -9,7 +10,7 @@ namespace DancingGoat.Models
     public record RelatedPageViewModel(string Title, string TeaserUrl, string Summary, DateTime? PublicationDate, string Url)
     {
         /// <summary>
-        /// Validates and maps <see cref="ArticlePage"/> or <see cref="CoffeePage"/> to a <see cref="RelatedPageViewModel"/>.
+        /// Validates and maps <see cref="ArticlePage"/> or <see cref="ProductPage"/> to a <see cref="RelatedPageViewModel"/>.
         /// </summary>
         public static Task<RelatedPageViewModel> GetViewModel(IWebPageFieldsSource webPage, IWebPageUrlRetriever urlRetriever, string languageName)
         {
@@ -17,12 +18,12 @@ namespace DancingGoat.Models
             {
                 return GetViewModelFromArticlePage(article, urlRetriever, languageName);
             }
-            else if (webPage is CoffeePage coffee)
+            else if (webPage is ProductPage productPage)
             {
-                return GetViewModelFromCoffeePage(coffee, urlRetriever, languageName);
+                return GetViewModelFromProductPage(productPage, urlRetriever, languageName);
             }
 
-            throw new ArgumentException($"Param {nameof(webPage)} must be {nameof(ArticlePage)} or {nameof(CoffeePage)}");
+            throw new ArgumentException($"Param {nameof(webPage)} must be {nameof(ArticlePage)} or {nameof(ProductPage)}");
         }
 
 
@@ -34,26 +35,27 @@ namespace DancingGoat.Models
             (
                 articlePage.ArticleTitle,
                 articlePage.ArticlePageTeaser.FirstOrDefault()?.ImageFile.Url,
-                articlePage.ArticlePageSummary,
+                WebUtility.HtmlEncode(articlePage.ArticlePageSummary),
                 articlePage.ArticlePagePublishDate,
                 url.RelativePath
             );
         }
 
 
-        private static async Task<RelatedPageViewModel> GetViewModelFromCoffeePage(CoffeePage coffeePage, IWebPageUrlRetriever urlRetriever, string languageName)
+        private static async Task<RelatedPageViewModel> GetViewModelFromProductPage(ProductPage productPage, IWebPageUrlRetriever urlRetriever, string languageName)
         {
-            var url = await urlRetriever.Retrieve(coffeePage, languageName);
+            var url = await urlRetriever.Retrieve(productPage, languageName);
+
+            var product = productPage.ProductPageProduct.FirstOrDefault() as IProductFields;
 
             return new RelatedPageViewModel
             (
-                coffeePage.RelatedItem.FirstOrDefault()?.ProductFieldsName,
-                coffeePage.RelatedItem.FirstOrDefault()?.ProductFieldsImage.FirstOrDefault()?.ImageFile.Url ?? string.Empty,
-                coffeePage.RelatedItem.FirstOrDefault()?.ProductFieldsShortDescription,
+                product?.ProductFieldName,
+                product?.ProductFieldImage.FirstOrDefault()?.ImageFile.Url ?? string.Empty,
+                product?.ProductFieldDescription,
                 null,
                 url.RelativePath
             );
         }
-
     }
 }

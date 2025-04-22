@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using CMS.ContentEngine;
@@ -43,11 +44,11 @@ namespace DancingGoat.Widgets
         }
 
 
-        public async Task<ViewViewComponentResult> InvokeAsync(ProductCardProperties properties)
+        public async Task<ViewViewComponentResult> InvokeAsync(ProductCardProperties properties, CancellationToken cancellationToken)
         {
             var languageName = currentLanguageRetriever.Get();
             var selectedProductGuids = properties.SelectedProducts.Select(i => i.Identifier).ToList();
-            var products = (await repository.GetProducts(selectedProductGuids, languageName))
+            var products = (await repository.GetProducts(selectedProductGuids, languageName, cancellationToken))
                                             .OrderBy(p => selectedProductGuids.IndexOf(((IContentItemFieldsSource)p).SystemFields.ContentItemGUID));
             var model = ProductCardListViewModel.GetViewModel(products);
 

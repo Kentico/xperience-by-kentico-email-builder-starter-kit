@@ -28,21 +28,27 @@ namespace DancingGoat.Models
         /// <summary>
         /// Returns list of <see cref="NavigationItem"/> content items representing navigation menu.
         /// </summary>
-        public async Task<IEnumerable<NavigationItem>> GetNavigationItems(string languageName, CancellationToken cancellationToken)
+        public async Task<IEnumerable<NavigationItem>> GetNavigationItems(string navigationMenuTreePath, string languageName, CancellationToken cancellationToken)
         {
             var query = new ContentItemQueryBuilder()
                 .ForContentType(NavigationItem.CONTENT_TYPE_NAME, config => config
-                    .ForWebsite(WebsiteChannelContext.WebsiteChannelName, PathMatch.Children(DancingGoatConstants.NAVIGATION_MENU_FOLDER_PATH), includeUrlPath: false)
+                    .ForWebsite(WebsiteChannelContext.WebsiteChannelName, PathMatch.Children(navigationMenuTreePath, 1), includeUrlPath: false)
                     .OrderBy(nameof(IWebPageContentQueryDataContainer.WebPageItemOrder)))
                 .InLanguage(languageName);
 
-            var cacheSettings = new CacheSettings(5, WebsiteChannelContext.WebsiteChannelName, nameof(GetNavigationItems), languageName);
+            var cacheSettings = new CacheSettings(5, WebsiteChannelContext.WebsiteChannelName, nameof(GetNavigationItems), navigationMenuTreePath, languageName);
 
             return await GetCachedQueryResult<NavigationItem>(query, null, cacheSettings, GetDependencyCacheKeys, cancellationToken);
+
+
+            Task<ISet<string>> GetDependencyCacheKeys(IEnumerable<NavigationItem> navigationItems, CancellationToken cancellationToken)
+            {
+                return GetDependencyCacheKeysInternal(navigationMenuTreePath, navigationItems, cancellationToken);
+            }
         }
 
 
-        private Task<ISet<string>> GetDependencyCacheKeys(IEnumerable<NavigationItem> navigationItems, CancellationToken cancellationToken)
+        private Task<ISet<string>> GetDependencyCacheKeysInternal(string navigationMenuTreePath, IEnumerable<NavigationItem> navigationItems, CancellationToken cancellationToken)
         {
             if (navigationItems == null)
             {
@@ -50,7 +56,7 @@ namespace DancingGoat.Models
             }
 
             var dependencyCacheKeys = GetCacheKeys(navigationItems.Select(navItem => navItem.SystemFields.WebPageItemID))
-                .Append(CacheHelper.BuildCacheItemName(new[] { "webpageitem", "bychannel", WebsiteChannelContext.WebsiteChannelName, "childrenofpath", DancingGoatConstants.NAVIGATION_MENU_FOLDER_PATH }))
+                .Append(CacheHelper.BuildCacheItemName(new[] { "webpageitem", "bychannel", WebsiteChannelContext.WebsiteChannelName, "childrenofpath", navigationMenuTreePath }))
                 .ToHashSet(StringComparer.InvariantCultureIgnoreCase);
 
             return Task.FromResult<ISet<string>>(dependencyCacheKeys);
