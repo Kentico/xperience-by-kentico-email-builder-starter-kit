@@ -60,6 +60,24 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Button.
+        /// </summary>
+        internal static string ButtonType_Button {
+            get {
+                return ResourceManager.GetString("ButtonType.Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string ButtonType_Link {
+            get {
+                return ResourceManager.GetString("ButtonType.Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select the button alignment.
         /// </summary>
         internal static string ButtonWidget_Alignment_ExplanationText {
@@ -227,6 +245,33 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
         internal static string FullWidthEmailSection_Name {
             get {
                 return ResourceManager.GetString("FullWidthEmailSection.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center.
+        /// </summary>
+        internal static string HorizontalAlignment_Center {
+            get {
+                return ResourceManager.GetString("HorizontalAlignment.Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        internal static string HorizontalAlignment_Left {
+            get {
+                return ResourceManager.GetString("HorizontalAlignment.Left", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        internal static string HorizontalAlignment_Right {
+            get {
+                return ResourceManager.GetString("HorizontalAlignment.Right", resourceCulture);
             }
         }
         

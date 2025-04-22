@@ -28,7 +28,7 @@ public sealed class ImageWidgetProperties : WidgetPropertiesBase
         Label = "{$ImageWidget.Alignment.Label$}",
         Order = 2,
         ExplanationText = "{$ImageWidget.Alignment.ExplanationText$}",
-        Options = $"{nameof(HorizontalAlignment.Left)};{nameof(HorizontalAlignment.Left)}\r\n{nameof(HorizontalAlignment.Center)};{nameof(HorizontalAlignment.Center)}\r\n{nameof(HorizontalAlignment.Right)};{nameof(HorizontalAlignment.Right)}",
+        Options = $"{nameof(HorizontalAlignment.Left)};{{$HorizontalAlignment.Left$}}\r\n{nameof(HorizontalAlignment.Center)};{{$HorizontalAlignment.Center$}}\r\n{nameof(HorizontalAlignment.Right)};{{$HorizontalAlignment.Right$}}",
         OptionsValueSeparator = ";")]
     public string Alignment { get; set; } = nameof(HorizontalAlignment.Left);
 

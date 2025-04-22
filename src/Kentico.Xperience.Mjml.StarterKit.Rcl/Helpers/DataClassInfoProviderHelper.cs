@@ -2,29 +2,37 @@
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Helpers;
 
+/// <summary>
+/// Helper class for retrieving class information from the DataClassInfoProvider.
+/// </summary>
 internal static class DataClassInfoProviderHelper
 {
     /// <summary>
-    /// Get class guids by code names
+    /// Retrieves class GUIDs for the specified content type code names.
     /// </summary>
-    /// <param name="codeNames"></param>
-    /// <returns></returns>
+    /// <param name="codeNames">Collection of content type code names to retrieve GUIDs for.</param>
+    /// <returns>Collection of unique GUIDs corresponding to the provided code names.</returns>
     public static IEnumerable<Guid> GetClassGuidsByCodeNames(IEnumerable<string> codeNames)
     {
         var enumerable = codeNames as string[] ?? codeNames.ToArray();
-
+        
         if (enumerable.Length == 0)
         {
-            return new List<Guid>();
+            return [];
         }
+ 
+        List<Guid> result = [];
+ 
+        foreach (var codeName in enumerable)
+        {
+            var classInfo = DataClassInfoProvider.ProviderObject.Get(codeName);
 
-        var classes = DataClassInfoProvider
-            .GetClasses()
-            .WhereEquals(nameof(DataClassInfo.ClassType), ClassType.CONTENT_TYPE)
-            .WhereIn(nameof(DataClassInfo.ClassShortName), enumerable)
-            .Columns(DataClassInfo.TYPEINFO.GUIDColumn, DataClassInfo.TYPEINFO.CodeNameColumn)
-            .ToList();
-
-        return classes.Select(i => i.ClassGUID).Distinct();
+            if (classInfo != null)
+            {
+                result.Add(classInfo.ClassGUID);    
+            }
+        }
+ 
+        return result.Distinct();
     }
 }

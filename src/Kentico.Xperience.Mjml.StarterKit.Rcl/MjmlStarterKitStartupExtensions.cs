@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
@@ -12,7 +9,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl;
 public static class MjmlStarterKitStartupExtensions
 {
     /// <summary>
-    /// Adds mjml starter kit services to application with customized options.
+    /// Adds MJML starter kit services to application with customized options.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> which will be modified.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> where <see cref="MjmlStarterKitOptions"/> are specified.</param>
@@ -20,12 +17,7 @@ public static class MjmlStarterKitStartupExtensions
     public static IServiceCollection AddKenticoMjmlStarterKit(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<CssLoaderService>()
-        .AddScoped<IUrlHelper>(provider =>
-        {
-            var actionContext = provider.GetRequiredService<IActionContextAccessor>().ActionContext!;
-            return new UrlHelper(actionContext);
-        })
-        .Configure<MjmlStarterKitOptions>(configuration.GetSection(nameof(MjmlStarterKitOptions)));
+            .Configure<MjmlStarterKitOptions>(configuration.GetSection(nameof(MjmlStarterKitOptions)));
 
         return services;
     }

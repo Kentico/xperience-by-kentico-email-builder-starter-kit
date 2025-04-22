@@ -1,5 +1,4 @@
 ﻿using CMS.ContentEngine;
-using CMS.Websites;
 
 using Kentico.Xperience.Admin.Base.FormAnnotations;
 
@@ -11,7 +10,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 public sealed class ProductWidgetProperties : WidgetPropertiesBase
 {
     /// <summary>
-    /// Specifies the <see cref="WebPageRelatedItem"/> which is used as the content of the product widget.
+    /// Specifies the <see cref="ContentItemReference"/> which is used as the content of the product widget.
     /// </summary>
     [ContentItemSelectorComponent(typeof(ProductContentTypesFilter),
         Label = "{$ProductWidget.Page.Label$}",
@@ -25,7 +24,7 @@ public sealed class ProductWidgetProperties : WidgetPropertiesBase
     /// </summary>
     [TextInputComponent(
         Label = "{$ProductWidget.ReadMoreButton.Label$}",
-        Order = 3,
+        Order = 2,
         ExplanationText = "{$ProductWidget.ReadMoreButton.ExplanationText$}")]
     public string ReadMoreButtonText { get; set; } = "READ MORE";
 }

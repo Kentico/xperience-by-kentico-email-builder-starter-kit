@@ -98,7 +98,6 @@
     <data name="DividerWidget.BorderStyle.ExplanationText" xml:space="preserve">
         <value>You can specify the border style here (dashed/dotted/solid).</value>
     </data>
-
     <data name="ImageWidget.Image.Label" xml:space="preserve">
         <value>Image</value>
     </data>
@@ -117,8 +116,6 @@
     <data name="ImageWidget.Width.ExplanationText" xml:space="preserve">
         <value>Required width of the image.</value>
     </data>
-
-
     <data name="ProductWidget.Page.Label" xml:space="preserve">
         <value>Page</value>
     </data>
@@ -136,5 +133,22 @@
     </data>
     <data name="WidgetPropertiesBase.CssClass.ExplanationText" xml:space="preserve">
         <value>CSS class for this block.</value>
+    </data>
+
+    <data name="ButtonType.Button" xml:space="preserve">
+        <value>Button</value>
+    </data>
+    <data name="ButtonType.Link" xml:space="preserve">
+        <value>Link</value>
+    </data>
+
+    <data name="HorizontalAlignment.Left" xml:space="preserve">
+        <value>Left</value>
+    </data>
+    <data name="HorizontalAlignment.Center" xml:space="preserve">
+        <value>Center</value>
+    </data>
+    <data name="HorizontalAlignment.Right" xml:space="preserve">
+        <value>Right</value>
     </data>
 </root>

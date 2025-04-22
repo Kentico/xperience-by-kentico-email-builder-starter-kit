@@ -14,8 +14,8 @@ public sealed class CssLoaderService
     /// <summary>
     /// The <see cref="CssLoaderService"/> constructor.
     /// </summary>
-    /// <param name="environment"></param>
-    /// <param name="mjmlStarterKitOptions"></param>
+    /// <param name="environment">The web hosting environment that provides information about the web application.</param>
+    /// <param name="mjmlStarterKitOptions">The configuration options for the MJML starter kit.</param>
     public CssLoaderService(IWebHostEnvironment environment,
         IOptions<MjmlStarterKitOptions> mjmlStarterKitOptions)
     {

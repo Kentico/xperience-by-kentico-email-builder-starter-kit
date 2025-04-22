@@ -4,7 +4,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
-    identifier: nameof(DividerWidget),
+    identifier: DividerWidget.IDENTIFIER,
     name: "{$DividerWidget.Name$}",
     componentType: typeof(DividerWidget),
     PropertiesType = typeof(DividerWidgetProperties),
@@ -19,6 +19,11 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// </summary>
 public partial class DividerWidget : ComponentBase
 {
+    /// <summary>
+    /// The component identifier.
+    /// </summary>
+    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(DividerWidget)}";
+    
     /// <summary>
     /// The divider properties.
     /// </summary>

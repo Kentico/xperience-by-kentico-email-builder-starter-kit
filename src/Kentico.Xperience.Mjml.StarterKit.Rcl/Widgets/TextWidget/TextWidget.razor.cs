@@ -4,7 +4,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 using Microsoft.AspNetCore.Components;
 
 [assembly: RegisterEmailWidget(
-    identifier: nameof(TextWidget),
+    identifier: TextWidget.IDENTIFIER,
     name: "{$TextWidget.Name$}",
     componentType: typeof(TextWidget),
     PropertiesType = typeof(TextWidgetProperties),
@@ -19,6 +19,11 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// </summary>
 public partial class TextWidget : ComponentBase
 {
+    /// <summary>
+    /// The component identifier.
+    /// </summary>
+    public const string IDENTIFIER = $"Kentico.Xperience.Mjml.StarterKit.{nameof(TextWidget)}";
+    
     /// <summary>
     /// The widget properties.
     /// </summary>

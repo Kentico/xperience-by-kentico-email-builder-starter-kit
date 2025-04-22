@@ -3,6 +3,11 @@ using Kentico.Xperience.Admin.Base.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
+/// <summary>
+/// Base class for all widget properties that provides common properties.
+/// This class serves as a foundation for all widget property classes, ensuring
+/// consistent property definitions across different widget types.
+/// </summary>
 public abstract class WidgetPropertiesBase : IEmailWidgetProperties
 {
     /// <summary>

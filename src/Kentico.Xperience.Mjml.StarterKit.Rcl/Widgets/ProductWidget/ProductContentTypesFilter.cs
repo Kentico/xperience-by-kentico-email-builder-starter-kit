@@ -6,22 +6,22 @@ using Microsoft.Extensions.Options;
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 /// <summary>
-/// Image content types filter.
+/// Product content types filter.
 /// </summary>
-internal sealed class ImageContentTypesFilter : IContentTypesFilter
+internal sealed class ProductContentTypesFilter : IContentTypesFilter
 {
     /// <summary>
-    /// Content type guid identifiers allowed for image widget
+    /// Content type GUID identifiers allowed for product widget
     /// </summary>
     public IEnumerable<Guid> AllowedContentTypeIdentifiers { get; }
 
     /// <summary>
-    /// Image content types filter.
+    /// Product content types filter.
     /// </summary>
     /// <param name="mjmlStarterKitOptions">The MJML starter kit options.</param>
-    public ImageContentTypesFilter(IOptions<MjmlStarterKitOptions> mjmlStarterKitOptions)
+    public ProductContentTypesFilter(IOptions<MjmlStarterKitOptions> mjmlStarterKitOptions)
     {
-        var codeNames = mjmlStarterKitOptions.Value.AllowedImageContentTypes;
+        var codeNames = mjmlStarterKitOptions.Value.AllowedProductContentTypes;
 
         AllowedContentTypeIdentifiers = DataClassInfoProviderHelper.GetClassGuidsByCodeNames(codeNames);
     }

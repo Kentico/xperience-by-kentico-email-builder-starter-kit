@@ -1,17 +1,20 @@
-﻿namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
+﻿using System.ComponentModel;
+
+namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 /// <summary>
-/// The type of html element rendered by button widget.
+/// The type of HTML element rendered by button widget.
 /// </summary>
 public enum ButtonType
 {
     /// <summary>
-    /// <button/> html element.
+    /// &lt;button /&gt; HTML element.
     /// </summary>
+    [Description("{$$}")]
     Button,
 
     /// <summary>
-    /// <a/> html element.
+    /// &lt;a /&gt; HTML element.
     /// </summary>
     Link
 }

@@ -71,7 +71,6 @@ builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrac
 builder.Services.AddKenticoMjmlStarterKit(builder.Configuration);
 builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
 builder.Services.AddScoped<IComponentModelMapper<ImageWidgetModel>, ExampleImageWidgetModelMapper>();
-builder.Services.AddScoped<IImageUrlResolver, ImageUrlResolver>();
 
 builder.Services.AddMjmlForEmails();
 

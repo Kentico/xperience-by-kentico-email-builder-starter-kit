@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Components;
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 /// <summary>
-/// Logo widget component.
+/// Image widget component.
 /// </summary>
 public partial class ImageWidget : ComponentBase
 {
@@ -57,4 +57,3 @@ public partial class ImageWidget : ComponentBase
         Model = await ImageComponentModelMapper.Map(selectedId.Value, languageName);
     }
 }
-

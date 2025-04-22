@@ -1,4 +1,6 @@
-﻿using Kentico.Xperience.Admin.Base.FormAnnotations;
+﻿using CMS.Helpers;
+
+using Kentico.Xperience.Admin.Base.FormAnnotations;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets.Enums;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
@@ -18,7 +20,7 @@ public sealed class ButtonWidgetProperties : WidgetPropertiesBase
     public string Text { get; set; } = string.Empty;
 
     /// <summary>
-    /// The url linked by button.
+    /// The URL linked by button.
     /// </summary>
     [TextInputComponent(
         Label = "{$ButtonWidget.Url.Label$}",
@@ -27,13 +29,13 @@ public sealed class ButtonWidgetProperties : WidgetPropertiesBase
     public string Url { get; set; } = string.Empty;
 
     /// <summary>
-    /// The button html element type. <see cref="ButtonType"/>
+    /// The button HTML element type. <see cref="ButtonType"/> 
     /// </summary>
     [DropDownComponent(
         Label = "{$ButtonWidget.ButtonType.Label$}",
         Order = 3,
         ExplanationText = "{$ButtonWidget.ButtonType.ExplanationText$}",
-        Options = $"{nameof(Enums.ButtonType.Button)};{nameof(Enums.ButtonType.Button)}\r\n{nameof(Enums.ButtonType.Link)};{nameof(Enums.ButtonType.Link)}",
+        Options = $"{nameof(Enums.ButtonType.Button)};{{$ButtonType.Button$}}\r\n{nameof(Enums.ButtonType.Link)};{{$ButtonType.Link$}}",
         OptionsValueSeparator = ";")]
     public string ButtonType { get; set; } = nameof(Enums.ButtonType.Button);
 
@@ -42,9 +44,9 @@ public sealed class ButtonWidgetProperties : WidgetPropertiesBase
     /// </summary>
     [DropDownComponent(
         Label = "{$ButtonWidget.Alignment.Label$}",
-        Order = 11,
+        Order = 4,
         ExplanationText = "{$ButtonWidget.Alignment.Label$}",
-        Options = $"{nameof(HorizontalAlignment.Left)};{nameof(HorizontalAlignment.Left)}\r\n{nameof(HorizontalAlignment.Center)};{nameof(HorizontalAlignment.Center)}\r\n{nameof(HorizontalAlignment.Right)};{nameof(HorizontalAlignment.Right)}",
+        Options = $"{nameof(HorizontalAlignment.Left)};{{$HorizontalAlignment.Left$}}\r\n{nameof(HorizontalAlignment.Center)};{{$HorizontalAlignment.Center$}}\r\n{nameof(HorizontalAlignment.Right)};{{$HorizontalAlignment.Right$}}",
         OptionsValueSeparator = ";")]
     public string ButtonHorizontalAlignment { get; set; } = nameof(HorizontalAlignment.Left);
 }

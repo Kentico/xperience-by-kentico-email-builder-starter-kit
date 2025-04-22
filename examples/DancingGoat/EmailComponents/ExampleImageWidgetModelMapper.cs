@@ -7,7 +7,7 @@ using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
 namespace DancingGoat.EmailComponents;
 
-public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor, IImageUrlResolver imageUrlResolver) : IComponentModelMapper<ImageWidgetModel>
+public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor) : IComponentModelMapper<ImageWidgetModel>
 {
     public async Task<ImageWidgetModel> Map(Guid webPageItemGuid, string languageName)
     {
@@ -29,7 +29,7 @@ public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor, IImag
 
         return new ImageWidgetModel()
         {
-            ImageUrl = imageUrlResolver.ResolveImageUrl(item.ImageFile),
+            ImageUrl = item.ImageFile?.Url,
             AltText = item.ImageShortDescription
         };
     }
