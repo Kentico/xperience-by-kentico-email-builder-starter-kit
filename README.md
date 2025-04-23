@@ -137,7 +137,7 @@ After completing the [installation and configuration](#installation-and-configur
 3. Select a content type for which you have an Email Builder template registered.
 4. Go to the **Email Builder** view mode, and [build the email's content](https://docs.kentico.com/x/create_emails_builder_xp) using the sections and widgets provided by the Starter Kit.
 
-## Full Instructions
+## Full instructions
 
 View the [Usage Guide](./docs/Usage-Guide.md) for more detailed instructions.
 
