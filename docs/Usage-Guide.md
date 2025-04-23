@@ -1,154 +1,247 @@
 # Usage Guide
 
-## Implement custom Web Page Item mappers.
+- [Starter Kit component reference](#starter-kit-component-reference)
+- [Implement Image and Product model mappers](#implement-image-and-product-model-mappers)
+- [Define email CSS styles](#define-email-css-styles)
 
-Define a custom `WidgetDataRetriever<ArticleWidgetModel>`, which maps Web Page Items selected in the `Article` widget to display content from a page within the widget's elements.
+## Starter Kit component reference
 
-Your custom implementation of `WidgetDataRetriever<ArticleWidgetModel>` can use dependency injection to define services and configuration required to retrieve and map the content to the `ArticleWidgetModel`.
+### Widgets
 
-The `ArticleWidgetModel` expects the following attributes to be set:
+**Button**
 
+Displays a button that opens a specified URL when clicked. Uses the [\<mj-button\>](https://documentation.mjml.io/#mj-button) tag, or a standard `<a>` tag within [\<mj-text\>](https://documentation.mjml.io/#mj-text).
+
+Users can configure the following properties:
+
+- **Button text** – the text displayed in the button.
+- **URL** – the URL opened when the button is selected. Allowed URL formats: absolute (starting with a protocol), relative (starting with /), or virtual (starting with ~).
+- **Button type** – specifies whether the widget renders a `<button>` or `<a>` tag.
+- **Alignment** – the horizontal alignment of the button.
+
+**Divider**
+
+Displays a horizontal divider that can be customized like a HTML border. Uses the [\<mj-divider\>](https://documentation.mjml.io/#mj-divider) tag.
+
+Users can configure the following properties:
+
+- **Border width** - the border sizeof the divider in pixels.
+- **Border color** - the [HTML color](https://www.w3schools.com/html/html_colors.asp) of the divider, either as a color name or hex code (e.g., 'blue' or '#fed').
+- **Border style** - the [border style](https://www.w3schools.com/cssref/pr_border-style.php) (e.g., 'solid', 'dotted', 'dashed', 'dotted double').
+
+**Image**
+
+Displays an image, which can be selected from images stored as [content item assets](https://docs.kentico.com/x/content_item_assets_xp) in Content hub. Uses the [\<mj-image\>](https://documentation.mjml.io/#mj-image) tag.
+
+Users can configure the following properties:
+
+- **Image** – selector for the image's content item asset.
+- **Alignment** – the horizontal alignment of the image.
+- **Width** – the width of the image in pixels. Limited by the width allowed by the section containing the widget.
+
+**Requirements**: To use the *Image* widget, you need to:
+
+- Specify the code names of [content types](https://docs.kentico.com/x/gYHWCQ) representing image assets in your project via the `AllowedImageContentTypes` Starter Kit option (see [Email Builder and Starter Kit setup](../README.md#email-builder-and-starter-kit-setup)).
+- Implement and register an [image model mapper](#implement-image-and-product-model-mappers) (`IComponentModelMapper<ImageWidgetModel>`), which populates `ImageWidgetModel` properties based on the selected content item asset.
+
+**Product**
+
+Displays product content based on a selected website channel page. Consists of an image, title, text and a link button that opens the product page. See [Model the product catalog](https://docs.kentico.com/x/commerce_catalog_xp) to learn how you can store products as pages in Xperience by Kentico.
+
+Users can configure the following properties:
+
+- **Product page** – the product page representing the displayed product.
+- **Product page button text** – the text displayed as the caption of the button that links to the product page.
+
+**Requirements**: To use the *Product* widget, you need to:
+
+- Specify the code names of [content types](https://docs.kentico.com/x/gYHWCQ) representing product pages in your project via the `AllowedProductContentTypes` Starter Kit option (see [Email Builder and Starter Kit setup](../README.md#email-builder-and-starter-kit-setup)).
+- Implement and register a [product model mapper](#implement-image-and-product-model-mappers) (`IComponentModelMapper<ProductWidgetModel>`), which populates `ProductWidgetModel` properties based on the selected product page.
+
+**Text**
+
+Allows users to add and format text content. Content is added directly in the Email Builder interface via the Xperience [Rich text inline editor](https://docs.kentico.com/developers-and-admins/development/builders/email-builder/inline-editors-email-builder-widgets#rich-text-inline-editor).
+
+### Sections
+
+Email Builder [sections](https://docs.kentico.com/developers-and-admins/development/builders/email-builder/develop-email-builder-components#sections) specify the layout for email content, with zones where you can add widgets. The Starter Kit includes the following sections:
+
+- **Full-width section** - content is displayed inside a single full-width column.
+- **Two-column section** - provides two columns side-by-side for content.
+
+![Section usage](/images/xperience-section-usage.png)
+
+## Implement image and product model mappers
+
+Every Xperience project may use its own specific [content types](https://docs.kentico.com/x/gYHWCQ) to represent images and product pages. To use the **Image** and **Product** widgets, you need to implement and register model mappers that convert data from your project's content types into the `<ImageWidgetModel>` and `<ProductWidgetModel>` models, which the widgets use to display content.
+
+### Image model mapper
+
+Create a class in your Xperience project that implements `IComponentModelMapper<ImageWidgetModel>` and define its `Map` method. Call the [Content item query API](https://docs.kentico.com/x/WhT_Cw) to retrieve the selected content item asset with image data. Use the data to populate and return an `ImageWidgetModel` instance.
+
+For example:
 
 ```csharp
-public class ArticleWidgetModel
+public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor) : IComponentModelMapper<ImageWidgetModel>
 {
-    /// <summary>
-    /// The title of the widget.
-    /// </summary>
-    public string Title { get; set; } = string.Empty;
+    public async Task<ImageWidgetModel> Map(Guid itemGuid, string languageName)
+    {
+        // Retrieves the selected content item asset
+        var query = new ContentItemQueryBuilder()
+            .ForContentType(Image.CONTENT_TYPE_NAME,
+                config => config
+                    .Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid))
+                    .TopN(1))
+            .InLanguage(languageName);
+        
+        var result = await executor.GetMappedResult<Image>(query);
 
-    /// <summary>
-    /// The text content of the widget.
-    /// </summary>
-    public string Content { get; set; } = string.Empty;
+        var item = result?.FirstOrDefault();
 
-    /// <summary>
-    /// The url of an image displayed in the widget.
-    /// </summary>
-    public string ImageUrl { get; set; } = string.Empty;
+        if (item is null)
+        {
+            return new ImageWidgetModel();
+        }
+
+        return new ImageWidgetModel()
+        {
+            // Populates the image URL and alt text from the retrieved content item's fields
+            ImageUrl = item.ImageFile?.Url,
+            AltText = item.ImageShortDescription
+        };
+    }
 }
 ```
 
-Implement the `MapProperties` method, which provides the `WebPageItemGuid` from the `WebPageSelectorComponent`. Retrieve a page content item and assign its desired properties to the `ArticleWidgetModel`. Return the model. You can map any Web Page `Content Type` to the widget.
-
+Register the model mapper in your Xperience project's `Program.cs` file:
 
 ```csharp
-public class ExampleArticleWidgetEmailDataRetriever : WidgetDataRetriever<ArticleWidgetModel>
+// Registers the image model mapper
+builder.Services.AddScoped<IComponentModelMapper<ImageWidgetModel>, ExampleImageWidgetModelMapper>();
+```
+
+### Product model mapper
+
+Create a class in your Xperience project that implements `IComponentModelMapper<ProductWidgetModel>` and define its `Map` method. Call the [Content item query API](https://docs.kentico.com/x/WhT_Cw) to retrieve the selected page with product data. Use the data to populate and return an `ProductWidgetModel` instance.
+
+For example:
+
+```csharp
+
+public class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, IWebPageUrlRetriever webPageUrlRetriever)
+    : IComponentModelMapper<ProductWidgetModel>
 {
-    private readonly IContentQueryExecutor contentQueryExecutor;
-    private readonly IWebPageQueryResultMapper webPageMapper;
-
-    public const string WEBSITE_CHANNEL_NAME = "DancingGoatPages";
-    public const string WEBSITE_LANGUAGE_NAME = "en";
-
-    public ExampleArticleEmailTemplateMapper(IContentQueryExecutor contentQueryExecutor,
-        IWebPageQueryResultMapper webPageMapper)
+    public async Task<ProductWidgetModel> Map(Guid webPageItemGuid, string languageName)
     {
-        this.contentQueryExecutor = contentQueryExecutor;
-        this.webPageMapper = webPageMapper;
-    }
+        // Retrieves the selected product page with a linked product content item
+        var query = new ContentItemQueryBuilder()
+            .ForContentTypes()
+            .ForContentType(ProductPage.CONTENT_TYPE_NAME,
+                config => config
+                    .WithLinkedItems(10)
+                    .ForWebsite(DancingGoatConstants.WEBSITE_CHANNEL_NAME, includeUrlPath: true)
+                    .Where(where => where
+                        .WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), webPageItemGuid)))
+            .InLanguage(languageName);
 
-    public override async Task<ArticleWidgetModel> MapProperties(Guid webPageItemGuid)
-    {
-        var queryBuilder = new ContentItemQueryBuilder()
-            .ForContentType(ArticlePage.CONTENT_TYPE_NAME,
-                config => config.WithLinkedItems(10)
+        var result = await executor.GetMappedResult<ProductPage>(query);
+        
+        var productPage = result.FirstOrDefault();
 
-                // Because the webPageItemGuid is a reusable content item, we don't have a website channel name to use here
-                // so we use a hardcoded channel name.
-
-                .ForWebsite(WEBSITE_CHANNEL_NAME)
-                .Where(
-                    x => x.WhereEquals(nameof(WebPageFields.WebPageItemGUID), webPageItemGuid)
-                )
-            )
-
-            // Because the changedItem is a reusable content item, we don't have a language name to use here
-            // so we use a hardcoded channel name.
-
-            .InLanguage(WEBSITE_LANGUAGE_NAME);
-
-        var result = await contentQueryExecutor.GetWebPageResult(queryBuilder, webPageMapper.Map<ArticlePage>);
-        var articlePage = result.FirstOrDefault();
-
-        if (articlePage is null)
+        if (productPage is null)
         {
-            return new();
+            return new ProductWidgetModel();
         }
 
-        return new ArticleWidgetModel
+        // Gets the product page URL
+        var webPageItemUrl = await webPageUrlRetriever.Retrieve(productPage.SystemFields.WebPageItemID, languageName);
+
+        // Gets product data stored in fields of the 'Product fields' reusable field schema
+        var product = productPage.ProductPageProduct?.FirstOrDefault() as IProductFields;
+        
+        if (product is null)
         {
-            Title = articlePage.ArticleTitle,
-            Content = articlePage.ArticlePageSummary,
-            ImageUrl = articlePage.ArticlePageTeaser.FirstOrDefault()?.ImageFile.Url ?? string.Empty
+            return new ProductWidgetModel();
+        }
+        
+        var image = product.ProductFieldImage.FirstOrDefault();
+
+        return new ProductWidgetModel
+        {
+            // Populates the product widget content using the retrieved data
+            Name = product.ProductFieldName,
+            Description = product.ProductFieldDescription,
+            Url = webPageItemUrl.AbsoluteUrl,
+            ImageUrl = image?.ImageFile.Url,
+            ImageAltText = image != null ? image.ImageShortDescription : string.Empty
         };
     }
 }
 
 ```
 
-![Article widget](/images/xperience-article-widget-configuration.png)
+Register the model mapper in your Xperience project's `Program.cs` file:
 
-Similarly, implement a custom `WidgetDataRetriever<ProductWidgetModel>`, which maps `WebPageItemGuid`s to `ProductWidgetModel`s used by `Product` widgets. The `Product` widget is very similar to the `Article` widget, except it does not contain an image.
+```csharp
+// Registers the product model mapper
+builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
+```
 
-![Product widget](/images/xperience-product-widget-configuration.png)
+## Define email CSS styles
 
-Register these mappers as explained in the [README](../README.md).
+Implement your custom CSS stylesheet file with the classes expected by the Starter Kit components. Place the CSS file in your project's `wwwroot` folder and specify this path in the `StyleSheetPath` Starter Kit option as explained in [Email Builder and Starter Kit setup](../README.md#email-builder-and-starter-kit-setup).
 
-## Define email CSS styles.
+These styles will be automatically injected into Email Builder components. Some styles must be marked *!important* to override the default styling of the MJML library.
 
-Implement your custom CSS stylesheet file with the classes expected by this library. Place the CSS file somewhere in your `wwwroot` folder and specify this path as explained in the [README](../README.md).
-
-These styles will be automatically injected into the email widgets. However, the styles are not applied in the `Email Builder` UI. You can view the styling in the `Preview` section.
-Some styles must be marked *!important* to override the default styling of the mjml library.
+**Limitation**: In current versions of Xperience by Kentico, the styles are not applied in the **Email Builder** UI. You can view the styling in the `Preview` mode or when sending test emails.
 
 ```css
 
-/* The class of text contents. */
-.text div,
-/* The class specifying button texts. */
-.button td {
+/* Class of text content */
+.mj-email-text div,
+/* Class specifying button texts */
+.mj-email-button td {
 	font-family: Roboto, Arial, sans-serif !important;
 }
 
-/* The classes applied to headings. */
-.text h1,
-.text h2,
-.text h3 {
+/* Classes applied to headings */
+.mj-email-text h1,
+.mj-email-text h2,
+.mj-email-text h3 {
 	line-height: 1.5 !important;
 	font-family: inherit !important;
 }
 
-.text h1 {
+.mj-email-text h1 {
 	font-size: 24px !important;
 }
 
-.text h2 {
+.mj-email- h2 {
 	font-size: 20px !important;
 }
 
-.text h3 {
+.mj-email-text h3 {
 	font-size: 16px !important;
 }
 
-.text p {
+.mj-email-text p {
 	line-height: 1.5 !important;
 	font-size: 14px !important;
 	font-family: Roboto, Arial, sans-serif !important;
 }
 
-	.text p a {
+	.mj-email-text p a {
 		text-decoration: underline;
 		color: #F05A22;
 	}
 
-/* Class applied to button element of type button. */
-.button td {
+/* Class applied to Button widget elements of type button */
+.mj-email-button td {
 	background: none !important;
 }
 
-/* Class applied to button element of type link. */
-.button a {
+/* Class applied to Button widget elements of type link */
+.mj-email-button a {
 	background: #F05A22 !important;
 	border-radius: 24px !important;
 	padding: 15px 32px !important;
@@ -158,82 +251,47 @@ Some styles must be marked *!important* to override the default styling of the m
 	font-family: inherit !important;
 }
 
-/* Class of image inside the Article and Hero widgets. */
-.image img {
+/* Classes applied to the Image widget and images in the Product widget */
+.mj-email-image img {
 	border-radius: 24px;
 }
 
-/* Class for the logo widget. */
-.logo {
+.mj-email-logo {
 	align-content: center;
 }
 
-.logo img {
+.mj-email-logo img {
 	height: 4rem !important;
 	width: 4rem !important;
+}
+
+
+/* Classes applied to the Product widget */
+.email-product_title h1 {
+	font-size: 24px !important;
+	color: #F05A22;
+	font-family: Roboto, Arial, sans-serif !important;
+}
+
+.email-product_description p {
+	font-family: Roboto, Arial, sans-serif !important;
+	line-height: 1.5 !important;
+}
+
+.email-product_button td {
+	background: #fff !important;
+}
+
+.email-product_button a {
+	background: #F05A22 !important;
+	border-radius: 24px !important;
+	padding: 15px 32px !important;
+	font-size: 14px !important;
+	line-height: 16px !important;
+	font-weight: 500 !important;
+	font-family: Roboto, Arial, sans-serif !important;
 }
 
 ```
 
 ![Email preview](/images/xperience-email-preview.png)
-
-## All components
-
-### Widgets
-
-**Article**  
-In addition to the `WidgetDataRetriever<ArticleWidgetModel>` mapper explained above, this widget allows the user to configure the following parameters:  
-
-- **Select a web page** – The article web page item used to set the content of this widget.  
-- **Content Position** – The vertical positioning of the content relative to the displayed image.  
-- **Web Page Link Button Position** – Choose the vertical positioning of the button relative to the text content of this widget or set the title as a link to the original page.  
-- **Go to Web Page Button Text** – The text displayed on the button that links to the original page.  
-
-**Product**  
-In addition to the `WidgetDataRetriever<ProductWidgetModel>` mapper explained above, this widget allows the user to configure the following parameters:  
-
-- **Select a web page** – The product web page item used to set the content of this widget.  
-- **Web Page Link Button Position** – Choose the vertical positioning of the button relative to the text content of this widget or set the title as a link to the original page.  
-- **Go to Web Page Button Text** – The text displayed on the button that links to the original page.
-
-
-**Button**  
-The Button widget lets the user configure the following parameters:
-- **Button text** – The text displayed in the button.
-- **Button type** – Specifies whether the resulting element will be a `<button/>` or `<a/>` element.
-- **URL** – The `href` parameter.
-- **Alignment** – The horizontal alignment of the button.
-
-![Button properties](/images/xperience-button-widget.png)
-
-**Content**  
-The Content widget is a simple configurable text holder. It defines the following property:
-- **Content Text** – The text displayed in the element.
-
-![Content properties](/images/xperience-content-widget.png)
-
-**Hero**  
-The Hero widget renders an image element. Available properties:
-- **Image** – The Image.
-- **Alt text** – The alternative text.
-- **Description** – The description rendered together with the image.
-- **Description position** – The vertical position of the description relative to the image.
-
-**Logo**
-The logo widget renders an image element. Available properties:
-- **Logo** - The logo.
-
-![Hero properties](/images/xperience-hero-widget.png)
-
-### Sections
-
-Select a section where you can add widgets.  
-![Sections](/images/xperience-sections.png)
-
-**Full Width Email Section**  
-The content will be displayed inside a single full-width column.
-
-**Two Columns Email Section**  
-Two columns will be displayed in one row.
-
-![Section usage](/images/xperience-section-usage.png)

@@ -45,7 +45,7 @@ public sealed class ButtonWidgetProperties : WidgetPropertiesBase
     [DropDownComponent(
         Label = "{$ButtonWidget.Alignment.Label$}",
         Order = 4,
-        ExplanationText = "{$ButtonWidget.Alignment.Label$}",
+        ExplanationText = "{$ButtonWidget.Alignment.ExplanationText$}",
         Options = $"{nameof(HorizontalAlignment.Left)};{{$HorizontalAlignment.Left$}}\r\n{nameof(HorizontalAlignment.Center)};{{$HorizontalAlignment.Center$}}\r\n{nameof(HorizontalAlignment.Right)};{{$HorizontalAlignment.Right$}}",
         OptionsValueSeparator = ";")]
     public string ButtonHorizontalAlignment { get; set; } = nameof(HorizontalAlignment.Left);
