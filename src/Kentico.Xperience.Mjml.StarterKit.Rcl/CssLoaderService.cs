@@ -24,9 +24,9 @@ public sealed class CssLoaderService
     }
 
     /// <summary>
-    /// Retrieves the style sheet from the location specified in the appsettings.json.
+    /// Retrieves the style sheet specified by <see cref="MjmlStarterKitOptions.StyleSheetPath"/>.
     /// </summary>
-    /// <returns></returns>
+    /// <seealso cref="MjmlStarterKitOptions"/>
     public Task<string> GetCssAsync()
     {
         var path = CMS.IO.Path.Combine(environment.WebRootPath, mjmlStarterKitOptions.StyleSheetPath.TrimStart('/'));

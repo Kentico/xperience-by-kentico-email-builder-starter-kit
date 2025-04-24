@@ -11,7 +11,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 internal sealed class ImageContentTypesFilter : IContentTypesFilter
 {
     /// <summary>
-    /// Content type GUID identifiers allowed for image widget
+    /// Content type GUID identifiers allowed for <see cref="ImageWidget"/>.
     /// </summary>
     public IEnumerable<Guid> AllowedContentTypeIdentifiers { get; }
 

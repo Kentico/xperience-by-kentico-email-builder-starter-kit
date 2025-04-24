@@ -11,7 +11,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 internal sealed class ProductContentTypesFilter : IContentTypesFilter
 {
     /// <summary>
-    /// Content type GUID identifiers allowed for product widget
+    /// Content type GUID identifiers allowed for <see cref="ProductWidget"/>.
     /// </summary>
     public IEnumerable<Guid> AllowedContentTypeIdentifiers { get; }
 
