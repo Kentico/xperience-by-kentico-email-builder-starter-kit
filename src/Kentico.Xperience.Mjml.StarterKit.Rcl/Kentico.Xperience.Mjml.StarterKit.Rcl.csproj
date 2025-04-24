@@ -1,20 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Kentico.Xperience.Mjml.StarterKit.Rcl</RootNamespace>
+		<IsPackable>true</IsPackable>
+		<EnableScopedCss>false</EnableScopedCss>
     </PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="Properties\**" />
+	  <Content Remove="Properties\**" />
+	  <None Remove="Properties\**" />
+	  <Compile Update="Resources\MjmlStarterKitResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>MjmlStarterKitResources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 
     <ItemGroup>
-        <SupportedPlatform Include="browser"/>
+        <SupportedPlatform Include="browser" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Kentico.Xperience.WebApp" Version="30.1.0-b433450" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.12"/>
+        <PackageReference Include="Kentico.Xperience.WebApp" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+		<PackageReference Include="Kentico.Xperience.Mjml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,7 +36,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Properties\" />
+      <EmbeddedResource Include="Resources\MjmlStarterKitResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>MjmlStarterKitResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
-
 </Project>

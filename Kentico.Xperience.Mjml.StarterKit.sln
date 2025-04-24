@@ -1,6 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35728.132
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kentico.Xperience.Mjml.StarterKit.Rcl", "src\Kentico.Xperience.Mjml.StarterKit.Rcl\Kentico.Xperience.Mjml.StarterKit.Rcl.csproj", "{5BDAC64C-436F-475F-9650-B22DB74958F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DancingGoat", "examples\DancingGoat\DancingGoat.csproj", "{A2326E6C-ECF8-4E8A-A499-0ED6A4E2203B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23EE9335-7EFE-4936-931F-5ED671605425}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.build.targets = Directory.build.targets
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +26,12 @@ Global
 		{5BDAC64C-436F-475F-9650-B22DB74958F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BDAC64C-436F-475F-9650-B22DB74958F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BDAC64C-436F-475F-9650-B22DB74958F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2326E6C-ECF8-4E8A-A499-0ED6A4E2203B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2326E6C-ECF8-4E8A-A499-0ED6A4E2203B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2326E6C-ECF8-4E8A-A499-0ED6A4E2203B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2326E6C-ECF8-4E8A-A499-0ED6A4E2203B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
