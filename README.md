@@ -12,6 +12,7 @@ This Starter Kit for [Xperience by Kentico Email Builder](https://docs.kentico.c
 
 | Xperience Version | Email Builder Starter Kit Version |
 | ----------------- | --------------- |
+| >= 30.5.4         | 1.1.0           |
 | >= 30.4.0         | 1.0.x           |
 
 ### MJML support
