@@ -9,12 +9,12 @@ namespace Samples.DancingGoat;
 
 public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor) : IComponentModelMapper<ImageWidgetModel>
 {
-    public async Task<ImageWidgetModel> Map(Guid webPageItemGuid, string languageName)
+    public async Task<ImageWidgetModel> Map(Guid itemGuid, string languageName)
     {
         var query = new ContentItemQueryBuilder()
             .ForContentType(Image.CONTENT_TYPE_NAME,
                 config => config
-                    .Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), webPageItemGuid))
+                    .Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid))
                     .TopN(1))
             .InLanguage(languageName);
         
