@@ -81,7 +81,6 @@ internal sealed class OrderService : IOrderService
             {
                 OrderCreatedWhen = DateTime.Now,
                 OrderNumber = orderNumber,
-                OrderStatus = OrderStatusService.GetInitialStatus(),
                 OrderTotalPrice = totalPrice,
                 OrderTotalTax = 0,
                 OrderTotalShipping = 0,
