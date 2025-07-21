@@ -131,7 +131,7 @@ For example:
 public class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, IWebPageUrlRetriever webPageUrlRetriever)
     : IComponentModelMapper<ProductWidgetModel>
 {
-    public async Task<ProductWidgetModel> Map(Guid webPageItemGuid, string languageName)
+    public async Task<ProductWidgetModel> Map(Guid itemGuid, string languageName)
     {
         // Retrieves the selected product page with a linked product content item
         var query = new ContentItemQueryBuilder()
@@ -141,7 +141,7 @@ public class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, IWe
                     .WithLinkedItems(10)
                     .ForWebsite(DancingGoatConstants.WEBSITE_CHANNEL_NAME, includeUrlPath: true)
                     .Where(where => where
-                        .WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), webPageItemGuid)))
+                        .WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid)))
             .InLanguage(languageName);
 
         var result = await executor.GetMappedResult<ProductPage>(query);

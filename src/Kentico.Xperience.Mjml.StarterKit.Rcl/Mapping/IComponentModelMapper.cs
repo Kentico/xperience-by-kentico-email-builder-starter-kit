@@ -6,10 +6,10 @@
 public interface IComponentModelMapper<TWidgetModel>
 {
     /// <summary>
-    /// Maps a web page component to a widget model based on its GUID.
+    /// Maps a content item to a widget model based on its GUID.
     /// </summary>
-    /// <param name="webPageItemGuid">The GUID of the web page component to map.</param>
+    /// <param name="itemGuid">The GUID of the content item to map.</param>
     /// <param name="languageName">The language name for the email channel.</param>
     /// <returns>A widget model of type <typeparamref name="TWidgetModel"/>.</returns>
-    public Task<TWidgetModel> Map(Guid webPageItemGuid, string languageName);
+    public Task<TWidgetModel> Map(Guid itemGuid, string languageName);
 }
