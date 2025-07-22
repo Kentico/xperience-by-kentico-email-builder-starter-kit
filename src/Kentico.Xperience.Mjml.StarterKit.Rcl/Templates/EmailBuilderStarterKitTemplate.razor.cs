@@ -25,7 +25,7 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
     protected string CssContent
     {
         get => cssContent ?? string.Empty;
-        private set => cssContent = value;
+        set => cssContent = value;
     }
 
     /// <summary>
@@ -43,14 +43,11 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
     /// </summary>
     protected EmailContext EmailContext => emailContext ??= EmailContextAccessor.GetContext();
 
-    [Inject]
-    private CssLoaderService CssLoaderService { get; set; } = null!;
+    [Inject] private CssLoaderService CssLoaderService { get; set; } = null!;
 
-    [Inject]
-    private IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
+    [Inject] private IEmailContextAccessor EmailContextAccessor { get; set; } = null!;
 
-    [Inject]
-    private IEmailDataMapper EmailDataMapper { get; set; } = null!;
+    [Inject] private IEmailDataMapper EmailDataMapper { get; set; } = null!;
 
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
