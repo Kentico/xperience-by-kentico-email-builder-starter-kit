@@ -1,7 +1,7 @@
 ﻿namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 
 /// <summary>
-/// Defines a mapper for converting web page components into email builder widget models.
+/// Defines a mapper for converting content items into email builder widget models.
 /// </summary>
 public interface IComponentModelMapper<TWidgetModel>
 {
