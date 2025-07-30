@@ -2,6 +2,7 @@
 
 - [Starter Kit component reference](#starter-kit-component-reference)
 - [Implement Image and Product model mappers](#implement-image-and-product-model-mappers)
+- [Implement email data mapper](#implement-email-data-mapper)
 - [Define email CSS styles](#define-email-css-styles)
 
 ## Starter Kit component reference
@@ -187,6 +188,52 @@ Register the model mapper in your Xperience project's `Program.cs` file:
 builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
 ```
 
+## Implement email data mapper
+
+Every Xperience project may use different [content types](https://docs.kentico.com/x/gYHWCQ) to represent email content. To use the **Email Builder Starter Kit Template**, you need to implement and register an email data mapper that converts data from your project's email content types into the `IEmailData` contract, which the template uses to populate email metadata like subject and preview text.
+
+### Email data mapper
+
+Create a class in your Xperience project that implements `IEmailDataMapper` and define its `Map` method. Use the `EmailContext.GetEmail<T>()` method to retrieve strongly-typed email data and map it to the `IEmailData` contract.
+
+For example:
+
+```csharp
+// Path: /Samples/EmailComponents/ExampleEmailDataMapper.cs
+
+public class ExampleEmailDataMapper : IEmailDataMapper
+{
+    private readonly IEmailContextAccessor emailContextAccessor;
+
+    public ExampleEmailDataMapper(IEmailContextAccessor emailContextAccessor)
+    {
+        this.emailContextAccessor = emailContextAccessor;
+    }
+
+    public async Task<IEmailData> Map()
+    {
+        var emailContext = emailContextAccessor.GetContext();
+        
+        // Retrieves the strongly-typed email content using your project's email content type
+        var email = await emailContext.GetEmail<Email>();
+
+        // Maps the email data to the IEmailData contract
+        return new EmailData(email?.EmailSubject, email?.EmailPreviewText);
+    }
+}
+```
+
+**Note**: Replace `Email` with your project's specific email content type class that contains the email subject and preview text fields.
+
+Register the email data mapper in your Xperience project's `Program.cs` file:
+
+```csharp
+// Registers the email data mapper
+builder.Services.AddScoped<IEmailDataMapper, ExampleEmailDataMapper>();
+```
+
+**Requirements**: The email data mapper is required for the Email Builder Starter Kit Template to function properly. Without it, the template will not be able to populate the email subject and preview text in the generated email markup.
+
 ## Define email CSS styles
 
 Implement your custom CSS stylesheet file with the classes expected by the Starter Kit components. Place the CSS file in your project's `wwwroot` folder and specify this path in the `StyleSheetPath` Starter Kit option as explained in [Email Builder and Starter Kit setup](../README.md#email-builder-and-starter-kit-setup).
@@ -199,97 +246,97 @@ These styles will be automatically injected into Email Builder components. Some 
 
 /* Class of text content */
 .mj-email-text div,
-/* Class specifying button texts */
+    /* Class specifying button texts */
 .mj-email-button td {
-	font-family: Roboto, Arial, sans-serif !important;
+    font-family: Roboto, Arial, sans-serif !important;
 }
 
 /* Classes applied to headings */
 .mj-email-text h1,
 .mj-email-text h2,
 .mj-email-text h3 {
-	line-height: 1.5 !important;
-	font-family: inherit !important;
+    line-height: 1.5 !important;
+    font-family: inherit !important;
 }
 
 .mj-email-text h1 {
-	font-size: 24px !important;
+    font-size: 24px !important;
 }
 
 .mj-email- h2 {
-	font-size: 20px !important;
+    font-size: 20px !important;
 }
 
 .mj-email-text h3 {
-	font-size: 16px !important;
+    font-size: 16px !important;
 }
 
 .mj-email-text p {
-	line-height: 1.5 !important;
-	font-size: 14px !important;
-	font-family: Roboto, Arial, sans-serif !important;
+    line-height: 1.5 !important;
+    font-size: 14px !important;
+    font-family: Roboto, Arial, sans-serif !important;
 }
 
-	.mj-email-text p a {
-		text-decoration: underline;
-		color: #F05A22;
-	}
+.mj-email-text p a {
+    text-decoration: underline;
+    color: #F05A22;
+}
 
 /* Class applied to Button widget elements of type button */
 .mj-email-button td {
-	background: none !important;
+    background: none !important;
 }
 
 /* Class applied to Button widget elements of type link */
 .mj-email-button a {
-	background: #F05A22 !important;
-	border-radius: 24px !important;
-	padding: 15px 32px !important;
-	font-size: 14px !important;
-	line-height: 16px !important;
-	font-weight: 500 !important;
-	font-family: inherit !important;
+    background: #F05A22 !important;
+    border-radius: 24px !important;
+    padding: 15px 32px !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    font-weight: 500 !important;
+    font-family: inherit !important;
 }
 
 /* Classes applied to the Image widget and images in the Product widget */
 .mj-email-image img {
-	border-radius: 24px;
+    border-radius: 24px;
 }
 
 .mj-email-logo {
-	align-content: center;
+    align-content: center;
 }
 
 .mj-email-logo img {
-	height: 4rem !important;
-	width: 4rem !important;
+    height: 4rem !important;
+    width: 4rem !important;
 }
 
 
 /* Classes applied to the Product widget */
 .email-product_title h1 {
-	font-size: 24px !important;
-	color: #F05A22;
-	font-family: Roboto, Arial, sans-serif !important;
+    font-size: 24px !important;
+    color: #F05A22;
+    font-family: Roboto, Arial, sans-serif !important;
 }
 
 .email-product_description p {
-	font-family: Roboto, Arial, sans-serif !important;
-	line-height: 1.5 !important;
+    font-family: Roboto, Arial, sans-serif !important;
+    line-height: 1.5 !important;
 }
 
 .email-product_button td {
-	background: #fff !important;
+    background: #fff !important;
 }
 
 .email-product_button a {
-	background: #F05A22 !important;
-	border-radius: 24px !important;
-	padding: 15px 32px !important;
-	font-size: 14px !important;
-	line-height: 16px !important;
-	font-weight: 500 !important;
-	font-family: Roboto, Arial, sans-serif !important;
+    background: #F05A22 !important;
+    border-radius: 24px !important;
+    padding: 15px 32px !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    font-weight: 500 !important;
+    font-family: Roboto, Arial, sans-serif !important;
 }
 
 ```
