@@ -7,7 +7,7 @@ namespace DancingGoat.Samples.EmailComponents;
 
 /// <summary>
 /// Example implementation of email data mapper for DancingGoat emails.
-/// Maps strongly-typed email content to the email data contract using EmailContext.GetEmail&lt;T&gt;.
+/// Maps strongly-typed email content to the email data contract using <see cref="EmailContext.GetEmail{T}(CancellationToken)"/>.
 /// </summary>
 public class ExampleEmailDataMapper : IEmailDataMapper
 {
