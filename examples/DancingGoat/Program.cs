@@ -1,5 +1,6 @@
 ﻿using CMS.Base;
 using DancingGoat;
+using DancingGoat.Commerce;
 using DancingGoat.Helpers.Generators;
 using DancingGoat.Models;
 using DancingGoat.Samples.EmailComponents;
@@ -53,7 +54,7 @@ builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true
 
 builder.Services.Configure<EmailBuilderOptions>(options =>
 {
-    options.AllowedEmailContentTypeNames = [Email.CONTENT_TYPE_NAME];
+    options.AllowedEmailContentTypeNames = [BuilderEmail.CONTENT_TYPE_NAME];
     options.RegisterDefaultSection = false;
     options.DefaultSectionIdentifier = FullWidthEmailSection.IDENTIFIER;
 });
@@ -94,6 +95,8 @@ if (builder.Environment.IsDevelopment())
 var app = builder.Build();
 
 app.InitKentico();
+
+Initialize(app.Services);
 
 app.UseStaticFiles();
 
@@ -184,4 +187,10 @@ static void ConfigureMembershipServices(IServiceCollection services)
     });
 
     services.AddAuthorization();
+}
+
+static void Initialize(IServiceProvider serviceProvider)
+{
+    var contentItemEventHandlers = serviceProvider.GetRequiredService<ContentItemEventHandlers>();
+    contentItemEventHandlers.Initialize();
 }

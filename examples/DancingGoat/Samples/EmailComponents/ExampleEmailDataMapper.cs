@@ -26,7 +26,7 @@ public class ExampleEmailDataMapper : IEmailDataMapper
     public async Task<IEmailData> Map()
     {
         var emailContext = emailContextAccessor.GetContext();
-        var email = await emailContext.GetEmail<Email>();
+        var email = await emailContext.GetEmail<BuilderEmail>();
 
         return new EmailData(email?.EmailSubject, email?.EmailPreviewText);
     }
