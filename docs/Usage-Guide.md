@@ -286,7 +286,7 @@ public class MultiTypeEmailDataMapper : IEmailDataMapper
     }
 
     /// <summary>
-    /// Maps newsletter email content to IEmailData contract.
+    /// Maps newsletter email content to <see cref="IEmailData"/> contract.
     /// </summary>
     /// <param name="emailContext">The email context.</param>
     /// <returns>Mapped email data for newsletter.</returns>
@@ -308,7 +308,7 @@ public class MultiTypeEmailDataMapper : IEmailDataMapper
     }
 
     /// <summary>
-    /// Maps promotional email content to IEmailData contract.
+    /// Maps promotional email content to <see cref="IEmailData"/> contract.
     /// </summary>
     /// <param name="emailContext">The email context.</param>
     /// <returns>Mapped email data for promotional email.</returns>
@@ -330,7 +330,7 @@ public class MultiTypeEmailDataMapper : IEmailDataMapper
     }
 
     /// <summary>
-    /// Maps transactional email content to IEmailData contract.
+    /// Maps transactional email content to <see cref="IEmailData"/> contract.
     /// </summary>
     /// <param name="emailContext">The email context.</param>
     /// <returns>Mapped email data for transactional email.</returns>
@@ -352,7 +352,7 @@ public class MultiTypeEmailDataMapper : IEmailDataMapper
     }
 
     /// <summary>
-    /// Maps builder email content to IEmailData contract (fallback method).
+    /// Maps builder email content to <see cref="IEmailData"/> contract (fallback method).
     /// </summary>
     /// <param name="emailContext">The email context.</param>
     /// <returns>Mapped email data for builder email.</returns>

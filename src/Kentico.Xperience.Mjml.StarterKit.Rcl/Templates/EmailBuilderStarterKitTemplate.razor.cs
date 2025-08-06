@@ -20,7 +20,7 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
     private IEmailData? emailData;
 
     /// <summary>
-    /// Gets the CSS content for the email template.
+    /// Gets or sets the CSS content for the email template.
     /// </summary>
     protected string CssContent
     {
