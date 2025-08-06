@@ -1,7 +1,9 @@
-﻿using CMS.Base;
+﻿using CMS;
+using CMS.Base;
 using DancingGoat;
 using DancingGoat.Helpers.Generators;
 using DancingGoat.Models;
+using DancingGoat.Samples.EmailComponents;
 using Kentico.Activities.Web.Mvc;
 using Kentico.Commerce.Web.Mvc;
 using Kentico.Content.Web.Mvc.Routing;
@@ -21,6 +23,8 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Samples.DancingGoat;
 
+[assembly: AssemblyDiscoverable]
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -38,23 +42,19 @@ builder.Services.AddKentico(features =>
         }
     });
 
+    features.UseEmailBuilder();
     features.UseWebPageRouting();
     features.UseEmailMarketing();
     features.UseEmailStatisticsLogging();
     features.UseActivityTracking();
-    features.UseEmailBuilder();
-#pragma warning disable KXE0002 // Commerce feature is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     features.UseCommerce();
-#pragma warning restore KXE0002 // Commerce feature is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 });
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-builder.Services.Configure<EmailBuilderOptions>(options =>
+builder.Services.Configure<MvcOptions>(options =>
 {
-    options.AllowedEmailContentTypeNames = ["DancingGoat.Email"];
-    options.RegisterDefaultSection = false;
-    options.DefaultSectionIdentifier = FullWidthEmailSection.IDENTIFIER;
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 });
 
 builder.Services.AddLocalization()
@@ -68,19 +68,9 @@ builder.Services.AddLocalization()
 builder.Services.AddDancingGoatServices();
 builder.Services.AddSingleton<IEmailActivityTrackingEvaluator, EmailActivityTrackingEvaluator>();
 
-//builder.Services.AddKenticoMjmlStarterKit(builder.Configuration);
+ConfigureEmailBuilder(builder.Services);
 
-builder.Services.AddKenticoMjmlStarterKit(options =>
-{
-    options.StyleSheetPath = "EmailBuilder.css";
-    options.AllowedImageContentTypes = [Image.CONTENT_TYPE_NAME];
-    options.AllowedProductContentTypes = [ProductPage.CONTENT_TYPE_NAME];
-});
-
-builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
-builder.Services.AddScoped<IComponentModelMapper<ImageWidgetModel>, ExampleImageWidgetModelMapper>();
-
-builder.Services.AddMjmlForEmails();
+ConfigureEmailBuilderStarterKit(builder.Services);
 
 ConfigureMembershipServices(builder.Services);
 
@@ -92,6 +82,8 @@ if (builder.Environment.IsDevelopment())
 var app = builder.Build();
 
 app.InitKentico();
+
+app.InitializeDancingGoat();
 
 app.UseStaticFiles();
 
@@ -182,4 +174,32 @@ static void ConfigureMembershipServices(IServiceCollection services)
     });
 
     services.AddAuthorization();
+}
+
+static void ConfigureEmailBuilder(IServiceCollection services)
+{
+    services.Configure<EmailBuilderOptions>(options =>
+    {
+        options.AllowedEmailContentTypeNames = [BuilderEmail.CONTENT_TYPE_NAME];
+        options.RegisterDefaultSection = false;
+        options.DefaultSectionIdentifier = FullWidthEmailSection.IDENTIFIER;
+    });
+
+    services.AddMjmlForEmails();
+}
+
+static void ConfigureEmailBuilderStarterKit(IServiceCollection services)
+{
+    //services.AddKenticoMjmlStarterKit(builder.Configuration);
+
+    services.AddKenticoMjmlStarterKit(options =>
+    {
+        options.StyleSheetPath = "EmailBuilder.css";
+        options.AllowedImageContentTypes = [Image.CONTENT_TYPE_NAME];
+        options.AllowedProductContentTypes = [ProductPage.CONTENT_TYPE_NAME];
+    });
+
+    services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
+    services.AddScoped<IComponentModelMapper<ImageWidgetModel>, ExampleImageWidgetModelMapper>();
+    services.AddScoped<IEmailDataMapper, ExampleEmailDataMapper>();
 }

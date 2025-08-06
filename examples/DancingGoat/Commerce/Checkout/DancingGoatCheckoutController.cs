@@ -22,7 +22,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 
-#pragma warning disable KXE0002 // Commerce feature is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 [assembly: RegisterWebPageRoute(Checkout.CONTENT_TYPE_NAME, typeof(DancingGoatCheckoutController), WebsiteChannelNames = new[] { DancingGoatConstants.WEBSITE_CHANNEL_NAME })]
 
 namespace DancingGoat.Commerce;
@@ -33,33 +32,41 @@ namespace DancingGoat.Commerce;
 public sealed class DancingGoatCheckoutController : Controller
 {
     private readonly CountryStateRepository countryStateRepository;
-    private readonly IWebPageUrlProvider webPageUrlProvider;
-    private readonly ICurrentShoppingCartService currentShoppingCartService;
+    private readonly WebPageUrlProvider webPageUrlProvider;
+    private readonly ICurrentShoppingCartRetriever currentShoppingCartRetriever;
+    private readonly ICurrentShoppingCartDiscardHandler currentShoppingCartDiscardHandler;
     private readonly UserManager<ApplicationUser> userManager;
-    private readonly ICustomerDataRetriever customerDataRetriever;
+    private readonly CustomerDataRetriever customerDataRetriever;
     private readonly IPreferredLanguageRetriever currentLanguageRetriever;
-    private readonly IOrderService orderService;
-    private readonly ProductRepository productRepository;
-    private readonly ProductPageRepository productPageRepository;
+    private readonly OrderService orderService;
     private readonly IStringLocalizer<SharedResources> localizer;
     private readonly ProductNameProvider productNameProvider;
+    private readonly ProductRepository productRepository;
 
-    public DancingGoatCheckoutController(CountryStateRepository countryStateRepository, IWebPageUrlProvider webPageUrlProvider, ICurrentShoppingCartService currentShoppingCartService,
-                                         UserManager<ApplicationUser> userManager, ICustomerDataRetriever customerDataRetriever, IPreferredLanguageRetriever currentLanguageRetriever,
-                                         IOrderService orderService, ProductRepository productRepository, ProductPageRepository productPageRepository,
-                                         IStringLocalizer<SharedResources> localizer, ProductNameProvider productNameProvider)
+    public DancingGoatCheckoutController(
+        CountryStateRepository countryStateRepository,
+        WebPageUrlProvider webPageUrlProvider,
+        ICurrentShoppingCartRetriever currentShoppingCartRetriever,
+        ICurrentShoppingCartDiscardHandler currentShoppingCartDiscardHandler,
+        UserManager<ApplicationUser> userManager,
+        CustomerDataRetriever customerDataRetriever,
+        IPreferredLanguageRetriever currentLanguageRetriever,
+        OrderService orderService,
+        IStringLocalizer<SharedResources> localizer,
+        ProductNameProvider productNameProvider,
+        ProductRepository productRepository)
     {
         this.countryStateRepository = countryStateRepository;
         this.webPageUrlProvider = webPageUrlProvider;
-        this.currentShoppingCartService = currentShoppingCartService;
+        this.currentShoppingCartRetriever = currentShoppingCartRetriever;
+        this.currentShoppingCartDiscardHandler = currentShoppingCartDiscardHandler;
         this.userManager = userManager;
         this.customerDataRetriever = customerDataRetriever;
         this.currentLanguageRetriever = currentLanguageRetriever;
         this.orderService = orderService;
-        this.productRepository = productRepository;
-        this.productPageRepository = productPageRepository;
         this.localizer = localizer;
         this.productNameProvider = productNameProvider;
+        this.productRepository = productRepository;
     }
 
 
@@ -87,7 +94,7 @@ public sealed class DancingGoatCheckoutController : Controller
             return View(await GetCheckoutViewModel(CheckoutStep.CheckoutCustomer, customer, customerAddress, null, cancellationToken));
         }
 
-        var shoppingCart = await currentShoppingCartService.Get(cancellationToken);
+        var shoppingCart = await currentShoppingCartRetriever.Get(cancellationToken);
         if (shoppingCart == null)
         {
             return View(await GetCheckoutViewModel(CheckoutStep.OrderConfirmation, customer, customerAddress, new ShoppingCartViewModel(new List<ShoppingCartItemViewModel>(), 0), cancellationToken));
@@ -131,7 +138,7 @@ public sealed class DancingGoatCheckoutController : Controller
 
         var user = await GetAuthenticatedUser();
 
-        var shoppingCart = await currentShoppingCartService.Get(cancellationToken);
+        var shoppingCart = await currentShoppingCartRetriever.Get(cancellationToken);
         if (shoppingCart == null)
         {
             return Content(localizer["Order not created. The shopping cart could not be found."]);
@@ -140,11 +147,11 @@ public sealed class DancingGoatCheckoutController : Controller
         var customerDto = customer.ToCustomerDto(customerAddress);
         var shoppingCartData = shoppingCart.GetShoppingCartDataModel();
 
-        await orderService.CreateOrder(shoppingCartData, customerDto, user?.Id ?? 0, cancellationToken);
+        var orderNumber = await orderService.CreateOrder(shoppingCartData, customerDto, user?.Id ?? 0, cancellationToken);
 
-        await currentShoppingCartService.Discard(cancellationToken);
+        await currentShoppingCartDiscardHandler.Discard(cancellationToken);
 
-        return View();
+        return View(new ConfirmOrderViewModel(orderNumber));
     }
 
 
@@ -209,11 +216,11 @@ public sealed class DancingGoatCheckoutController : Controller
     private async Task<ShoppingCartViewModel> GetShoppingCartViewModel(ShoppingCartInfo shoppingCart, CancellationToken cancellationToken)
     {
         var languageName = currentLanguageRetriever.Get();
-
         var shoppingCartData = shoppingCart.GetShoppingCartDataModel();
 
-        var products = await productRepository.GetProducts(shoppingCartData.Items.Select(item => item.ContentItemId).ToList(), languageName, cancellationToken);
-        var productPageUrls = await productPageRepository.GetProductPageUrls(products.Cast<IContentItemFieldsSource>(), languageName, cancellationToken);
+        var products = await productRepository.GetProductsByIds(shoppingCartData.Items.Select(item => item.ContentItemId), cancellationToken);
+
+        var productPageUrls = await productRepository.GetProductPageUrls(products.Cast<IContentItemFieldsSource>().Select(p => p.SystemFields.ContentItemID), cancellationToken);
 
         var totalPrice = CalculationService.CalculateTotalPrice(shoppingCartData, products);
 
@@ -248,4 +255,3 @@ public sealed class DancingGoatCheckoutController : Controller
     /// <seealso cref="MemberInfo"/>"/>
     private async Task<ApplicationUser> GetAuthenticatedUser() => await userManager.GetUserAsync(User);
 }
-#pragma warning restore KXE0002 // Commerce feature is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.

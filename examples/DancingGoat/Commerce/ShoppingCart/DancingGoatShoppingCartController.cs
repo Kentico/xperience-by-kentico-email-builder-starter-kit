@@ -18,7 +18,6 @@ using Kentico.Content.Web.Mvc.Routing;
 
 using Microsoft.AspNetCore.Mvc;
 
-#pragma warning disable KXE0002 // Commerce feature is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 [assembly: RegisterWebPageRoute(ShoppingCart.CONTENT_TYPE_NAME, typeof(DancingGoatShoppingCartController), WebsiteChannelNames = new[] { DancingGoatConstants.WEBSITE_CHANNEL_NAME })]
 
 namespace DancingGoat.Commerce;
@@ -28,33 +27,30 @@ namespace DancingGoat.Commerce;
 /// </summary>
 public sealed class DancingGoatShoppingCartController : Controller
 {
-    private readonly ICurrentShoppingCartService currentShoppingCartService;
-    private readonly IPreferredLanguageRetriever currentLanguageRetriever;
-    private readonly IProductVariantsExtractor productVariantsExtractor;
+    private readonly ICurrentShoppingCartRetriever currentShoppingCartRetriever;
+    private readonly ICurrentShoppingCartCreator currentShoppingCartCreator;
+    private readonly ProductVariantsExtractor productVariantsExtractor;
+    private readonly WebPageUrlProvider webPageUrlProvider;
     private readonly ProductRepository productRepository;
-    private readonly ProductPageRepository productPageRepository;
-    private readonly IWebPageUrlProvider webPageUrlProvider;
 
-
-    public DancingGoatShoppingCartController(ICurrentShoppingCartService currentShoppingCartService,
-        IPreferredLanguageRetriever currentLanguageRetriever, IProductVariantsExtractor productVariantsExtractor,
-        ProductRepository productRepository, ProductPageRepository productPageRepository, IWebPageUrlProvider webPageUrlProvider)
+    public DancingGoatShoppingCartController(
+        ICurrentShoppingCartRetriever currentShoppingCartRetriever,
+        ICurrentShoppingCartCreator currentShoppingCartCreator,
+        ProductVariantsExtractor productVariantsExtractor,
+        WebPageUrlProvider webPageUrlProvider,
+        ProductRepository productRepository)
     {
-        this.currentShoppingCartService = currentShoppingCartService;
-        this.currentLanguageRetriever = currentLanguageRetriever;
+        this.currentShoppingCartRetriever = currentShoppingCartRetriever;
+        this.currentShoppingCartCreator = currentShoppingCartCreator;
         this.productVariantsExtractor = productVariantsExtractor;
-        this.productRepository = productRepository;
-        this.productPageRepository = productPageRepository;
         this.webPageUrlProvider = webPageUrlProvider;
+        this.productRepository = productRepository;
     }
 
 
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
-        // Web page identification data
-        var languageName = currentLanguageRetriever.Get();
-
-        var shoppingCart = await currentShoppingCartService.Get(cancellationToken);
+        var shoppingCart = await currentShoppingCartRetriever.Get(cancellationToken);
         if (shoppingCart == null)
         {
             return View(new ShoppingCartViewModel(new List<ShoppingCartItemViewModel>(), 0));
@@ -62,8 +58,9 @@ public sealed class DancingGoatShoppingCartController : Controller
 
         var shoppingCartData = shoppingCart.GetShoppingCartDataModel();
 
-        var products = await productRepository.GetProducts(shoppingCartData.Items.Select(item => item.ContentItemId).ToList(), languageName, cancellationToken);
-        var productPageUrls = await productPageRepository.GetProductPageUrls(products.Cast<IContentItemFieldsSource>(), languageName, cancellationToken);
+        var products = await productRepository.GetProductsByIds(shoppingCartData.Items.Select(item => item.ContentItemId), cancellationToken);
+
+        var productPageUrls = await productRepository.GetProductPageUrls(products.Cast<IContentItemFieldsSource>().Select(p => p.SystemFields.ContentItemID), cancellationToken);
 
         var totalPrice = CalculationService.CalculateTotalPrice(shoppingCartData, products);
 
@@ -167,11 +164,10 @@ public sealed class DancingGoatShoppingCartController : Controller
     /// </summary>
     private async Task<ShoppingCartInfo> GetCurrentShoppingCart()
     {
-        var shoppingCart = await currentShoppingCartService.Get();
+        var shoppingCart = await currentShoppingCartRetriever.Get();
 
-        shoppingCart ??= await currentShoppingCartService.Create(null);
+        shoppingCart ??= await currentShoppingCartCreator.Create();
 
         return shoppingCart;
     }
 }
-#pragma warning restore KXE0002 // Commerce feature is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
