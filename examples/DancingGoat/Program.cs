@@ -52,6 +52,11 @@ builder.Services.AddKentico(features =>
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
+builder.Services.Configure<MvcOptions>(options =>
+{
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
+
 builder.Services.AddLocalization()
     .AddControllersWithViews()
     .AddViewLocalization()
