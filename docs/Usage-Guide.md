@@ -2,7 +2,7 @@
 
 - [Starter Kit component reference](#starter-kit-component-reference)
 - [Implement Image and Product model mappers](#implement-image-and-product-model-mappers)
-- [Implement email data mapper](#implement-email-data-mapper)
+- [Implement email data mapping](#implement-email-data-mapping)
     - [Single email content type](#single-email-content-type)
     - [Multiple email content types](#multiple-email-content-types)
 - [Define email CSS styles](#define-email-css-styles)
@@ -28,9 +28,9 @@ Displays a horizontal divider that can be customized like a HTML border. Uses th
 
 Users can configure the following properties:
 
-- **Border width** - the border sizeof the divider in pixels.
-- **Border color** - the [HTML color](https://www.w3schools.com/html/html_colors.asp) of the divider, either as a color name or hex code (e.g., 'blue' or '#fed').
-- **Border style** - the [border style](https://www.w3schools.com/cssref/pr_border-style.php) (e.g., 'solid', 'dotted', 'dashed', 'dotted double').
+- **Border width** – the border sizeof the divider in pixels.
+- **Border color** – the [HTML color](https://www.w3schools.com/html/html_colors.asp) of the divider, either as a color name or hex code (e.g., 'blue' or '#fed').
+- **Border style** – the [border style](https://www.w3schools.com/cssref/pr_border-style.php) (e.g., 'solid', 'dotted', 'dashed', 'dotted double').
 
 **Image**
 
@@ -69,8 +69,8 @@ Allows users to add and format text content. Content is added directly in the Em
 
 Email Builder [sections](https://docs.kentico.com/developers-and-admins/development/builders/email-builder/develop-email-builder-components#sections) specify the layout for email content, with zones where you can add widgets. The Starter Kit includes the following sections:
 
-- **Full-width section** - content is displayed inside a single full-width column.
-- **Two-column section** - provides two columns side-by-side for content.
+- **Full-width section** – content is displayed inside a single full-width column.
+- **Two-column section** – provides two columns side-by-side for content.
 
 ![Section usage](/images/xperience-section-usage.png)
 
@@ -190,22 +190,22 @@ Register the model mapper in your Xperience project's `Program.cs` file:
 builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
 ```
 
-## Implement email data mapper
+## Implement email data mapping
 
-Every Xperience project may use different [content types](https://docs.kentico.com/x/gYHWCQ) to represent email content. To use the **Email Builder Starter Kit Template**, you need to implement and register an email data mapper that converts data from your project's email content types into the `IEmailData` contract, which the template uses to populate email metadata like subject and preview text.
+Every Xperience project may use different [content types](https://docs.kentico.com/x/gYHWCQ) to represent email content. To use the default **Email Builder Starter Kit Template**, you need to implement and register an email data mapper that converts data from your project's email content types into the `IEmailData` contract, which the template uses to populate the email's subject and preview text.
 
-The Email Builder Starter Kit supports two implementation scenarios:
+You can use a similar approach if you wish to access email data within your own Email Builder components. If you wish to access data from other fields within your custom email content types, extend `IEmailData` and `EmailData` in `src\Kentico.Xperience.Mjml.StarterKit.Rcl\Contracts`.
 
-1. **Single email content type** - when your project uses only one content type for emails
-2. **Multiple email content types** - when your project uses multiple different content types for different types of emails
+The Email Builder Starter Kit supports two email data mapping scenarios:
+
+1. **Single email content type** – when your project uses only one content type for emails
+2. **Multiple email content types** – when your project uses multiple different content types for different types of emails
 
 ### Single email content type
 
-If your project uses only one content type for all emails, create a simple implementation of `IEmailDataMapper`:
+Create a class in your Xperience project that implements `IEmailDataMapper` and define the `Map` method. Use the [EmailContext](https://docs.kentico.com/documentation/developers-and-admins/development/builders/email-builder/develop-email-builder-components#email-fields) API to retrieve the value of the `EmailSubject` and `EmailPreviewText` fields, using the model class [generated](https://docs.kentico.com/x/5IbWCQ) for your email content type.
 
 ```csharp
-// Path: /EmailComponents/SimpleEmailDataMapper.cs
-
 /// <summary>
 /// Simple email data mapper for projects with a single email content type.
 /// </summary>
@@ -213,21 +213,17 @@ public class SimpleEmailDataMapper : IEmailDataMapper
 {
     private readonly IEmailContextAccessor emailContextAccessor;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SimpleEmailDataMapper"/> class.
-    /// </summary>
-    /// <param name="emailContextAccessor">The email context accessor service.</param>
     public SimpleEmailDataMapper(IEmailContextAccessor emailContextAccessor)
     {
         this.emailContextAccessor = emailContextAccessor;
     }
 
-    /// <inheritdoc />
     public async Task<IEmailData> Map()
     {
         var emailContext = emailContextAccessor.GetContext();
         
-        // Retrieves the strongly-typed email content using your project's email content type
+        // Gets a strongly-typed representation of your project's email content type
+        // Replace 'BuilderEmail' with the generated model class for your email content type
         var email = await emailContext.GetEmail<BuilderEmail>();
 
         // Maps the email data to the IEmailData contract
@@ -236,149 +232,114 @@ public class SimpleEmailDataMapper : IEmailDataMapper
 }
 ```
 
-### Multiple email content types
-
-If your project uses multiple content types for different types of emails (e.g., newsletters, promotional emails, transactional emails), you need to implement a mapper that can handle all these types dynamically:
+Register the email data mapper in your Xperience project's `Program.cs` file:
 
 ```csharp
-// Path: /EmailComponents/MultiTypeEmailDataMapper.cs
+// Registers the email data mapper for a single content type
+builder.Services.AddScoped<IEmailDataMapper, SimpleEmailDataMapper>();
+```
 
+### Multiple email content types
+
+If your project uses multiple content types for different types of emails (e.g., newsletters, promotional emails, order notifications), you need to implement a mapper that can handle all these types dynamically.
+
+Create a class in your Xperience project that implements `IEmailDataMapper` and define the `Map` method. Use the [EmailContext](https://docs.kentico.com/documentation/developers-and-admins/development/builders/email-builder/develop-email-builder-components#email-fields) API to retrieve the value of the `EmailSubject` and `EmailPreviewText` fields, using the model classes [generated](https://docs.kentico.com/x/5IbWCQ) for your email content types.
+
+```csharp
 /// <summary>
-/// Advanced email data mapper for projects with multiple email content types.
+/// Email data mapper for projects with multiple email content types.
 /// Dynamically determines the content type and maps accordingly.
 /// </summary>
 public class MultiTypeEmailDataMapper : IEmailDataMapper
 {
     private readonly IEmailContextAccessor emailContextAccessor;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MultiTypeEmailDataMapper"/> class.
-    /// </summary>
-    /// <param name="emailContextAccessor">The email context accessor service.</param>
+    
     public MultiTypeEmailDataMapper(IEmailContextAccessor emailContextAccessor)
     {
         this.emailContextAccessor = emailContextAccessor;
     }
 
-    /// <inheritdoc />
     public async Task<IEmailData> Map()
     {
         var emailContext = emailContextAccessor.GetContext();
         
-        // Determine the content type and map accordingly
+        // Determines the content type and performs mapping accordingly
         return emailContext.ContentTypeName switch
         {
-            // Newsletter content type
+            // Newsletter email content type
             NewsletterEmail.CONTENT_TYPE_NAME => await MapNewsletterEmail(emailContext),
             
             // Promotional email content type
             PromotionalEmail.CONTENT_TYPE_NAME => await MapPromotionalEmail(emailContext),
             
-            // Transactional email content type
-            TransactionalEmail.CONTENT_TYPE_NAME => await MapTransactionalEmail(emailContext),
-            
             // General builder email content type (fallback)
             BuilderEmail.CONTENT_TYPE_NAME => await MapBuilderEmail(emailContext),
             
             // Default fallback for unknown content types
-            _ => new EmailData("Unknown Email Type", "This email type is not configured")
+            _ => new EmailData("Unknown Email Type", "This email type is not configured.")
         };
     }
-
-    /// <summary>
-    /// Maps newsletter email content to <see cref="IEmailData"/> contract.
-    /// </summary>
-    /// <param name="emailContext">The email context.</param>
-    /// <returns>Mapped email data for newsletter.</returns>
+    
     private async Task<IEmailData> MapNewsletterEmail(EmailContext emailContext)
     {
+        // Gets a strongly-typed representation of your project's newsletter email content type
         var email = await emailContext.GetEmail<NewsletterEmail>();
         
         if (email is null)
         {
-            return new EmailData("Newsletter", "Newsletter content not found");
+            return new EmailData("Newsletter", "Newsletter content not found.");
         }
 
-        // Newsletter-specific mapping
-        var previewText = !string.IsNullOrEmpty(email.NewsletterPreviewText) 
-            ? email.NewsletterPreviewText 
+        // Maps the preview text with newsletter-specific default values
+        var previewText = !string.IsNullOrEmpty(email.EmailPreviewText) 
+            ? email.EmailPreviewText
+            // Uses a value from a 'NewsletterDate' field in the newsletter content type
             : $"Newsletter from {email.NewsletterDate:MMMM yyyy}";
 
-        return new EmailData(email.NewsletterSubject, previewText);
+        return new EmailData(email.EmailSubject, previewText);
     }
-
-    /// <summary>
-    /// Maps promotional email content to <see cref="IEmailData"/> contract.
-    /// </summary>
-    /// <param name="emailContext">The email context.</param>
-    /// <returns>Mapped email data for promotional email.</returns>
+    
     private async Task<IEmailData> MapPromotionalEmail(EmailContext emailContext)
     {
+        // Gets a strongly-typed representation of your project's promotional email content type
         var email = await emailContext.GetEmail<PromotionalEmail>();
         
         if (email is null)
         {
-            return new EmailData("Promotion", "Promotional content not found");
+            return new EmailData("Promotion", "Promotional content not found.");
         }
 
-        // Promotional email-specific mapping
-        var previewText = !string.IsNullOrEmpty(email.PromotionalPreviewText)
-            ? email.PromotionalPreviewText
+        // Maps the preview text with promotional email-specific default values
+        var previewText = !string.IsNullOrEmpty(email.EmailPreviewText)
+            ? email.EmailPreviewText
+            // Uses a value from a 'PromotionalDiscountPercentage' field in the promotional email content type
             : $"Special offer: {email.PromotionalDiscountPercentage}% OFF";
 
-        return new EmailData(email.PromotionalSubject, previewText);
+        return new EmailData(email.EmailSubject, previewText);
     }
-
-    /// <summary>
-    /// Maps transactional email content to <see cref="IEmailData"/> contract.
-    /// </summary>
-    /// <param name="emailContext">The email context.</param>
-    /// <returns>Mapped email data for transactional email.</returns>
-    private async Task<IEmailData> MapTransactionalEmail(EmailContext emailContext)
-    {
-        var email = await emailContext.GetEmail<TransactionalEmail>();
-        
-        if (email is null)
-        {
-            return new EmailData("Transaction", "Transactional content not found");
-        }
-
-        // Transactional email-specific mapping
-        var previewText = !string.IsNullOrEmpty(email.TransactionalPreviewText)
-            ? email.TransactionalPreviewText
-            : $"Transaction notification - {email.TransactionalType}";
-
-        return new EmailData(email.TransactionalSubject, previewText);
-    }
-
-    /// <summary>
-    /// Maps builder email content to <see cref="IEmailData"/> contract (fallback method).
-    /// </summary>
-    /// <param name="emailContext">The email context.</param>
-    /// <returns>Mapped email data for builder email.</returns>
+    
     private async Task<IEmailData> MapBuilderEmail(EmailContext emailContext)
     {
+        // Gets a strongly-typed representation of your project's general builder email content type
         var email = await emailContext.GetEmail<BuilderEmail>();
         
         if (email is null)
         {
-            return new EmailData("Builder Email", "Builder email content not found");
+            return new EmailData("Builder Email", "Builder email content not found.");
         }
 
+        var email = await emailContext.GetEmail<BuilderEmail>();
+
+        // Maps the email data to the IEmailData contract
         return new EmailData(email.EmailSubject, email.EmailPreviewText);
     }
 }
 ```
 
-### Registration and configuration
-
-Register the appropriate email data mapper in your Xperience project's `Program.cs` file:
+Register the email data mapper in your Xperience project's `Program.cs` file:
 
 ```csharp
-// For single content type approach
-builder.Services.AddScoped<IEmailDataMapper, SimpleEmailDataMapper>();
-
-// OR for multiple content types approach
+// Registers the email data mapper for multiple content types
 builder.Services.AddScoped<IEmailDataMapper, MultiTypeEmailDataMapper>();
 ```
 
