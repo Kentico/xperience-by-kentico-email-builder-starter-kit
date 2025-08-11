@@ -1,7 +1,9 @@
 ﻿using CMS.Base;
 using DancingGoat;
+using DancingGoat.Commerce;
 using DancingGoat.Helpers.Generators;
 using DancingGoat.Models;
+using DancingGoat.Samples.EmailComponents;
 using Kentico.Activities.Web.Mvc;
 using Kentico.Commerce.Web.Mvc;
 using Kentico.Content.Web.Mvc.Routing;
@@ -52,7 +54,7 @@ builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true
 
 builder.Services.Configure<EmailBuilderOptions>(options =>
 {
-    options.AllowedEmailContentTypeNames = ["DancingGoat.Email"];
+    options.AllowedEmailContentTypeNames = [BuilderEmail.CONTENT_TYPE_NAME];
     options.RegisterDefaultSection = false;
     options.DefaultSectionIdentifier = FullWidthEmailSection.IDENTIFIER;
 });
@@ -79,6 +81,7 @@ builder.Services.AddKenticoMjmlStarterKit(options =>
 
 builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
 builder.Services.AddScoped<IComponentModelMapper<ImageWidgetModel>, ExampleImageWidgetModelMapper>();
+builder.Services.AddScoped<IEmailDataMapper, ExampleEmailDataMapper>();
 
 builder.Services.AddMjmlForEmails();
 
@@ -92,6 +95,8 @@ if (builder.Environment.IsDevelopment())
 var app = builder.Build();
 
 app.InitKentico();
+
+Initialize(app.Services);
 
 app.UseStaticFiles();
 
@@ -182,4 +187,10 @@ static void ConfigureMembershipServices(IServiceCollection services)
     });
 
     services.AddAuthorization();
+}
+
+static void Initialize(IServiceProvider serviceProvider)
+{
+    var contentItemEventHandlers = serviceProvider.GetRequiredService<ContentItemEventHandlers>();
+    contentItemEventHandlers.Initialize();
 }

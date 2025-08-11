@@ -99,12 +99,15 @@ builder.Services.AddKenticoMjmlStarterKit(options =>
 // builder.Services.AddKenticoMjmlStarterKit(builder.Configuration);
 ```
 
-3. Implement and register [model mappers](./docs/Usage-Guide.md#implement-image-and-product-model-mappers) for the **Product** and **Image** widgets.
+3. Implement and register model mappers:
+  - [Image and product model mappers](./docs/Usage-Guide.md#implement-image-and-product-model-mappers) for the **Image** and **Product** widgets
+  - [Email data mappers](./docs/Usage-Guide.md#implement-email-data-mapping) for the default **Email Builder Starter Kit Template** (and Email Builder components in general)
 
 ```
 // Register model mappers
 builder.Services.AddScoped<IComponentModelMapper<ProductWidgetModel>, ExampleProductWidgetModelMapper>();
 builder.Services.AddScoped<IComponentModelMapper<ImageWidgetModel>, ExampleImageWidgetModelMapper>();
+builder.Services.AddScoped<IEmailDataMapper, ExampleEmailDataMapper>();
 ```
 
 4. Make sure that you have at least one Email Builder template with MJML markup [registered](https://docs.kentico.com/developers-and-admins/development/builders/email-builder/develop-email-builder-components#register-templates). You can register the template provided as part of the Starter Kit:
