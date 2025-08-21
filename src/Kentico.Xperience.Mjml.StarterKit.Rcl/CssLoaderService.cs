@@ -11,6 +11,15 @@ public sealed class CssLoaderService
     private readonly IWebHostEnvironment environment;
     private readonly MjmlStarterKitOptions mjmlStarterKitOptions;
 
+    private string? cssContent = null;
+
+
+    /// <summary>
+    /// Stores loaded CSS styles.
+    /// </summary>
+    private string CssContent => cssContent ??= LoadCss();
+
+
     /// <summary>
     /// The <see cref="CssLoaderService"/> constructor.
     /// </summary>
@@ -27,17 +36,20 @@ public sealed class CssLoaderService
     /// Retrieves the style sheet specified by <see cref="MjmlStarterKitOptions.StyleSheetPath"/>.
     /// </summary>
     /// <seealso cref="MjmlStarterKitOptions"/>
-    public Task<string> GetCssAsync()
+    public string GetCss() => CssContent;
+
+
+    private string LoadCss()
     {
         var path = CMS.IO.Path.Combine(environment.WebRootPath, mjmlStarterKitOptions.StyleSheetPath.TrimStart('/'));
 
         if (!CMS.IO.File.Exists(path))
         {
-            return Task.FromResult(string.Empty);
+            return string.Empty;
         }
 
         var text = CMS.IO.File.ReadAllText(path);
 
-        return Task.FromResult(text.Trim());
+        return text.Trim();
     }
 }

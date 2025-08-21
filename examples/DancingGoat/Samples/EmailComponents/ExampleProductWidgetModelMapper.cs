@@ -4,6 +4,7 @@ using CMS.Websites;
 using DancingGoat;
 using DancingGoat.Models;
 
+using Kentico.Content.Web.Mvc;
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
@@ -25,10 +26,9 @@ namespace Samples.DancingGoat;
 /// Retrieves product information including name, description, image, and URL from the Dancing Goat
 /// content model and transforms it into the format required by the email builder's product widget component.
 /// </summary>
-/// <param name="executor">The content query executor for retrieving content items from the database.</param>
+/// <param name="contentRetriever">The content retriever service for retrieving content items from the database.</param>
 /// <param name="webPageUrlRetriever">The service for retrieving absolute URLs of web pages.</param>
-internal class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, IWebPageUrlRetriever webPageUrlRetriever)
-    : IComponentModelMapper<ProductWidgetModel>
+internal class ExampleProductWidgetModelMapper(IContentRetriever contentRetriever, IWebPageUrlRetriever webPageUrlRetriever) : IComponentModelMapper<ProductWidgetModel>
 {
     /// <summary>
     /// Maps a product page content item identified by GUID to a ProductWidgetModel containing
@@ -42,17 +42,21 @@ internal class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, I
     /// </returns>
     public async Task<ProductWidgetModel> Map(Guid itemGuid, string languageName)
     {
-        var query = new ContentItemQueryBuilder()
-            .ForContentTypes()
-            .ForContentType(ProductPage.CONTENT_TYPE_NAME,
-                config => config
-                    .WithLinkedItems(10)
-                    .ForWebsite(DancingGoatConstants.WEBSITE_CHANNEL_NAME, includeUrlPath: true)
-                    .Where(where => where
-                        .WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid)))
-            .InLanguage(languageName);
+        var parameters = new RetrievePagesParameters()
+        {
+            ChannelName = DancingGoatConstants.WEBSITE_CHANNEL_NAME,
+            IncludeUrlPath = true,
+            LanguageName = languageName,
+            LinkedItemsMaxLevel = 10
+        };
 
-        var result = await executor.GetMappedResult<ProductPage>(query);
+        var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.Where)}|{itemGuid}|{nameof(RetrieveContentQueryParameters.TopN)}|1";
+        var cacheSettings = new RetrievalCacheSettings(cacheKeySuffix, cacheExpiration: TimeSpan.FromMinutes(30), useSlidingExpiration: true);
+
+        var result = await contentRetriever.RetrievePages<ProductPage>(parameters,
+                                                                       query => query.Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid))
+                                                                                     .TopN(1),
+                                                                       cacheSettings);
 
         var productPage = result.FirstOrDefault();
 
