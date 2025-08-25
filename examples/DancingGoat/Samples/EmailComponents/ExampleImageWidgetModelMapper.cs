@@ -2,6 +2,7 @@
 
 using DancingGoat.Models;
 
+using Kentico.Content.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -12,8 +13,8 @@ namespace Samples.DancingGoat;
 /// Retrieves image content from the Dancing Goat content model and transforms it
 /// into the format required by the email builder's image widget component.
 /// </summary>
-/// <param name="executor">The content query executor for retrieving content items from the database.</param>
-public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor) : IComponentModelMapper<ImageWidgetModel>
+/// <param name="contentRetriever">The content retriever service for retrieving content items from the database.</param>
+public class ExampleImageWidgetModelMapper(IContentRetriever contentRetriever) : IComponentModelMapper<ImageWidgetModel>
 {
     /// <summary>
     /// Maps a content item identified by GUID to an ImageWidgetModel containing
@@ -26,14 +27,19 @@ public class ExampleImageWidgetModelMapper(IContentQueryExecutor executor) : ICo
     /// </returns>
     public async Task<ImageWidgetModel> Map(Guid itemGuid, string languageName)
     {
-        var query = new ContentItemQueryBuilder()
-            .ForContentType(Image.CONTENT_TYPE_NAME,
-                config => config
-                    .Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid))
-                    .TopN(1))
-            .InLanguage(languageName);
+        var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.Where)}|{itemGuid}|{nameof(RetrieveContentQueryParameters.TopN)}|1";
+        var cacheSettings = new RetrievalCacheSettings(cacheKeySuffix, TimeSpan.FromMinutes(30), useSlidingExpiration: true);
 
-        var result = await executor.GetMappedResult<Image>(query);
+        var parameters = new RetrieveContentParameters()
+        {
+            LanguageName = languageName,
+            IsForPreview = false
+        };
+
+        var result = await contentRetriever.RetrieveContent<Image>(parameters,
+                                                                   query => query.Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid))
+                                                                                 .TopN(1),
+                                                                   cacheSettings);
 
         var item = result?.FirstOrDefault();
 
