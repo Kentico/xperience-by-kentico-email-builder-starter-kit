@@ -47,7 +47,8 @@ internal class ExampleProductWidgetModelMapper(IContentRetriever contentRetrieve
             ChannelName = DancingGoatConstants.WEBSITE_CHANNEL_NAME,
             IncludeUrlPath = true,
             LanguageName = languageName,
-            LinkedItemsMaxLevel = 10
+            LinkedItemsMaxLevel = 10,
+            IsForPreview = false
         };
 
         var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.Where)}|{itemGuid}|{nameof(RetrieveContentQueryParameters.TopN)}|1";

@@ -30,7 +30,13 @@ public class ExampleImageWidgetModelMapper(IContentRetriever contentRetriever) :
         var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.Where)}|{itemGuid}|{nameof(RetrieveContentQueryParameters.TopN)}|1";
         var cacheSettings = new RetrievalCacheSettings(cacheKeySuffix, TimeSpan.FromMinutes(30), useSlidingExpiration: true);
 
-        var result = await contentRetriever.RetrieveContent<Image>(RetrieveContentParameters.Default,
+        var parameters = new RetrieveContentParameters()
+        {
+            LanguageName = languageName,
+            IsForPreview = false
+        };
+
+        var result = await contentRetriever.RetrieveContent<Image>(parameters,
                                                                    query => query.Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid))
                                                                                  .TopN(1),
                                                                    cacheSettings);
