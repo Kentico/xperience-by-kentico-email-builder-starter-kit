@@ -1,6 +1,8 @@
 ﻿using CMS.ContentEngine;
+using CMS.Websites;
 
 using Kentico.Xperience.Admin.Base.FormAnnotations;
+using Kentico.Xperience.Admin.Websites.FormAnnotations;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 
@@ -12,12 +14,13 @@ public sealed class ProductWidgetProperties : WidgetPropertiesBase
     /// <summary>
     /// Specifies the <see cref="ContentItemReference"/> which is used as the content of the product widget.
     /// </summary>
-    [ContentItemSelectorComponent(typeof(ProductContentTypesFilter),
+    [WebPageSelectorComponent(ItemModifierType = typeof(ProductContentTypesFilter),
         Label = "{$ProductWidget.Page.Label$}",
-        MaximumItems = 1,
+        MaximumPages = 1,
         Order = 1,
         ExplanationText = "{$ProductWidget.Page.ExplanationText$}")]
-    public IEnumerable<ContentItemReference> Pages { get; set; } = [];
+    public IEnumerable<WebPageRelatedItem> Pages { get; set; } = [];
+
 
     /// <summary>
     /// Text of the button which links the original web page item.

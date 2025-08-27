@@ -1,6 +1,4 @@
-﻿using CMS.ContentEngine;
-
-using DancingGoat.Models;
+﻿using DancingGoat.Models;
 
 using Kentico.Content.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
@@ -27,8 +25,10 @@ public class ExampleImageWidgetModelMapper(IContentRetriever contentRetriever) :
     /// </returns>
     public async Task<ImageWidgetModel> Map(Guid itemGuid, string languageName)
     {
-        var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.Where)}|{itemGuid}|{nameof(RetrieveContentQueryParameters.TopN)}|1";
-        var cacheSettings = new RetrievalCacheSettings(cacheKeySuffix, TimeSpan.FromMinutes(30), useSlidingExpiration: true);
+        if (itemGuid == Guid.Empty)
+        {
+            return new ImageWidgetModel();
+        }
 
         var parameters = new RetrieveContentParameters()
         {
@@ -36,10 +36,10 @@ public class ExampleImageWidgetModelMapper(IContentRetriever contentRetriever) :
             IsForPreview = false
         };
 
-        var result = await contentRetriever.RetrieveContent<Image>(parameters,
-                                                                   query => query.Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid))
-                                                                                 .TopN(1),
-                                                                   cacheSettings);
+        var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.TopN)}|1";
+        var cacheSettings = new RetrievalCacheSettings(cacheKeySuffix, TimeSpan.FromMinutes(1), useSlidingExpiration: true);
+
+        var result = await contentRetriever.RetrieveContentByGuids<Image>([itemGuid], parameters, query => query.TopN(1), cacheSettings);
 
         var item = result?.FirstOrDefault();
 

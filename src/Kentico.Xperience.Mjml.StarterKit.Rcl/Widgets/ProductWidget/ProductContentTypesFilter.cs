@@ -1,5 +1,7 @@
-﻿using Kentico.Xperience.Admin.Base.FormAnnotations;
-using Kentico.Xperience.Mjml.StarterKit.Rcl.Helpers;
+﻿using CMS.Core;
+using CMS.DataEngine;
+
+using Kentico.Xperience.Admin.Websites;
 
 using Microsoft.Extensions.Options;
 
@@ -8,21 +10,37 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// <summary>
 /// Product content types filter.
 /// </summary>
-internal sealed class ProductContentTypesFilter : IContentTypesFilter
+internal sealed class ProductContentTypesFilter : IWebPagePanelItemModifier
 {
-    /// <summary>
-    /// Content type GUID identifiers allowed for <see cref="ProductWidget"/>.
-    /// </summary>
-    public IEnumerable<Guid> AllowedContentTypeIdentifiers { get; }
+    private readonly IEnumerable<string> allowedContentTypeCodeNames;
+    private readonly ILocalizationService localizationService;
 
     /// <summary>
     /// Product content types filter.
     /// </summary>
     /// <param name="mjmlStarterKitOptions">The MJML starter kit options.</param>
-    public ProductContentTypesFilter(IOptions<MjmlStarterKitOptions> mjmlStarterKitOptions)
+    /// <param name="localizationService">The system localization service.</param>
+    public ProductContentTypesFilter(IOptions<MjmlStarterKitOptions> mjmlStarterKitOptions, ILocalizationService localizationService)
     {
-        var codeNames = mjmlStarterKitOptions.Value.AllowedProductContentTypes;
+        allowedContentTypeCodeNames = mjmlStarterKitOptions.Value.AllowedProductContentTypes;
 
-        AllowedContentTypeIdentifiers = DataClassInfoProviderHelper.GetClassGuidsByCodeNames(codeNames);
+        this.localizationService = localizationService;
+    }
+
+
+    /// <inheritdoc/>
+    public WebPagePanelItem Modify(WebPagePanelItem webPagePanelItem, WebPagePanelItemModifierParameters webPagePanelItemModifierParameters)
+    {
+        webPagePanelItem.SelectableOption.Selectable = IsSelectable(webPagePanelItemModifierParameters);
+        webPagePanelItem.SelectableOption.UnselectableReason = localizationService.GetString("ProductWidget.Page.Notallowedtype.Unselectable");
+        return webPagePanelItem;
+    }
+
+
+    private bool IsSelectable(WebPagePanelItemModifierParameters webPagePanelItemModifierParameters)
+    {
+        var allowedContentTypeIdentifiers = DataClassInfoProvider.ProviderObject.Get().Where(c => allowedContentTypeCodeNames.Contains(c.ClassName)).Select(c => c.ClassID);
+
+        return allowedContentTypeIdentifiers.Contains(webPagePanelItemModifierParameters.WebPageMetadata.ContentTypeID);
     }
 }

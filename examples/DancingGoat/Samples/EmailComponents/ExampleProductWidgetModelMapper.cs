@@ -1,5 +1,4 @@
-﻿using CMS.ContentEngine;
-using CMS.Websites;
+﻿using CMS.Websites;
 
 using DancingGoat;
 using DancingGoat.Models;
@@ -27,8 +26,7 @@ namespace Samples.DancingGoat;
 /// content model and transforms it into the format required by the email builder's product widget component.
 /// </summary>
 /// <param name="contentRetriever">The content retriever service for retrieving content items from the database.</param>
-/// <param name="webPageUrlRetriever">The service for retrieving absolute URLs of web pages.</param>
-internal class ExampleProductWidgetModelMapper(IContentRetriever contentRetriever, IWebPageUrlRetriever webPageUrlRetriever) : IComponentModelMapper<ProductWidgetModel>
+internal class ExampleProductWidgetModelMapper(IContentRetriever contentRetriever) : IComponentModelMapper<ProductWidgetModel>
 {
     /// <summary>
     /// Maps a product page content item identified by GUID to a ProductWidgetModel containing
@@ -42,6 +40,11 @@ internal class ExampleProductWidgetModelMapper(IContentRetriever contentRetrieve
     /// </returns>
     public async Task<ProductWidgetModel> Map(Guid itemGuid, string languageName)
     {
+        if (itemGuid == Guid.Empty)
+        {
+            return new ProductWidgetModel();
+        }
+
         var parameters = new RetrievePagesParameters()
         {
             ChannelName = DancingGoatConstants.WEBSITE_CHANNEL_NAME,
@@ -51,37 +54,27 @@ internal class ExampleProductWidgetModelMapper(IContentRetriever contentRetrieve
             IsForPreview = false
         };
 
-        var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.Where)}|{itemGuid}|{nameof(RetrieveContentQueryParameters.TopN)}|1";
-        var cacheSettings = new RetrievalCacheSettings(cacheKeySuffix, cacheExpiration: TimeSpan.FromMinutes(30), useSlidingExpiration: true);
+        var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.TopN)}|1";
+        var cacheSettings = new RetrievalCacheSettings(cacheKeySuffix, cacheExpiration: TimeSpan.FromMinutes(1), useSlidingExpiration: true);
 
-        var result = await contentRetriever.RetrievePages<ProductPage>(parameters,
-                                                                       query => query.Where(where => where.WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid))
-                                                                                     .TopN(1),
-                                                                       cacheSettings);
+        var result = await contentRetriever.RetrievePagesByGuids<ProductPage>([itemGuid], parameters, query => query.TopN(1), cacheSettings);
 
         var productPage = result.FirstOrDefault();
+        var product = productPage?.ProductPageProduct?.FirstOrDefault() as IProductFields;
 
-        if (productPage is null)
+        if (productPage is null || product is null)
         {
             return new ProductWidgetModel();
         }
 
-        var webPageItemUrl = await webPageUrlRetriever.Retrieve(productPage.SystemFields.WebPageItemID, languageName);
-
-        var product = productPage.ProductPageProduct?.FirstOrDefault() as IProductFields;
-
-        if (product is null)
-        {
-            return new ProductWidgetModel();
-        }
-
+        var absoluteUrl = productPage.GetUrl().AbsoluteUrl;
         var image = product.ProductFieldImage.FirstOrDefault();
 
         return new ProductWidgetModel
         {
             Name = product.ProductFieldName,
             Description = product.ProductFieldDescription,
-            Url = webPageItemUrl.AbsoluteUrl,
+            Url = absoluteUrl,
             ImageUrl = image?.ImageFile.Url,
             ImageAltText = image != null ? image.ImageShortDescription : string.Empty
         };
