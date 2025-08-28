@@ -339,7 +339,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot select this page. Only pages that are of allowed content types can be selected..
+        ///   Looks up a localized string similar to Only pages of content types that represent products can be selected. For developers: Product content types are configured for the project in &apos;MjmlStarterKitOptions.AllowedProductContentTypes&apos;.
         /// </summary>
         internal static string ProductWidget_Page_Notallowedtype_Unselectable {
             get {

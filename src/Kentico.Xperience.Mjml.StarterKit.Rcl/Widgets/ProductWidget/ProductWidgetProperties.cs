@@ -14,7 +14,7 @@ public sealed class ProductWidgetProperties : WidgetPropertiesBase
     /// <summary>
     /// Specifies the <see cref="ContentItemReference"/> which is used as the content of the product widget.
     /// </summary>
-    [WebPageSelectorComponent(ItemModifierType = typeof(ProductContentTypesFilter),
+    [WebPageSelectorComponent(ItemModifierType = typeof(ProductContentTypeSelectabilityModifier),
         Label = "{$ProductWidget.Page.Label$}",
         MaximumPages = 1,
         Order = 1,
