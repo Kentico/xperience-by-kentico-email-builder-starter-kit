@@ -17,7 +17,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Widgets;
 /// </remarks>
 internal sealed class ProductContentTypeSelectabilityModifier(IOptions<MjmlStarterKitOptions> mjmlStarterKitOptions, ILocalizationService localizationService) : IWebPagePanelItemModifier
 {
-    private readonly HashSet<string> allowedContentTypeCodeNames = new (mjmlStarterKitOptions.Value.AllowedProductContentTypes, StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> allowedContentTypeCodeNames = new(mjmlStarterKitOptions.Value.AllowedProductContentTypes, StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<int, bool> allowedContentTypeIds = [];
 
 
@@ -46,7 +46,7 @@ internal sealed class ProductContentTypeSelectabilityModifier(IOptions<MjmlStart
 
         isAllowed = className is not null && allowedContentTypeCodeNames.Contains(className);
         allowedContentTypeIds[contentTypeId] = isAllowed;
-        
+
         return isAllowed;
     }
 }
