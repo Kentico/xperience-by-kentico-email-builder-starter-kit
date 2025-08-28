@@ -1,6 +1,7 @@
 ﻿using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Contracts;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
+
 using Microsoft.AspNetCore.Components;
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
@@ -56,7 +57,6 @@ public partial class EmailBuilderStarterKitTemplate : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         emailData = await EmailDataMapper.Map();
-
-        cssContent = await CssLoaderService.GetCssAsync();
+        cssContent = CssLoaderService.GetCss();
     }
 }

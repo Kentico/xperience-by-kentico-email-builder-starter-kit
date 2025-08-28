@@ -1,4 +1,5 @@
 using DancingGoat.Models;
+
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Contracts;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;

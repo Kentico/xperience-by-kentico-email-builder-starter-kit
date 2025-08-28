@@ -128,6 +128,9 @@
     <data name="ProductWidget.Page.ExplanationText" xml:space="preserve">
         <value>Select a website channel page representing the product you want to display.</value>
     </data>
+    <data name="ProductWidget.Page.Notallowedtype.Unselectable" xml:space="preserve">
+        <value>Only pages of content types that represent products can be selected. For developers: Product content types are configured for the project in 'MjmlStarterKitOptions.AllowedProductContentTypes'.</value>
+    </data>
     <data name="ProductWidget.ReadMoreButton.Label" xml:space="preserve">
         <value>Product page button text</value>
     </data>

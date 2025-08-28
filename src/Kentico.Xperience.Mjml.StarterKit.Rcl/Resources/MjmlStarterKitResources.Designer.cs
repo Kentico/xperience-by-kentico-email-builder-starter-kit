@@ -9,8 +9,8 @@
 
 namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,15 +22,15 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal partial class MjmlStarterKitResources {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal MjmlStarterKitResources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -58,7 +58,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select how you want to position the button.
         /// </summary>
@@ -67,7 +67,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.Alignment.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Alignment.
         /// </summary>
@@ -76,7 +76,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.Alignment.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Choose how the button is displayed.
         /// </summary>
@@ -85,7 +85,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.ButtonType.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Button type.
         /// </summary>
@@ -94,7 +94,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.ButtonType.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Displays a button that opens a specified URL when clicked..
         /// </summary>
@@ -103,7 +103,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Button - Starter kit.
         /// </summary>
@@ -112,7 +112,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Enter the text displayed as the button&apos;s caption.
         /// </summary>
@@ -121,7 +121,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.Text.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Button text.
         /// </summary>
@@ -130,7 +130,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.Text.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Enter the URL opened when the button is selected. Allowed URL formats: absolute (starting with a protocol), relative (starting with /), or virtual (starting with ~).
         /// </summary>
@@ -139,7 +139,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.Url.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to URL.
         /// </summary>
@@ -148,7 +148,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ButtonWidget.Url.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Set the color of the divider by color name or hex code (e.g., &apos;blue&apos; or &apos;#fed&apos;).
         /// </summary>
@@ -157,7 +157,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("DividerWidget.BorderColor.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Border color.
         /// </summary>
@@ -166,7 +166,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("DividerWidget.BorderColor.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Allows you to set the border style (e.g., &apos;solid&apos;, &apos;dotted&apos;, &apos;dashed&apos;, &apos;dotted double&apos;).
         /// </summary>
@@ -175,7 +175,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("DividerWidget.BorderStyle.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Border style.
         /// </summary>
@@ -184,7 +184,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("DividerWidget.BorderStyle.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Sets the border size of the divider in pixels.
         /// </summary>
@@ -193,7 +193,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("DividerWidget.BorderWidth.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Border width.
         /// </summary>
@@ -202,7 +202,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("DividerWidget.BorderWidth.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Displays a horizontal divider that can be customized like a HTML border..
         /// </summary>
@@ -211,7 +211,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("DividerWidget.Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Divider - Starter kit.
         /// </summary>
@@ -220,7 +220,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("DividerWidget.Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Full-width section - Starter kit.
         /// </summary>
@@ -229,7 +229,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("FullWidthEmailSection.Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select how you want to position the image.
         /// </summary>
@@ -238,7 +238,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ImageWidget.Alignment.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Alignment.
         /// </summary>
@@ -247,7 +247,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ImageWidget.Alignment.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Displays an image, which can be selected from images stored as assets in Content hub..
         /// </summary>
@@ -256,7 +256,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ImageWidget.Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select the image from assets stored in Content hub.
         /// </summary>
@@ -265,7 +265,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ImageWidget.Image.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Image.
         /// </summary>
@@ -274,7 +274,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ImageWidget.Image.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Image - Starter kit.
         /// </summary>
@@ -283,7 +283,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ImageWidget.Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Allows you to set the width of the image in pixels.
         /// </summary>
@@ -292,7 +292,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ImageWidget.Width.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Width.
         /// </summary>
@@ -301,7 +301,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ImageWidget.Width.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Displays product content based on a selected website channel page. Consists of an image, title, text and a link button that opens the product page..
         /// </summary>
@@ -310,7 +310,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ProductWidget.Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Product - Starter kit.
         /// </summary>
@@ -319,7 +319,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ProductWidget.Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select a website channel page representing the product you want to display..
         /// </summary>
@@ -328,7 +328,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ProductWidget.Page.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Product page.
         /// </summary>
@@ -337,7 +337,16 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ProductWidget.Page.Label", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only pages of content types that represent products can be selected. For developers: Product content types are configured for the project in &apos;MjmlStarterKitOptions.AllowedProductContentTypes&apos;.
+        /// </summary>
+        internal static string ProductWidget_Page_Notallowedtype_Unselectable {
+            get {
+                return ResourceManager.GetString("ProductWidget.Page.Notallowedtype.Unselectable", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Enter the text displayed as the caption of the button that links to the product page.
         /// </summary>
@@ -346,7 +355,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ProductWidget.ReadMoreButton.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Product page button text.
         /// </summary>
@@ -355,7 +364,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("ProductWidget.ReadMoreButton.Label", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Allows you to add and format text content..
         /// </summary>
@@ -364,7 +373,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("TextWidget.Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Text - Starter kit.
         /// </summary>
@@ -373,7 +382,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("TextWidget.Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Two-column section - Starter kit.
         /// </summary>
@@ -382,7 +391,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("TwoColumnsEmailSection.Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Allows you to set a CSS class for the widget&apos;s wrapping element.
         /// </summary>
@@ -391,7 +400,7 @@ namespace Kentico.Xperience.Mjml.StarterKit.Rcl.Resources {
                 return ResourceManager.GetString("WidgetPropertiesBase.CssClass.ExplanationText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to CSS class.
         /// </summary>

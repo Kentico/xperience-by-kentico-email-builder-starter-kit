@@ -59,7 +59,7 @@ public partial class ProductWidget : ComponentBase
 
         var languageName = EmailContextAccessor.GetContext().LanguageName;
 
-        Model = await ProductComponentModelMapper.Map(webPageItem.Identifier, languageName);
+        Model = await ProductComponentModelMapper.Map(webPageItem.WebPageGuid, languageName);
 
         if (Model is null)
         {

@@ -1,9 +1,9 @@
-﻿using CMS.ContentEngine;
-using CMS.Websites;
+﻿using CMS.Websites;
 
 using DancingGoat;
 using DancingGoat.Models;
 
+using Kentico.Content.Web.Mvc;
 using Kentico.EmailBuilder.Web.Mvc;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Mapping;
 using Kentico.Xperience.Mjml.StarterKit.Rcl.Templates;
@@ -25,10 +25,8 @@ namespace Samples.DancingGoat;
 /// Retrieves product information including name, description, image, and URL from the Dancing Goat
 /// content model and transforms it into the format required by the email builder's product widget component.
 /// </summary>
-/// <param name="executor">The content query executor for retrieving content items from the database.</param>
-/// <param name="webPageUrlRetriever">The service for retrieving absolute URLs of web pages.</param>
-internal class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, IWebPageUrlRetriever webPageUrlRetriever)
-    : IComponentModelMapper<ProductWidgetModel>
+/// <param name="contentRetriever">The content retriever service for retrieving content items from the database.</param>
+internal class ExampleProductWidgetModelMapper(IContentRetriever contentRetriever) : IComponentModelMapper<ProductWidgetModel>
 {
     /// <summary>
     /// Maps a product page content item identified by GUID to a ProductWidgetModel containing
@@ -42,41 +40,41 @@ internal class ExampleProductWidgetModelMapper(IContentQueryExecutor executor, I
     /// </returns>
     public async Task<ProductWidgetModel> Map(Guid itemGuid, string languageName)
     {
-        var query = new ContentItemQueryBuilder()
-            .ForContentTypes()
-            .ForContentType(ProductPage.CONTENT_TYPE_NAME,
-                config => config
-                    .WithLinkedItems(10)
-                    .ForWebsite(DancingGoatConstants.WEBSITE_CHANNEL_NAME, includeUrlPath: true)
-                    .Where(where => where
-                        .WhereEquals(nameof(IContentQueryDataContainer.ContentItemGUID), itemGuid)))
-            .InLanguage(languageName);
+        if (itemGuid == Guid.Empty)
+        {
+            return new ProductWidgetModel();
+        }
 
-        var result = await executor.GetMappedResult<ProductPage>(query);
+        var parameters = new RetrievePagesParameters()
+        {
+            ChannelName = DancingGoatConstants.WEBSITE_CHANNEL_NAME,
+            IncludeUrlPath = true,
+            LanguageName = languageName,
+            LinkedItemsMaxLevel = 10,
+            IsForPreview = false
+        };
+
+        var cacheKeySuffix = $"{nameof(RetrieveContentQueryParameters.TopN)}|1";
+        var cacheSettings = new RetrievalCacheSettings(cacheKeySuffix, cacheExpiration: TimeSpan.FromMinutes(1), useSlidingExpiration: true);
+
+        var result = await contentRetriever.RetrievePagesByGuids<ProductPage>([itemGuid], parameters, query => query.TopN(1), cacheSettings);
 
         var productPage = result.FirstOrDefault();
+        var product = productPage?.ProductPageProduct?.FirstOrDefault() as IProductFields;
 
-        if (productPage is null)
+        if (productPage is null || product is null)
         {
             return new ProductWidgetModel();
         }
 
-        var webPageItemUrl = await webPageUrlRetriever.Retrieve(productPage.SystemFields.WebPageItemID, languageName);
-
-        var product = productPage.ProductPageProduct?.FirstOrDefault() as IProductFields;
-
-        if (product is null)
-        {
-            return new ProductWidgetModel();
-        }
-
+        var absoluteUrl = productPage.GetUrl().AbsoluteUrl;
         var image = product.ProductFieldImage.FirstOrDefault();
 
         return new ProductWidgetModel
         {
             Name = product.ProductFieldName,
             Description = product.ProductFieldDescription,
-            Url = webPageItemUrl.AbsoluteUrl,
+            Url = absoluteUrl,
             ImageUrl = image?.ImageFile.Url,
             ImageAltText = image != null ? image.ImageShortDescription : string.Empty
         };
