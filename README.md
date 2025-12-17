@@ -73,7 +73,7 @@ builder.Services.AddKentico(features =>
 builder.Services.Configure<EmailBuilderOptions>(options =>
 {
     // Enter the code names of all email content types where you wish to use Email Builder
-    options.AllowedEmailContentTypeNames = ["DancingGoat.Email"];
+    options.AllowedEmailContentTypeNames = ["DancingGoat.BuilderEmail"];
     // Replace the default Email Builder section with the MJML full-width section provided by the Starter Kit
     options.RegisterDefaultSection = false;
     options.DefaultSectionIdentifier = FullWidthEmailSection.IDENTIFIER;
